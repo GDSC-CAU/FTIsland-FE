@@ -1,4 +1,4 @@
-import { AppBar, AppBarProps, IconButton, Toolbar } from '@mui/material';
+import { AppBar, AppBarProps, Box, IconButton, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/MenuRounded';
 
 const Appbar = ({
@@ -21,6 +21,12 @@ const Appbar = ({
       {...rest}
     >
       <Toolbar variant="dense" disableGutters>
+        <Box sx={{ display: 'flex', alignItems: 'center', px: 2, gap: 2 }}>
+          <Box sx={{ width: '36px', height: '36px', borderRadius: '50%', bgcolor: '#39A7FF' }} />
+          <Typography variant="h4" sx={{ fontWeight: 600 }}>
+            FT Island
+          </Typography>
+        </Box>
         <IconButton
           aria-label="open drawer"
           onClick={() => {
