@@ -1,9 +1,61 @@
-import '@/styles/globals.css';
-
+import { ReactElement, ReactNode } from 'react';
+import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { CssBaseline, GlobalStyles } from '@mui/material';
 
-export default function App({ Component, pageProps }: AppProps) {
+const globalStyle = (
+  <GlobalStyles
+    styles={(theme) => ({
+      'html, body, #root': {
+        height: '100%',
+        padding: 0,
+        margin: 0,
+        boxSizing: 'border-box',
+        fontFamily: theme.typography.fontFamily,
+        WebkitFontSmoothing: 'antialiased',
+        MozOsxFontSmoothing: 'grayscale',
+        background: theme.palette.background.default,
+        color: theme.palette.text.primary,
+        fontSize: theme.typography.fontSize,
+        lineHeight: '1.8rem',
+        wordBreak: 'keep-all',
+        WebkitTextSizeAdjust: 'none',
+        msOverflowStyle: 'none',
+        scrollbarWidth: 'none',
+      },
+      '#__next': {
+        height: '100%',
+      },
+      a: {
+        color: 'inherit',
+        textDecoration: 'none',
+      },
+      '*': {
+        boxSizing: 'border-box',
+      },
+      // html: {
+      //   overflowY: 'scroll',
+      // },
+    })}
+  />
+);
+
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<AppProps, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode;
+};
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
+
+export default function App({ Component, pageProps }: AppPropsWithLayout) {
+  const theme = createTheme();
+
+  const getLayout = Component.getLayout ?? ((page) => page);
+
   return (
     <>
       <Head>
@@ -17,7 +69,11 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Component {...pageProps} />
+      <ThemeProvider theme={theme}>
+        {globalStyle}
+        <CssBaseline />
+        {getLayout(<Component {...pageProps} />)}
+      </ThemeProvider>
     </>
   );
 }
