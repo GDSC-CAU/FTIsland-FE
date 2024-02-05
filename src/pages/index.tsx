@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import Layout from '@/components/Layout';
+import Layout from '@/src/components/Layout';
 
 export default function Home() {
   return <>메인페이지</>;
