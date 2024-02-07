@@ -1,14 +1,21 @@
 import { Box } from '@mui/material'
-import React from 'react'
-
+import React, { ReactElement, useState } from 'react'
+import Explore from './Explore'
+import Menu from './Menu';
 const Main = () => {
+    const [content, setContent] = useState<ReactElement>(<Explore/>);
+
+    const handleClick = (newContent: ReactElement) => {
+        setContent(newContent);
+    }
+
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', width: "100%", gap: 2 }}>
-          <Box sx={{ width: "100%", height: 100, bgcolor: 'yellow' }}>
-            menu
-          </Box>
+
+          <Menu handleClick={handleClick}/>
+
           <Box sx={{ width: "100%", height: 630, bgcolor: '#E0F4FF', borderRadius: 10 }}>
-            main page
+            {content}
           </Box>
         </Box>
     );
