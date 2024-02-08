@@ -22,9 +22,9 @@ interface MenuProps {
       <Box sx={{ width: "100%", height: 100,  borderColor: 'divider' }}>
         
         <Tabs value={value} onChange={handleChange}variant="fullWidth">
-            <Tab style={tabStyle(value === 0)} label = "동화의 섬 탐험하기"/>
-            <Tab style={tabStyle(value === 1)} label = "최근 탐험한 이야기"/>
-            <Tab style={tabStyle(value === 2)} label = "나의 단어"/>
+            <Tab sx={tabStyle(value === 0)} label = "동화의 섬 탐험하기"/>
+            <Tab sx={tabStyle(value === 1)} label = "최근 탐험한 이야기"/>
+            <Tab sx={tabStyle(value === 2)} label = "나의 단어"/>
         </Tabs>
 
       </Box>
@@ -37,13 +37,13 @@ const tabStyle = (selected: boolean) => ({
     flex: 1,
     height: 100,
     bgcolor: 'white',
-    color: selected ? '#FF4A4A' : 'grey',
+    color: selected ? '#FF4A4A !important' : 'grey !important',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     cursor: 'pointer',
     fontFamily: 'sans-serif',
     fontWeight: 'bold',
-    fontSize: '2vw',
+    fontSize: { xs: '1.3rem', sm: '2rem' },
   });
   

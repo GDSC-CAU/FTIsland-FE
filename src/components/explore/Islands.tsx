@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup } from '@mui/material'
+import { Box, Button, ButtonGroup, useMediaQuery, useTheme } from '@mui/material'
 import React, { ReactElement, useState } from 'react'
 interface MenuProps {
     handleClick: (newContent: ReactElement) => void;
@@ -6,7 +6,10 @@ interface MenuProps {
 
 const Islands: React.FC<MenuProps> = ({handleClick}) => {
     const [value, setValue] = useState(0);
-    const labels = ['희망의 섬', '행복의 섬', '기쁨의 섬', '용기의 섬', '희망의 섬', '행복의 섬', '기쁨의 섬', '용기의 섬', '희망의 섬', '행복의 섬', '기쁨의 섬', '용기의 섬']
+    const labels = ['희망의 섬', '행복의 섬', '기쁨의 섬', '용기의 섬', '희망의 섬', '행복의 섬', '기쁨의 섬', '용기의 섬', ]
+
+    const theme = useTheme();
+    const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
     const handleChange = (newValue: number) => {
         setValue(newValue);
@@ -16,16 +19,23 @@ const Islands: React.FC<MenuProps> = ({handleClick}) => {
         else if(newValue === 2)handleClick(<></>);
     }
     return (
-    <Box sx={{ 
-        width: "20%", height: 630, 
-        display: 'flex', flexDirection: 'column',
-        alignItems: 'center',
-        overflow: 'auto', }}>
-            <ButtonGroup sx={{width: "85%"}}orientation="vertical">
+        <Box sx={{ 
+            width: { xs: '100%', sm: '20%' },
+            height: { xs: 100, sm: 630 },
+            display: 'flex',
+            flexDirection: { xs: 'row', sm: 'column' },
+            alignItems: 'center',
+            overflowX: 'auto',
+            overflowY: 'auto',
+        }}>
+            <ButtonGroup sx={{width: { xs: '100%', sm: '85%' }}}orientation={matches ? "vertical" : "horizontal"}>
             {labels.map((label, index) => (
                 <Button 
                 key={index}
-                style={{ ...buttonStyle(value===index), marginTop: 15 }}
+                sx={buttonStyle(value===index)}
+                style={{ ...buttonStyle(value===index), 
+                
+                marginTop: 15 }}
                 onClick={()=>handleChange(index)}
                 >
                     {label}
@@ -40,8 +50,11 @@ export default Islands
 
 const buttonStyle = (selected: boolean) => ({
     flex: 1,
+    minWidth: '100px',
+    maxHeight: '80px',
     width: '100%',
     height: 100,
+    
     backgroundColor: selected ? '#FF8D8D' : 'white',
     color: selected ? 'white' : '#FF8D8D',
     display: 'flex',
@@ -50,7 +63,7 @@ const buttonStyle = (selected: boolean) => ({
     cursor: 'pointer',
     fontFamily: 'sans-serif',
     fontWeight: 'bold',
-    fontSize: '1.8vw',
+    fontSize:  { xs: '1.3rem', sm: '1.5rem' },
     borderRadius: '18px',
     boxShadow: '1px 2px 4px 1px rgba(0, 0, 0, 0.25)',
     margin: '5px',
