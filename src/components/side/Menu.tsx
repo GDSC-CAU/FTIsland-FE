@@ -22,7 +22,15 @@ const Menu: React.FC<MenuProps> =  ({setContent}) => {
         <SideButton content={"나의 단어 목록"}/>
       </Box>
       <List content={"언어 설정"}/>
-      <button onClick={handleClick}></button>
+      <Box sx={{
+        display: 'flex', alignItems: 'center',flexDirection:'column' , paddingBottom: 22.5}}>
+          <SideButton content={"바로 가기"}/>
+      </Box>
+      <Box sx={{
+        display: 'flex', alignItems: 'center',flexDirection:'column' , paddingBottom: 3.2,}}>
+          <SideButton content={"로그아웃"} backgroundColor={"white"}/>
+      </Box>
+      {/* <button onClick={handleClick}></button> */}
     </Box>
   )
 }
