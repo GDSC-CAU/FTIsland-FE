@@ -1,6 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { Box, Drawer, Typography } from '@mui/material';
+import { Box, Drawer } from '@mui/material';
+import Menu from './side/Menu'
+//Typography
 
 const SideMenu = ({
   open,
@@ -10,6 +12,11 @@ const SideMenu = ({
   handleSideMenu: (isOpen: boolean) => void;
 }) => {
   const { asPath } = useRouter();
+  const [content, setContent] = useState<React.ReactElement | null>(null);
+
+  useEffect(()=>{
+    setContent((<Menu setContent={setContent}/>));
+  }, []);
 
   useEffect(() => {
     handleSideMenu(false);
@@ -31,7 +38,8 @@ const SideMenu = ({
       }}
     >
       <Box component="nav">
-        <Typography variant="h4">여기가 사이드 메뉴입니다.</Typography>
+        {/* <Typography variant="h4">여기가 사이드 메뉴입니다.</Typography> */}
+        {content}
       </Box>
     </Drawer>
   );
