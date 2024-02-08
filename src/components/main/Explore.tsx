@@ -11,7 +11,7 @@ const Explore = () => {
     <Box sx={{ display: 'flex', flexDirection: isSmallScreen ? 'column' : 'row', width: "100%", gap: 1 }}>
 
       <Islands handleClick={handleClick}/>
-      <Box sx={{ width: { xs: '100%', sm: '80%' }, height: 630, bgcolor: 'pink', borderRadius: 10 }}>
+      <Box sx={{ width: { xs: '100%', sm: '80%' }, height: 630, bgcolor: '', borderRadius: 10 }}>
 
       </Box>
     </Box>

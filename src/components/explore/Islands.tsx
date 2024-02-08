@@ -32,9 +32,8 @@ const Islands: React.FC<MenuProps> = ({handleClick}) => {
             {labels.map((label, index) => (
                 <Button 
                 key={index}
-                sx={buttonStyle(value===index)}
                 style={{ ...buttonStyle(value===index), 
-                
+                fontSize: matches ? '1.3rem' : '1.5rem',
                 marginTop: 15 }}
                 onClick={()=>handleChange(index)}
                 >
@@ -63,7 +62,6 @@ const buttonStyle = (selected: boolean) => ({
     cursor: 'pointer',
     fontFamily: 'sans-serif',
     fontWeight: 'bold',
-    fontSize:  { xs: '1.3rem', sm: '1.5rem' },
     borderRadius: '18px',
     boxShadow: '1px 2px 4px 1px rgba(0, 0, 0, 0.25)',
     margin: '5px',
