@@ -17,7 +17,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
 
       <SideMenu open={sideMenuOpen} handleSideMenu={handleSideMenu} />
 
-      <Box component="main" sx={{ maxWidth: '1200px', mx: 'auto', p: 2 }}>
+      <Box component="main" sx={{ mx: 'auto', p: 2 }}>
         {children}
       </Box>
     </Box>
