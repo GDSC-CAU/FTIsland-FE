@@ -6,7 +6,7 @@ interface MenuProps {
 
 const Islands: React.FC<MenuProps> = ({handleClick}) => {
     const [value, setValue] = useState(0);
-    const labels = ['희망의 섬', '행복의 섬', '기쁨의 섬', '용기의 섬']
+    const labels = ['희망의 섬', '행복의 섬', '기쁨의 섬', '용기의 섬', '희망의 섬', '행복의 섬', '기쁨의 섬', '용기의 섬', '희망의 섬', '행복의 섬', '기쁨의 섬', '용기의 섬']
 
     const handleChange = (newValue: number) => {
         setValue(newValue);
@@ -19,7 +19,8 @@ const Islands: React.FC<MenuProps> = ({handleClick}) => {
     <Box sx={{ 
         width: "20%", height: 630, 
         display: 'flex', flexDirection: 'column',
-        alignItems: 'center' }}>
+        alignItems: 'center',
+        overflow: 'auto', }}>
             <ButtonGroup sx={{width: "85%"}}orientation="vertical">
             {labels.map((label, index) => (
                 <Button 
