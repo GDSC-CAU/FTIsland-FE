@@ -33,12 +33,10 @@ const SideMenu = ({
       PaperProps={{
         sx: {
           width: 300,
-          padding: 2,
         },
       }}
     >
       <Box component="nav">
-        {/* <Typography variant="h4">여기가 사이드 메뉴입니다.</Typography> */}
         {content}
       </Box>
     </Drawer>
