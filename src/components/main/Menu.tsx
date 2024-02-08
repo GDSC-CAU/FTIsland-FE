@@ -1,13 +1,14 @@
 import { Box, Tab, Tabs, useMediaQuery, useTheme } from '@mui/material'
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import Explore from './Explore'
 import Recent from './Recent'
 import MyWord from './MyWord'
 interface MenuProps {
     handleClick: (newContent: ReactElement) => void;
+    tabIndex: number;
   }
 
-  const Menu: React.FC<MenuProps> = ({ handleClick }) => {
+  const Menu: React.FC<MenuProps> = ({ handleClick, tabIndex }) => {
     const [value, setValue] = useState(0);
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('sm'));
@@ -19,6 +20,9 @@ interface MenuProps {
         else if(newValue === 1)handleClick(<Recent/>);
         else if(newValue === 2)handleClick(<MyWord/>);
     }
+    useEffect(()=>{
+      setValue(tabIndex);
+    }, [tabIndex])
   
     return (
       <Box sx={{ width: "100%", height: 100,  borderColor: 'divider' }}>

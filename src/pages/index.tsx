@@ -1,10 +1,25 @@
-import { ReactElement } from 'react';
+import { useState } from 'react';
 import Layout from 'src/components/Layout';
 import Main from 'src/components/main/Main';
 
-
 export default function Home() {
-  return <Main/>;
-}
+  const [tabIndex, setTabIndex] = useState<number>(0);
 
-Home.getLayout = (page: ReactElement) => <Layout>{page}</Layout>;
+  const handleMenuClick = (content: string) => {
+    if(content === '메인 페이지') {
+      setTabIndex(0);
+    }
+    else if(content === '나의 동화 목록') {
+      setTabIndex(1);
+    }
+    else if(content === '나의 단어 목록') {
+      setTabIndex(2);
+    }
+  }
+
+  return (
+    <Layout onClick={handleMenuClick}>
+      <Main tabIndex={tabIndex} />
+    </Layout>
+  );
+}

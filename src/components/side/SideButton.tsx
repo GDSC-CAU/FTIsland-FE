@@ -4,16 +4,28 @@ import React, { useState } from 'react'
 interface SideButtonProps {
   content: string;
   backgroundColor?: string;  // backgroundColor prop 추가
+  onClick: (content: string) => void;
+  handleSideMenu: (isOpen: boolean) => void;
 }
 
-const SideButton: React.FC<SideButtonProps> = ({content, backgroundColor}) => {
+const SideButton: React.FC<SideButtonProps> = ({content, backgroundColor, onClick, handleSideMenu}) => {
   const [isHovered, setIsHovered] = useState(false);
+
+  const handleClick = () => {
+    if(onClick){
+      onClick(content);
+      if(content === '바로 가기')handleSideMenu(true);
+      else if(content === '로그아웃')handleSideMenu(false);
+      else handleSideMenu(false);
+    }
+  }
 
   return (
     <Box 
       sx={boxStyle(backgroundColor)}
       onMouseEnter = {()=> setIsHovered(true)}
       onMouseLeave = {()=> setIsHovered(false)}
+      onClick={handleClick}
     >
       <Typography variant="h5" sx={listStyle()} >{content}</Typography>
       <Avatar 
