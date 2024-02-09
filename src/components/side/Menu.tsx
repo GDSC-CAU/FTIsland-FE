@@ -12,7 +12,7 @@ interface MenuProps {
 
 const Menu: React.FC<MenuProps> =  ({setContent, onClick, handleSideMenu}) => {
     const handleLanguageSettingClick = () => {
-        setContent(<LanguageSetting setContent={setContent}/>)
+        setContent(<LanguageSetting  setContent={setContent} onClick={onClick} handleSideMenu={handleSideMenu}/>)
     }
   return (
     <Box sx={{bgcolor: "#FFE5E5", height: "100%"}}>
