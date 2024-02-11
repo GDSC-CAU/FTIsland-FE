@@ -21,10 +21,9 @@ const Recent = () => {
           md: '1fr 1fr 1fr',
           lg: '1fr 1fr 1fr 1fr',
         },
-        columnGap: { xs: 1, sm: 2 },
-        rowGap: { xs: 2, sm: 2 },
+        columnGap: 2,
+        rowGap: 3,
         p: 2,
-        mx: { xs: 6, sm: 0 },
       }}
     >
       {storyList.map((bookData, idx) => (

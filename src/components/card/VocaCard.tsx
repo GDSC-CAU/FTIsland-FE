@@ -39,12 +39,7 @@ const FlippableCard = ({ isBackPage, children }: { isBackPage: boolean; children
       }}
       sx={{ position: 'absolute', top: 4, right: 4, zIndex: 2 }}
     >
-      <CloseIcon
-        sx={{
-          width: '28px',
-          height: '28px',
-        }}
-      />
+      <CloseIcon sx={{ width: '28px', height: '28px' }} />
     </IconButton>
     {children}
   </Card>
@@ -64,7 +59,10 @@ const VocaCard = ({ vocaId }: { vocaId: number }) => {
         position: 'relative',
         cursor: 'pointer',
         aspectRatio: '1/1',
-        minWidth: '180px',
+        minWidth: '240px',
+        maxWidth: '360px',
+        width: '100%',
+        mx: 'auto',
       }}
     >
       <FlippableCard isBackPage={isBackPage}>

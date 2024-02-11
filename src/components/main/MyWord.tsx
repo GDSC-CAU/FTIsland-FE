@@ -21,7 +21,6 @@ const MyWord = () => {
         columnGap: 3,
         rowGap: 3,
         p: 2,
-        mx: { xs: 6, sm: 0 },
         transformStyle: 'preserve-3d',
       }}
     >
