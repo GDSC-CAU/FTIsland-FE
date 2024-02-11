@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 
 import { getBookData } from 'src/testData/bookListData';
 
-import StoryCard from '../StoryCard';
+import StoryCard from '../card/StoryCard';
 
 const Recent = () => {
   const storyList = getBookData();
