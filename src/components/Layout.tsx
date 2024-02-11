@@ -1,5 +1,5 @@
 import { ReactNode, useState } from 'react';
-import { Box } from '@mui/material';
+import { Box, Toolbar } from '@mui/material';
 
 import Appbar from './Appbar';
 import SideMenu from './SideMenu';
@@ -16,6 +16,8 @@ const Layout = ({ children }: { children: ReactNode }) => {
       <Appbar handleSideMenu={handleSideMenu} />
 
       <SideMenu open={sideMenuOpen} handleSideMenu={handleSideMenu} />
+
+      <Toolbar variant="dense" />
 
       <Box component="main" sx={{ mx: 'auto', p: 2 }}>
         {children}

@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { AppBar, AppBarProps, Box, IconButton, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/MenuRounded';
 
@@ -6,12 +7,13 @@ const Appbar = ({
   sx,
   ...rest
 }: { handleSideMenu: (isOpen: boolean) => void } & AppBarProps) => {
+  const { push } = useRouter();
+
   return (
     <AppBar
       sx={{
         color: 'inherit',
         boxShadow: 'none',
-        position: 'sticky',
         height: '56px',
         zIndex: 1000,
         bgcolor: '#E0F4FF',
@@ -21,9 +23,14 @@ const Appbar = ({
       {...rest}
     >
       <Toolbar variant="dense" disableGutters>
-        <Box sx={{ display: 'flex', alignItems: 'center', px: 2, gap: 2 }}>
+        <Box
+          onClick={() => {
+            push('/');
+          }}
+          sx={{ display: 'flex', alignItems: 'center', px: 2, gap: 2, cursor: 'pointer' }}
+        >
           <Box sx={{ width: '36px', height: '36px', borderRadius: '50%', bgcolor: '#39A7FF' }} />
-          <Typography variant="h4" sx={{ fontWeight: 600 }}>
+          <Typography variant="h4" component="h1" sx={{ fontWeight: 600 }}>
             FT Island
           </Typography>
         </Box>
