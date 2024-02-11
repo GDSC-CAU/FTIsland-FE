@@ -4,6 +4,13 @@ import { useRouter } from 'next/router';
 import { Box, Dialog, IconButton, Slide, SxProps, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/CloseRounded';
 
+export type StoryDataType = {
+  bookId: number;
+  title: string;
+  description: string;
+  images: string;
+};
+
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
     children: ReactElement;
@@ -18,12 +25,7 @@ const StoryCardPopup = ({
   open,
   onClose,
 }: {
-  focusStoryData: {
-    bookId: number;
-    title: string;
-    description: string;
-    images: string;
-  };
+  focusStoryData: StoryDataType;
   open: boolean;
   onClose: () => void;
 }) => (
@@ -58,34 +60,24 @@ const StoryCardPopup = ({
         }}
       />
     </IconButton>
-    <StoryCard
-      isClickable={false}
-      bookId={focusStoryData.bookId}
-      title={focusStoryData.title}
-      description={focusStoryData.description}
-      images={focusStoryData.images}
-    />
+    <StoryCard isClickable={false} bookData={focusStoryData} />
   </Dialog>
 );
 
 const StoryCard = ({
   isClickable,
-  bookId,
-  title,
-  description,
-  images,
+  bookData,
   sx,
 }: {
   isClickable: boolean;
-  bookId: number;
-  title: string;
-  description: string;
-  images: string;
+  bookData: StoryDataType;
   sx?: SxProps;
 }) => {
   const { push } = useRouter();
 
   const [isOpenFocusStory, setIsOpenFocusStory] = useState(false);
+
+  const { bookId, title, description, images } = bookData;
 
   return (
     <>
@@ -146,12 +138,7 @@ const StoryCard = ({
 
       {isOpenFocusStory ? (
         <StoryCardPopup
-          focusStoryData={{
-            bookId,
-            title,
-            description,
-            images,
-          }}
+          focusStoryData={bookData}
           open={isOpenFocusStory}
           onClose={() => setIsOpenFocusStory(false)}
         />

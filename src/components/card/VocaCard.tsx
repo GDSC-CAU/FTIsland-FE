@@ -13,7 +13,6 @@ const FlippableCard = ({ isBackPage, children }: { isBackPage: boolean; children
       top: 0,
       left: 0,
       width: '100%',
-
       display: 'flex',
       flexDirection: 'column',
 
@@ -35,7 +34,6 @@ const FlippableCard = ({ isBackPage, children }: { isBackPage: boolean; children
     }}
   >
     <IconButton
-      //   disableRipple
       onClick={(e) => {
         e.stopPropagation();
       }}
@@ -107,7 +105,7 @@ const VocaCard = ({ vocaId }: { vocaId: number }) => {
             },
           }}
         >
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'grey.800' }}>
             <BookIcon />
             <Typography variant="h6">{bookName}</Typography>
           </Box>
@@ -118,6 +116,7 @@ const VocaCard = ({ vocaId }: { vocaId: number }) => {
               flexDirection: 'column',
               justifyContent: 'space-evenly',
               height: '100%',
+              textAlign: 'center',
             }}
           >
             <Typography variant="h3">{word}</Typography>

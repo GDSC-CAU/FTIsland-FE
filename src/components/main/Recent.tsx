@@ -1,11 +1,14 @@
 import React from 'react';
-import { Box } from '@mui/material';
+import { Box, useMediaQuery, useTheme } from '@mui/material';
 
 import { getBookData } from 'src/testData/bookListData';
 
 import StoryCard from '../card/StoryCard';
 
 const Recent = () => {
+  const { breakpoints } = useTheme();
+  const isMobile = useMediaQuery(breakpoints.down('sm'));
+
   const storyList = getBookData();
 
   return (
@@ -21,27 +24,25 @@ const Recent = () => {
         columnGap: { xs: 1, sm: 2 },
         rowGap: { xs: 2, sm: 2 },
         p: 2,
+        mx: { xs: 6, sm: 0 },
       }}
     >
-      {storyList.map(({ bookId, title, description, images }, idx) => (
+      {storyList.map((bookData, idx) => (
         <Box
           key={idx}
           sx={{
             borderRadius: '20px',
             transition: '.5s',
-            ':hover': {
-              transform: 'translateY(-10px)',
-              boxShadow: '0px 8px 16px rgba(120, 120, 120, 0.25)',
-            },
+
+            ...(!isMobile && {
+              ':hover': {
+                transform: 'translateY(-10px)',
+                boxShadow: '0px 8px 16px rgba(120, 120, 120, 0.25)',
+              },
+            }),
           }}
         >
-          <StoryCard
-            isClickable={true}
-            bookId={bookId}
-            title={title}
-            description={description}
-            images={images}
-          />
+          <StoryCard isClickable={true} bookData={bookData} />
         </Box>
       ))}
     </Box>
