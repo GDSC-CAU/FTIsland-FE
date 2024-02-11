@@ -105,9 +105,20 @@ const VocaCard = ({ vocaId }: { vocaId: number }) => {
             },
           }}
         >
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'grey.800' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1,
+              color: 'grey.800',
+              whiteSpace: 'nowrap',
+              pr: 3,
+            }}
+          >
             <BookIcon />
-            <Typography variant="h6">{bookName}</Typography>
+            <Typography variant="h6" sx={{ fontSize: { xs: '14px', sm: '17.5px' } }}>
+              {bookName}
+            </Typography>
           </Box>
 
           <Box
