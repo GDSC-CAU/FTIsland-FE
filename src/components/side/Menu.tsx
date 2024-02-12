@@ -6,7 +6,7 @@ import SideButton from './SideButton';
 
 interface MenuProps {
     setContent: (setContent: ReactElement) => void;
-    onClick: (content: string) => void;
+    onClick?: (content: string) => void;
     handleSideMenu: (content: boolean) => void;
   }
 
@@ -19,9 +19,9 @@ const Menu: React.FC<MenuProps> =  ({setContent, onClick, handleSideMenu}) => {
       <List content={"메뉴"}/>
       <Box sx={{
         display: 'flex', alignItems: 'center',flexDirection:'column' , paddingBottom: 10}}>
-        <SideButton content={"메인 페이지"} onClick={()=>onClick('메인 페이지')} handleSideMenu={handleSideMenu}/>
-        <SideButton content={"나의 동화 목록"} onClick={()=>onClick('나의 동화 목록')} handleSideMenu={handleSideMenu}/>
-        <SideButton content={"나의 단어 목록"} onClick={()=>onClick('나의 단어 목록')} handleSideMenu={handleSideMenu}/>
+        <SideButton content={"메인 페이지"} onClick={()=>onClick &&onClick('메인 페이지')} handleSideMenu={handleSideMenu}/>
+        <SideButton content={"나의 동화 목록"} onClick={()=>onClick &&onClick('나의 동화 목록')} handleSideMenu={handleSideMenu}/>
+        <SideButton content={"나의 단어 목록"} onClick={()=>onClick &&onClick('나의 단어 목록')} handleSideMenu={handleSideMenu}/>
       </Box>
       <List content={"언어 설정"}/>
       <Box sx={{
@@ -30,7 +30,7 @@ const Menu: React.FC<MenuProps> =  ({setContent, onClick, handleSideMenu}) => {
       </Box>
       <Box sx={{
         display: 'flex', alignItems: 'center',flexDirection:'column' , paddingBottom: 3.2,}}>
-          <SideButton content={"로그아웃"} backgroundColor={"white"} onClick={()=>onClick('로그아웃')} handleSideMenu={handleSideMenu}/>
+          <SideButton content={"로그아웃"} backgroundColor={"white"} onClick={()=>onClick &&onClick('로그아웃')} handleSideMenu={handleSideMenu}/>
       </Box>
     </Box>
   )

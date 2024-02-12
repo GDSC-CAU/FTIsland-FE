@@ -1,12 +1,12 @@
 import { ReactNode, useState } from 'react';
-import { Box } from '@mui/material';
+import { Box, Toolbar } from '@mui/material';
 
 import Appbar from './Appbar';
 import SideMenu from './SideMenu';
 
 interface LayoutProps {
   children: ReactNode;
-  onClick: (content: string) => void;
+  onClick?: (content: string) => void;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children, onClick }) => {
@@ -22,6 +22,8 @@ const Layout: React.FC<LayoutProps> = ({ children, onClick }) => {
 
       <SideMenu open={sideMenuOpen} handleSideMenu={handleSideMenu}
       onClick={onClick} />
+
+      <Toolbar variant="dense" />
 
       <Box component="main" sx={{ mx: 'auto', p: 2 }}>
         {children}

@@ -7,7 +7,7 @@ import LanguageButton from './LanguageButton';
 
 interface MenuProps {
   setContent: (setContent: ReactElement) => void;
-  onClick: (content: string) => void;
+  onClick?: (content: string) => void;
   handleSideMenu: (content: boolean) => void;
 }
 
