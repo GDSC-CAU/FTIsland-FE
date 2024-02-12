@@ -29,7 +29,7 @@ const SideButton: React.FC<SideButtonProps> = ({content, backgroundColor, onClic
     >
       <Typography variant="h5" sx={listStyle()} >{content}</Typography>
       <Avatar 
-        src={!isHovered && backgroundColor==undefined ? "/arrow-right-white.png":"/arrow-right-black.png" }
+        src={!isHovered && backgroundColor==undefined ? "/image/arrow-right-white.png":"/image/arrow-right-black.png" }
         alt="arrow right" 
         sx={{ width: '15%', height: 'auto' }}/>
     </Box>
