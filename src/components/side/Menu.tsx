@@ -25,11 +25,11 @@ const Menu: React.FC<MenuProps> =  ({setContent, onClick, handleSideMenu}) => {
       </Box>
       <List content={"언어 설정"}/>
       <Box sx={{
-        display: 'flex', alignItems: 'center',flexDirection:'column' , paddingBottom: 22.5}}>
+        display: 'flex', alignItems: 'center',flexDirection:'column'}}>
           <SideButton content={"바로 가기"} onClick={handleLanguageSettingClick} handleSideMenu={handleSideMenu}/>
       </Box>
       <Box sx={{
-        display: 'flex', alignItems: 'center',flexDirection:'column'}}>
+        display: 'flex', alignItems: 'center',flexDirection:'column',height: '33vh', justifyContent: 'flex-end'}}>
           <SideButton content={"로그아웃"} backgroundColor={"white"} onClick={()=>onClick &&onClick('로그아웃')} handleSideMenu={handleSideMenu}/>
       </Box>
     </Box>
