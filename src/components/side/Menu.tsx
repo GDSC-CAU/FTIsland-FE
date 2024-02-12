@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react'
 import LanguageSetting from './LanguageSetting'
 import { Box } from '@mui/material';
-import List from './List';
-import SideButton from './SideButton';
+import List from './components/List';
+import SideButton from './components/SideButton';
 
 interface MenuProps {
     setContent: (setContent: ReactElement) => void;
@@ -37,4 +37,3 @@ const Menu: React.FC<MenuProps> =  ({setContent, onClick, handleSideMenu}) => {
 }
 
 export default Menu;
-

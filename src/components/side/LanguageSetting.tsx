@@ -1,9 +1,9 @@
 import React, { ReactElement, useState } from 'react'
 import Menu from './Menu';
 import { Box, SelectChangeEvent } from '@mui/material';
-import List from './List';
-import Back from './Back';
-import LanguageButton from './LanguageButton';
+import List from './components/List';
+import Back from './components/Back';
+import LanguageButton from './components/LanguageButton';
 
 interface MenuProps {
   setContent: (setContent: ReactElement) => void;
