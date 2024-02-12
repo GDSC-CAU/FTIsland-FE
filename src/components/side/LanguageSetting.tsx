@@ -29,17 +29,15 @@ const LanguageSetting: React.FC<MenuProps> = ({setContent, onClick, handleSideMe
   };
 
   return (
-    <Box sx={{bgcolor: "#FFE5E5", height: "100%"}}>
+    <Box sx={{bgcolor: "#FFE5E5", height: '100vh'}}>
 
       <Back handleBack={handleBack}/>
       
       <List content={"주언어"}/>
       <LanguageButton language={mainLanguage} handleLanguageChange={handleMainLanguageChange}/>
-      
 
       <List content={"서브 언어"}/>
-      <LanguageButton language={subLanguage} handleLanguageChange={handleSubLanguageChange}/>
-      
+      <LanguageButton language={subLanguage} handleLanguageChange={handleSubLanguageChange} />
     </Box>
   )
 }

@@ -15,7 +15,7 @@ const Menu: React.FC<MenuProps> =  ({setContent, onClick, handleSideMenu}) => {
         setContent(<LanguageSetting  setContent={setContent} onClick={onClick} handleSideMenu={handleSideMenu}/>)
     }
   return (
-    <Box sx={{bgcolor: "#FFE5E5", height: "100%"}}>
+    <Box sx={{bgcolor: "#FFE5E5", height: "100vh"}}>
       <List content={"메뉴"}/>
       <Box sx={{
         display: 'flex', alignItems: 'center',flexDirection:'column' , paddingBottom: 10}}>
@@ -29,7 +29,7 @@ const Menu: React.FC<MenuProps> =  ({setContent, onClick, handleSideMenu}) => {
           <SideButton content={"바로 가기"} onClick={handleLanguageSettingClick} handleSideMenu={handleSideMenu}/>
       </Box>
       <Box sx={{
-        display: 'flex', alignItems: 'center',flexDirection:'column' , paddingBottom: 3.2,}}>
+        display: 'flex', alignItems: 'center',flexDirection:'column'}}>
           <SideButton content={"로그아웃"} backgroundColor={"white"} onClick={()=>onClick &&onClick('로그아웃')} handleSideMenu={handleSideMenu}/>
       </Box>
     </Box>
