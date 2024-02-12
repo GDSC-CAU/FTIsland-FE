@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Box, Drawer } from '@mui/material';
-import Word from './side/Word';
-// import Menu from './side/Menu'
+import Menu from './side/Menu'
 //Typography
 
 const SideMenu = ({
@@ -18,8 +17,7 @@ const SideMenu = ({
   const [content, setContent] = useState<React.ReactElement | null>(null);
 
   useEffect(()=>{
-    // setContent((<Menu setContent={setContent} onClick={onClick} handleSideMenu={handleSideMenu}/>));
-    setContent(<Word onClick={onClick} handleSideMenu={handleSideMenu}/>)
+    setContent((<Menu setContent={setContent} onClick={onClick} handleSideMenu={handleSideMenu}/>));
   }, [setContent, onClick, handleSideMenu]);
 
   useEffect(() => {
