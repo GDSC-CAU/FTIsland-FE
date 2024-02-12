@@ -1,8 +1,24 @@
 import { ReactElement, forwardRef, memo, useState } from 'react';
 import { TransitionProps } from 'react-transition-group/Transition';
 import { useRouter } from 'next/router';
-import { Box, Dialog, IconButton, Slide, SxProps, Typography } from '@mui/material';
+import {
+  Box,
+  Dialog,
+  IconButton,
+  Slide,
+  SxProps,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import CloseIcon from '@mui/icons-material/CloseRounded';
+
+export type StoryDataType = {
+  bookId: number;
+  title: string;
+  description: string;
+  images: string;
+};
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -18,12 +34,7 @@ const StoryCardPopup = ({
   open,
   onClose,
 }: {
-  focusStoryData: {
-    bookId: number;
-    title: string;
-    description: string;
-    images: string;
-  };
+  focusStoryData: StoryDataType;
   open: boolean;
   onClose: () => void;
 }) => (
@@ -58,34 +69,26 @@ const StoryCardPopup = ({
         }}
       />
     </IconButton>
-    <StoryCard
-      isClickable={false}
-      bookId={focusStoryData.bookId}
-      title={focusStoryData.title}
-      description={focusStoryData.description}
-      images={focusStoryData.images}
-    />
+    <StoryCard isClickable={false} bookData={focusStoryData} />
   </Dialog>
 );
 
 const StoryCard = ({
   isClickable,
-  bookId,
-  title,
-  description,
-  images,
+  bookData,
   sx,
 }: {
   isClickable: boolean;
-  bookId: number;
-  title: string;
-  description: string;
-  images: string;
+  bookData: StoryDataType;
   sx?: SxProps;
 }) => {
   const { push } = useRouter();
+  const { breakpoints } = useTheme();
+  const isMobile = useMediaQuery(breakpoints.down('sm'));
 
   const [isOpenFocusStory, setIsOpenFocusStory] = useState(false);
+
+  const { bookId, title, description, images } = bookData;
 
   return (
     <>
@@ -102,6 +105,13 @@ const StoryCard = ({
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
+          boxShadow: '2px 4px 6px gray',
+
+          ...(isClickable && {
+            maxWidth: '360px',
+            minWidth: '240px',
+            mx: 'auto',
+          }),
 
           display: 'flex',
           alignItems: 'flex-end',
@@ -116,28 +126,41 @@ const StoryCard = ({
             gap: 1,
             position: 'relative',
             width: '100%',
-            height: '40%',
+            // height: { xs: '50%', sm: '40%' },
+            minHeight: '40%',
             borderRadius: '20px',
-            m: 2,
-            p: 2,
+            m: { xs: 1, sm: 2 },
+            p: { xs: 1, sm: 2 },
             bgcolor: 'rgba(107,107,107,0.8)',
             overflow: 'hidden',
           }}
         >
           <Typography
-            variant="h4"
+            variant={isMobile ? 'h6' : 'h4'}
             sx={{
               fontWeight: 900,
               textAlign: 'center',
               color: 'white',
               textShadow: '1px 1px 2px black',
+              display: '-webkit-box',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              WebkitLineClamp: 1,
+              WebkitBoxOrient: 'vertical',
+              overflowWrap: 'anywhere',
+              wordBreak: 'break-all',
             }}
           >
             {title}
           </Typography>
           <Typography
-            variant="h5"
-            sx={{ fontWeight: 600, textAlign: 'center', color: 'white', textShadow: '1px' }}
+            sx={{
+              fontSize: isMobile ? '14px' : '17.5px',
+              fontWeight: 600,
+              textAlign: 'center',
+              color: 'white',
+              textShadow: '1px',
+            }}
           >
             {description}
           </Typography>
@@ -146,12 +169,7 @@ const StoryCard = ({
 
       {isOpenFocusStory ? (
         <StoryCardPopup
-          focusStoryData={{
-            bookId,
-            title,
-            description,
-            images,
-          }}
+          focusStoryData={bookData}
           open={isOpenFocusStory}
           onClose={() => setIsOpenFocusStory(false)}
         />
