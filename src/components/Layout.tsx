@@ -4,7 +4,12 @@ import { Box, Toolbar } from '@mui/material';
 import Appbar from './Appbar';
 import SideMenu from './SideMenu';
 
-const Layout = ({ children }: { children: ReactNode }) => {
+interface LayoutProps {
+  children: ReactNode;
+  onClick?: (content: string) => void;
+}
+
+const Layout: React.FC<LayoutProps> = ({ children, onClick }) => {
   const [sideMenuOpen, setSideMenuOpen] = useState(false);
 
   const handleSideMenu = (isOpen: boolean) => {
@@ -15,7 +20,8 @@ const Layout = ({ children }: { children: ReactNode }) => {
     <Box>
       <Appbar handleSideMenu={handleSideMenu} />
 
-      <SideMenu open={sideMenuOpen} handleSideMenu={handleSideMenu} />
+      <SideMenu open={sideMenuOpen} handleSideMenu={handleSideMenu}
+      onClick={onClick} />
 
       <Toolbar variant="dense" />
 
