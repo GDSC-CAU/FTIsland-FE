@@ -6,9 +6,10 @@ interface SideButtonProps {
   backgroundColor?: string;  // backgroundColor prop 추가
   onClick: (content: string) => void;
   handleSideMenu: (isOpen: boolean) => void;
+  word?: boolean;
 }
 
-const SideButton: React.FC<SideButtonProps> = ({content, backgroundColor, onClick, handleSideMenu}) => {
+const SideButton: React.FC<SideButtonProps> = ({content, backgroundColor, onClick, handleSideMenu, word}) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleClick = () => {
@@ -22,7 +23,7 @@ const SideButton: React.FC<SideButtonProps> = ({content, backgroundColor, onClic
 
   return (
     <Box 
-      sx={boxStyle(backgroundColor)}
+      sx={boxStyle(backgroundColor, word)}
       onMouseEnter = {()=> setIsHovered(true)}
       onMouseLeave = {()=> setIsHovered(false)}
       onClick={handleClick}
@@ -38,7 +39,7 @@ const SideButton: React.FC<SideButtonProps> = ({content, backgroundColor, onClic
 
 export default SideButton;
 
-const boxStyle = (backgroundColor: string | undefined)=>{
+const boxStyle = (backgroundColor: string | undefined, word: boolean | undefined)=>{
   if(backgroundColor)
     return {
       padding: 1.2,
@@ -48,8 +49,8 @@ const boxStyle = (backgroundColor: string | undefined)=>{
       alignItems: 'center',
       bgcolor: backgroundColor,
       color: 'black',
-    
-      marginTop: 3, 
+      
+      marginTop: word?1:3, 
       borderRadius: 10, 
       boxShadow: 3,
       display: 'flex', 
@@ -69,7 +70,7 @@ const boxStyle = (backgroundColor: string | undefined)=>{
     bgcolor: backgroundColor || '#FF8383',
     color: 'white',
   
-    marginTop: 3, 
+    marginTop: word?1:3, 
     borderRadius: 10, 
     boxShadow: 3,
     display: 'flex', 
