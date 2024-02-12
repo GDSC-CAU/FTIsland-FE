@@ -3,8 +3,10 @@ import { Box, Card, CardMedia, IconButton, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/CloseRounded';
 import BookIcon from '@mui/icons-material/MenuBookRounded';
 
-import throttling from 'src/utils/throttling';
 import { getVocaDescription } from 'src/testData/vocaDetailData';
+import throttling from 'src/utils/throttling';
+
+import SoundButton from '../button/SoundButton';
 
 const FlippableCard = ({ isBackPage, children }: { isBackPage: boolean; children: ReactNode }) => (
   <Card
@@ -33,19 +35,19 @@ const FlippableCard = ({ isBackPage, children }: { isBackPage: boolean; children
       },
     }}
   >
-    <IconButton
-      onClick={(e) => {
-        e.stopPropagation();
-      }}
-      sx={{ position: 'absolute', top: 4, right: 4, zIndex: 2 }}
-    >
-      <CloseIcon sx={{ width: '28px', height: '28px' }} />
-    </IconButton>
     {children}
   </Card>
 );
 
-const VocaCard = ({ vocaId }: { vocaId: number }) => {
+const VocaCard = ({
+  vocaId,
+  index,
+  handleDeleteVoca,
+}: {
+  vocaId: number;
+  index: number;
+  handleDeleteVoca: (targetIndex: number) => void;
+}) => {
   const { word, description, bookName } = getVocaDescription(vocaId);
 
   const [isBackPage, setIsBackPage] = useState(false);
@@ -74,7 +76,37 @@ const VocaCard = ({ vocaId }: { vocaId: number }) => {
             width: '100%',
           }}
         />
+        <IconButton
+          onClick={(e) => {
+            e.stopPropagation();
+            handleDeleteVoca(index);
+          }}
+          sx={{ position: 'absolute', top: 4, right: 4, zIndex: 2 }}
+        >
+          <CloseIcon sx={{ width: '28px', height: '28px' }} />
+        </IconButton>
 
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '16px',
+            left: '16px',
+            bgcolor: 'white',
+            px: 1,
+            borderRadius: '20px',
+
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1,
+            color: 'grey.800',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          <BookIcon sx={{ width: '16px' }} />
+          <Typography variant="h6" sx={{ fontSize: { xs: '14px', sm: '16px' }, fontWeight: 900 }}>
+            {bookName}
+          </Typography>
+        </Box>
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flex: 1 }}>
           <Typography variant="h4" sx={{ fontWeight: 900 }}>
             {word}
@@ -106,30 +138,33 @@ const VocaCard = ({ vocaId }: { vocaId: number }) => {
           <Box
             sx={{
               display: 'flex',
-              alignItems: 'center',
-              gap: 1,
-              color: 'grey.800',
-              whiteSpace: 'nowrap',
-              pr: 3,
-            }}
-          >
-            <BookIcon />
-            <Typography variant="h6" sx={{ fontSize: { xs: '14px', sm: '17.5px' } }}>
-              {bookName}
-            </Typography>
-          </Box>
-
-          <Box
-            sx={{
-              display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-evenly',
               height: '100%',
               textAlign: 'center',
             }}
           >
-            <Typography variant="h3">{word}</Typography>
-            <Typography variant="h6">{description}</Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mx: 'auto' }}>
+              <Box
+                sx={{
+                  width: '50px',
+                  height: '50px',
+                  borderRadius: '20px',
+                  backgroundImage: `url(${'/image/coverImg1.jpg'})`,
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundSize: 'cover',
+                }}
+              />
+              <Typography variant="h3">{word}</Typography>
+            </Box>
+            <Box>
+              <Box sx={{ mt: '-28px' }}>
+                <SoundButton buttonText="단어 듣기" soundText={word} />
+                <SoundButton buttonText="설명 듣기" soundText={description} />
+              </Box>
+              <Typography variant="h6">{description}</Typography>
+            </Box>
           </Box>
         </Box>
       </FlippableCard>

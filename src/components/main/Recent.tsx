@@ -1,20 +1,20 @@
 import React from 'react';
-import { Box, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
 
 import { getBookData } from 'src/testData/bookListData';
 
-import StoryCard from '../card/StoryCard';
+import StoryCard, { StoryDataType } from '../card/StoryCard';
 
 const Recent = () => {
   const { breakpoints } = useTheme();
   const isMobile = useMediaQuery(breakpoints.down('sm'));
 
-  const storyList = getBookData();
+  const storyList: StoryDataType[] = getBookData();
 
   return (
     <Box
       sx={{
-        display: 'grid',
+        display: storyList.length === 0 ? 'block' : 'grid',
         gridTemplateColumns: {
           xs: '1fr',
           sm: '1fr 1fr',
@@ -44,6 +44,12 @@ const Recent = () => {
           <StoryCard isClickable={true} bookData={bookData} />
         </Box>
       ))}
+
+      {storyList.length === 0 ? (
+        <Typography variant="h5" sx={{ textAlign: 'center' }}>
+          최근 탐험한 이야기가 없습니다.
+        </Typography>
+      ) : null}
     </Box>
   );
 };
