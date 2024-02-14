@@ -7,7 +7,7 @@ interface LoginProps {
   setOpen: (value: boolean) => void;
 }
 
-const Login: React.FC<LoginProps> = ({open, setOpen}) => {
+const Join: React.FC<LoginProps> = ({open, setOpen}) => {
   const handleClose = () => {
     setOpen(false);
   }
@@ -62,7 +62,7 @@ const Login: React.FC<LoginProps> = ({open, setOpen}) => {
   )
 }
 
-export default Login;
+export default Join;
 
 const boxStyle = () => ({ 
   width: {xs: '100%', sm:'500px'}, 
