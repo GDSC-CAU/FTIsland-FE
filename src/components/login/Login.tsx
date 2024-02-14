@@ -1,4 +1,4 @@
-import { Box, Button, IconButton, Modal, SelectChangeEvent, TextField, Typography } from '@mui/material'
+import { Avatar, Box, Button, CardMedia, IconButton, Modal, SelectChangeEvent, TextField, Typography } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
 import React, { useState } from 'react'
 import LanguageButton from '../side/components/LanguageButton';
@@ -12,16 +12,7 @@ const Login: React.FC<LoginProps> = ({open, setOpen}) => {
   const handleClose = () => {
     setOpen(false);
   }
-  const [mainLanguage, setMainLanguage] = useState('한국어');
-  const [subLanguage, setSubLanguage] = useState('English');
 
-  const handleMainLanguageChange = (event: SelectChangeEvent<string>) => {
-    setMainLanguage(event.target.value as string);
-    console.log(event.target.value as string);
-  };
-  const handleSubLanguageChange = (event: SelectChangeEvent<string>) => {
-    setSubLanguage(event.target.value as string);  // 클릭된 내용을 mainLanguage 상태에 저장
-  }
   return (
     <Modal open={open} onClose={handleClose}>
       <Box sx={boxStyle()}>
@@ -30,39 +21,21 @@ const Login: React.FC<LoginProps> = ({open, setOpen}) => {
         >
           <CloseIcon sx={{ width: '28px', height: '28px' }} />
         </IconButton>
-        <Typography variant="h4" sx={{ fontWeight: 900, marginTop:'2%',marginBottom: '5%', color:'#39A7FF'}}>
-          FT 아일랜드에 오신 것을 환영합니다!
+        <CardMedia
+          image="/image/coverImg1.jpg"
+          sx={{
+            position: 'relative',
+            aspectRatio: '1/1',
+            width: '40%',
+            borderRadius:'100px'
+          }}/>
+        <Typography variant="h4" sx={{ fontWeight: 900, marginTop:'2%',marginBottom: '10%', color:'#39A7FF'}}>
+          FT 아일랜드
         </Typography>
 
-        <Typography variant="h5" sx={{fontWeight: 900, marginBottom: '15px'}}>
-          아이의 별명을 지어주세요!
-        </Typography>
-        <TextField id="outlined-basic" label="별명" variant="outlined" sx={textFieldStyle()}>asdf</TextField>
-        
-        <Typography variant="h5" sx={{fontWeight: 900, marginTop:'50px'}}>
-          언어 선택
-        </Typography>
-
-        <Box sx={{display:'flex', justifyContent:'center', alignContent: 'space-between', width:'100%', 
-        height:'35%'}}>
-          
-          <Box sx={{width: '33%', marginRight: '5px'}}>
-          <Typography variant="h6" sx={{fontWeight: 900, marginTop:'20px',}}>
-          주언어
-        </Typography>
-        <LanguageButton language={mainLanguage} handleLanguageChange={handleMainLanguageChange}/>
-          </Box>
-
-          <Box sx={{width: '33%', marginLeft:'5px',}}>
-          <Typography variant="h6" sx={{fontWeight: 900, marginTop:'20px'}}>
-          보조언어
-        </Typography>
-        <LanguageButton language={subLanguage} handleLanguageChange={handleSubLanguageChange} />
-          </Box>
-
-        </Box>
-
-        <Button variant='contained' sx={buttonStyle()}>회원가입</Button>
+        <Button variant='contained' sx={buttonStyle()}>
+          <Avatar src="image/google.png" alt="google" sx={{width: '25px', height: '25px', marginRight: '15px'}}/>
+          구글 로그인</Button>
       </Box>
     </Modal>
   )
@@ -87,20 +60,6 @@ const boxStyle = () => ({
   textAlign: 'center',
 })
 
-const textFieldStyle = () => ({
-  '& .MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderColor: '#FF8383',
-    },
-    '&:hover fieldset': {
-      borderColor: 'red',
-    },
-    '&.Mui-focused fieldset': {
-      borderColor: '#FF4A4A',
-    },
-  },
-})
-
 const buttonStyle = () => ({
   width: '300px',
   height: '50px',
@@ -113,5 +72,6 @@ const buttonStyle = () => ({
     color: 'white',
   },
   
-
+  display: 'flex',
+  justifyContent: 'flex-start',
 })
