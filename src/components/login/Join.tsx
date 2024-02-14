@@ -1,4 +1,5 @@
-import { Box, Button, Modal, SelectChangeEvent, TextField, Typography } from '@mui/material'
+import { Box, Button, IconButton, Modal, SelectChangeEvent, TextField, Typography } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close';
 import React, { useState } from 'react'
 import LanguageButton from '../side/components/LanguageButton';
 
@@ -24,6 +25,11 @@ const Join: React.FC<LoginProps> = ({open, setOpen}) => {
   return (
     <Modal open={open} onClose={handleClose}>
       <Box sx={boxStyle()}>
+        <IconButton
+          sx={{ position: 'absolute', top: 4, right: 4, zIndex: 3 }} onClick={handleClose}
+        >
+          <CloseIcon sx={{ width: '28px', height: '28px' }} />
+        </IconButton>
         <Typography variant="h4" sx={{ fontWeight: 900, marginBottom: '4%', color:'#39A7FF'}}>
           FT 아일랜드에 오신 것을 환영합니다!
         </Typography>
