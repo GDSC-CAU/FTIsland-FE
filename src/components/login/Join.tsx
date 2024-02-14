@@ -8,7 +8,7 @@ interface LoginProps {
   setOpen: (value: boolean) => void;
 }
 
-const Join: React.FC<LoginProps> = ({open, setOpen}) => {
+const Login: React.FC<LoginProps> = ({open, setOpen}) => {
   const handleClose = () => {
     setOpen(false);
   }
@@ -25,12 +25,12 @@ const Join: React.FC<LoginProps> = ({open, setOpen}) => {
   return (
     <Modal open={open} onClose={handleClose}>
       <Box sx={boxStyle()}>
-        <IconButton
+      <IconButton
           sx={{ position: 'absolute', top: 4, right: 4, zIndex: 3 }} onClick={handleClose}
         >
           <CloseIcon sx={{ width: '28px', height: '28px' }} />
         </IconButton>
-        <Typography variant="h4" sx={{ fontWeight: 900, marginBottom: '4%', color:'#39A7FF'}}>
+        <Typography variant="h4" sx={{ fontWeight: 900, marginTop:'2%',marginBottom: '5%', color:'#39A7FF'}}>
           FT 아일랜드에 오신 것을 환영합니다!
         </Typography>
 
@@ -39,22 +39,22 @@ const Join: React.FC<LoginProps> = ({open, setOpen}) => {
         </Typography>
         <TextField id="outlined-basic" label="별명" variant="outlined" sx={textFieldStyle()}>asdf</TextField>
         
-        <Typography variant="h5" sx={{fontWeight: 900, marginTop:'40px'}}>
+        <Typography variant="h5" sx={{fontWeight: 900, marginTop:'50px'}}>
           언어 선택
         </Typography>
 
         <Box sx={{display:'flex', justifyContent:'center', alignContent: 'space-between', width:'100%', 
-        height:'40%'}}>
+        height:'35%'}}>
           
           <Box sx={{width: '33%', marginRight: '5px'}}>
-          <Typography variant="h6" sx={{fontWeight: 900, marginBottom: '15px', marginTop:'40px',}}>
+          <Typography variant="h6" sx={{fontWeight: 900, marginTop:'20px',}}>
           주언어
         </Typography>
         <LanguageButton language={mainLanguage} handleLanguageChange={handleMainLanguageChange}/>
           </Box>
 
-          <Box sx={{width: '33%', marginLeft:'5px'}}>
-          <Typography variant="h6" sx={{fontWeight: 900, marginBottom: '15px', marginTop:'40px'}}>
+          <Box sx={{width: '33%', marginLeft:'5px',}}>
+          <Typography variant="h6" sx={{fontWeight: 900, marginTop:'20px'}}>
           보조언어
         </Typography>
         <LanguageButton language={subLanguage} handleLanguageChange={handleSubLanguageChange} />
@@ -68,7 +68,7 @@ const Join: React.FC<LoginProps> = ({open, setOpen}) => {
   )
 }
 
-export default Join;
+export default Login;
 
 const boxStyle = () => ({ 
   width: {xs: '100%', sm:'500px'}, 
