@@ -7,17 +7,21 @@ interface SideButtonProps {
   onClick: (content: string) => void;
   handleSideMenu: (isOpen: boolean) => void;
   word?: boolean;
+  setOpen?: (isOpen: boolean) => void;
 }
 
-const SideButton: React.FC<SideButtonProps> = ({content, backgroundColor, onClick, handleSideMenu, word}) => {
+const SideButton: React.FC<SideButtonProps> = ({content, backgroundColor, onClick, handleSideMenu, word, setOpen}) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleClick = () => {
     if(onClick){
       onClick(content);
       if(content === '바로 가기')handleSideMenu(true);
-      else if(content === '로그아웃')handleSideMenu(false);
+      else if(content === '로그아웃')handleSideMenu(true);
       else handleSideMenu(false);
+    }
+    if(setOpen){
+      setOpen(true);
     }
   }
 

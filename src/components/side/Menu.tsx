@@ -1,8 +1,9 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import LanguageSetting from './LanguageSetting'
 import { Box } from '@mui/material';
 import List from './components/List';
 import SideButton from './components/SideButton';
+import Login from '../login/Login';
 
 interface MenuProps {
     setContent: (setContent: ReactElement) => void;
@@ -11,9 +12,10 @@ interface MenuProps {
   }
 
 const Menu: React.FC<MenuProps> =  ({setContent, onClick, handleSideMenu}) => {
-    const handleLanguageSettingClick = () => {
-        setContent(<LanguageSetting  setContent={setContent} onClick={onClick} handleSideMenu={handleSideMenu}/>)
-    }
+  const [openLoginModal, setOpenLoginModal] = useState(false);
+  const handleLanguageSettingClick = () => {
+    setContent(<LanguageSetting  setContent={setContent} onClick={onClick} handleSideMenu={handleSideMenu}/>)
+  }
   return (
     <Box sx={{bgcolor: "#FFE5E5", height: "100vh"}}>
       <List content={"메뉴"}/>
@@ -30,7 +32,8 @@ const Menu: React.FC<MenuProps> =  ({setContent, onClick, handleSideMenu}) => {
       </Box>
       <Box sx={{
         display: 'flex', alignItems: 'center',flexDirection:'column',height: '33vh', justifyContent: 'flex-end'}}>
-          <SideButton content={"로그아웃"} backgroundColor={"white"} onClick={()=>onClick &&onClick('로그아웃')} handleSideMenu={handleSideMenu}/>
+          <SideButton content={"로그아웃"} backgroundColor={"white"} onClick={()=>{onClick && onClick('로그아웃');}} handleSideMenu={handleSideMenu} setOpen = {setOpenLoginModal}/>
+          <Login open={openLoginModal} setOpen={setOpenLoginModal}></Login>
       </Box>
     </Box>
   )
