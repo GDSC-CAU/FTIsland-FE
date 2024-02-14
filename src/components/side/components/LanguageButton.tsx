@@ -48,7 +48,7 @@ const selectBoxStyle = () => ({
     border: 'none',
   
     '& .MuiOutlinedInput-notchedOutline': {
-      borderColor: 'white',
+      borderColor: '#FF8383',
     },
     '&:hover .MuiOutlinedInput-notchedOutline': {
       borderColor: 'red',
