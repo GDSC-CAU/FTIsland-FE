@@ -12,11 +12,27 @@ const Login: React.FC<LoginProps> = ({open, setOpen}) => {
   }
   return (
     <Modal open={open} onClose={handleClose}>
-      <Box sx={{ width: '40%', height: '80%', bgcolor: 'white', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-        하이
+      <Box sx={boxStyle()}>
+        
       </Box>
     </Modal>
   )
 }
 
-export default Login
+export default Login;
+
+const boxStyle = () => ({ 
+  width: {xs: '100%', sm:'500px'}, 
+  height: {xs: '100%', sm: '80%'}, 
+  bgcolor: 'white', 
+  position: 'absolute', 
+  top: '50%', 
+  left: '50%', 
+  transform: 'translate(-50%, -50%)',
+
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+
+
+})
