@@ -17,7 +17,7 @@ const SideButton: React.FC<SideButtonProps> = ({content, backgroundColor, onClic
     if(onClick){
       onClick(content);
       if(content === '바로 가기')handleSideMenu(true);
-      else if(content === '로그아웃')handleSideMenu(true);
+      else if(content === '로그아웃' || content ==='로그인')handleSideMenu(true);
       else handleSideMenu(false);
     }
     if(setOpen){

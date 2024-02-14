@@ -13,6 +13,7 @@ interface MenuProps {
 
 const Menu: React.FC<MenuProps> =  ({setContent, onClick, handleSideMenu}) => {
   const [openLoginModal, setOpenLoginModal] = useState(false);
+  const login = false; //임시 변수
   const handleLanguageSettingClick = () => {
     setContent(<LanguageSetting  setContent={setContent} onClick={onClick} handleSideMenu={handleSideMenu}/>)
   }
@@ -32,7 +33,7 @@ const Menu: React.FC<MenuProps> =  ({setContent, onClick, handleSideMenu}) => {
       </Box>
       <Box sx={{
         display: 'flex', alignItems: 'center',flexDirection:'column',height: '33vh', justifyContent: 'flex-end'}}>
-          <SideButton content={"로그아웃"} backgroundColor={"white"} onClick={()=>{onClick && onClick('로그아웃');}} handleSideMenu={handleSideMenu} setOpen = {setOpenLoginModal}/>
+          <SideButton content={login?"로그아웃":"로그인"} backgroundColor={"white"} onClick={()=>{onClick && onClick('로그아웃');}} handleSideMenu={handleSideMenu} setOpen = {setOpenLoginModal}/>
           <Login open={openLoginModal} setOpen={setOpenLoginModal}></Login>
       </Box>
     </Box>
