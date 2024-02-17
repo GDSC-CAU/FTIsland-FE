@@ -1,12 +1,17 @@
 import { CardMedia } from '@mui/material';
 import React, { Fragment } from 'react';
+import { useUser } from 'src/hook/useUser';
 interface BoxPosition {
   top: string;
   left: string;
 }
 
+const Books = ({ island }: { island: string }) => {
+  const { user } = useUser();
+  const userIslandName = user.nickName ? `${user.nickName}의 섬` : '지혜의 섬';
+
 const islandBoxPositions: Record<string, BoxPosition[]> = {
-  '희망의 섬': [
+  [userIslandName]: [
     { top: '50%', left: '30%' },
     { top: '70%', left: '37%' },
     { top: '55%', left: '55%' },
@@ -30,7 +35,7 @@ const islandBoxPositions: Record<string, BoxPosition[]> = {
     { top: '75%', left: '55%' },
     { top: '65%', left: '65%' },
   ],
-  '절망의 섬': [
+  '희망의 섬': [
     { top: '50%', left: '30%' },
     { top: '30%', left: '40%' },
     { top: '55%', left: '55%' },
@@ -43,8 +48,6 @@ const islandBoxPositions: Record<string, BoxPosition[]> = {
     { top: '70%', left: '67%' },
   ],
 };
-
-const Books = ({ island }: { island: string }) => {
   const boxPositions = islandBoxPositions[island];
   return (
     <>
