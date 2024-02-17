@@ -6,7 +6,7 @@ interface MenuProps {
 
 const Islands: React.FC<MenuProps> = ({setSelectedIsland}) => {
     const [value, setValue] = useState(0);
-    const labels = ['희망의 섬', '행복의 섬', '기쁨의 섬', '용기의 섬', '희망의 섬', '행복의 섬', '기쁨의 섬', '용기의 섬', ]
+    const labels = ['희망의 섬', '행복의 섬', '기쁨의 섬', '용기의 섬', '절망의 섬', '미지의 섬',]
 
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('sm'));
