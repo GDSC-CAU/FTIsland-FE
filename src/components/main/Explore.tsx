@@ -1,7 +1,7 @@
 import { Box, useMediaQuery } from '@mui/material'
 import React, { useState } from 'react'
 import Islands from '../explore/Islands';
-import Island from '../map/Island';
+import Island from '../explore/map/Island';
 
 const Explore = () => {
   const [selectedIsland, setSelectedIsland] = useState("희망의 섬");
