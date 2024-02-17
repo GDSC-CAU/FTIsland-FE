@@ -32,6 +32,8 @@ const Recent = () => {
           sx={{
             borderRadius: '20px',
             transition: '.5s',
+            maxWidth: '360px',
+            mx: 'auto',
 
             ...(!isMobile && {
               ':hover': {

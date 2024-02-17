@@ -30,7 +30,7 @@ const Appbar = ({
           sx={{ display: 'flex', alignItems: 'center', px: 2, gap: 2, cursor: 'pointer' }}
         >
           <Box sx={{ width: '36px', height: '36px', borderRadius: '50%', bgcolor: '#39A7FF' }} />
-          <Typography variant="h4" component="h1" sx={{ fontWeight: 600 }}>
+          <Typography variant="h4" component="h1" sx={{ fontWeight: 600, whiteSpace: 'nowrap' }}>
             FT Island
           </Typography>
         </Box>
