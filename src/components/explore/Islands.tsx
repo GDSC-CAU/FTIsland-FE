@@ -1,22 +1,22 @@
 import { Box, Button, ButtonGroup, useMediaQuery, useTheme } from '@mui/material'
-import React, { ReactElement, useState } from 'react'
+import React, { useState } from 'react'
 interface MenuProps {
-    handleClick: (newContent: ReactElement) => void;
+    setSelectedIsland: (island: string) => void;
   }
 
-const Islands: React.FC<MenuProps> = ({handleClick}) => {
+const Islands: React.FC<MenuProps> = ({setSelectedIsland}) => {
     const [value, setValue] = useState(0);
-    const labels = ['희망의 섬', '행복의 섬', '기쁨의 섬', '용기의 섬', '희망의 섬', '행복의 섬', '기쁨의 섬', '용기의 섬', ]
+    const labels = ['희망의 섬', '기쁨의 섬', '행복의 섬', '용기의 섬', '절망의 섬', '미지의 섬',]
 
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
     const handleChange = (newValue: number) => {
         setValue(newValue);
-
-        if(newValue === 0)handleClick(<></>);
-        else if(newValue === 1)handleClick(<></>);
-        else if(newValue === 2)handleClick(<></>);
+        setSelectedIsland(labels[newValue]);
+        // if(newValue === 0)handleClick(<></>);
+        // else if(newValue === 1)handleClick(<></>);
+        // else if(newValue === 2)handleClick(<></>);
     }
     return (
         <Box sx={{ 
