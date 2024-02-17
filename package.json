@@ -14,6 +14,7 @@
     "@mui/icons-material": "^5.15.6",
     "@mui/material": "^5.15.6",
     "@mui/styles": "^5.8.6",
+    "axios": "^1.6.7",
     "next": "^14.1.0",
     "prettier": "^3.2.4",
     "react": "^18",
