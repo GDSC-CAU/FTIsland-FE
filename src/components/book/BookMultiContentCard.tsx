@@ -1,22 +1,18 @@
-import { Box, Chip, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
-import BackIcon from '@mui/icons-material/ArrowBackIosRounded';
-import NextIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import { Box, Chip, Typography, useMediaQuery, useTheme } from '@mui/material';
 import SoundIcon from '@mui/icons-material/VolumeUp';
 
 import { BookContentDataType } from 'src/pages/book/[bookId]';
 import throttling from 'src/utils/throttling';
-import { googleTTS } from 'src/utils/tts';
+import { windowTTS } from 'src/utils/tts';
 
 const BookMultiContentCard = ({
   bookLimit,
   bookContentData,
   currentOffset,
-  handleChangePage,
 }: {
   bookLimit: number;
   bookContentData: BookContentDataType[];
   currentOffset: number;
-  handleChangePage: (isNext: boolean) => void;
 }) => {
   const { breakpoints } = useTheme();
   const isMobile = useMediaQuery(breakpoints.down('sm'));
@@ -67,7 +63,7 @@ const BookMultiContentCard = ({
                 }}
                 icon={<SoundIcon />}
                 onClick={() => {
-                  throttling(() => googleTTS(mainContents, mainLan), 1000);
+                  throttling(() => windowTTS(mainContents, mainLan), 1000);
                 }}
               />
               <Typography
@@ -91,7 +87,7 @@ const BookMultiContentCard = ({
                 }}
                 icon={<SoundIcon />}
                 onClick={() => {
-                  throttling(() => googleTTS(subContents, subLan), 1000);
+                  throttling(() => windowTTS(subContents, subLan), 1000);
                 }}
               />
               <Typography
@@ -113,43 +109,6 @@ const BookMultiContentCard = ({
             .fill(0)
             .map((_, index) => <Box key={index} />)
         : null}
-
-      <Box
-        sx={{
-          display: { xs: 'flex', sm: 'none' },
-          justifyContent: 'space-around',
-          alignItems: 'center',
-          width: '200px',
-          mx: 'auto',
-          bgcolor: '#39A7FF',
-          borderRadius: '20px',
-          py: 0.5,
-          color: 'white',
-          svg: {
-            color: 'white',
-          },
-        }}
-      >
-        <IconButton onClick={() => handleChangePage(false)} sx={{ width: '24px', height: '24px' }}>
-          <BackIcon />
-        </IconButton>
-        <Typography
-          variant="h6"
-          sx={{ textAlign: 'center', fontWeight: 600 }}
-        >{`${currentOffset + 1} / ${bookContentData.length / bookLimit}`}</Typography>
-        <IconButton onClick={() => handleChangePage(true)} sx={{ width: '24px', height: '24px' }}>
-          <NextIcon />
-        </IconButton>
-      </Box>
-
-      <Typography
-        variant="h5"
-        sx={{
-          display: { xs: 'none', sm: 'block' },
-          textAlign: 'center',
-          mt: 'auto',
-        }}
-      >{`- ${currentOffset + 1} -`}</Typography>
     </Box>
   );
 };
