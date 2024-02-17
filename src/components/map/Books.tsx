@@ -40,7 +40,7 @@ const islandBoxPositions: Record<string, BoxPosition[]> = {
       { top: '80%', left: '37%'},
       { top: '35%', left: '32%'},
       { top: '55%', left: '55%'},
-      { top: '70%', left: '70%'},
+      { top: '70%', left: '67%'},
     ],
   };
 
@@ -49,19 +49,37 @@ const Books = ({island} : {island: string}) => {
   return (
     <>
       {boxPositions?.map((boxPosition, index) => (
+        <>
+        <CardMedia
+        key={index}
+        component="img"
+        image="/image/coverImg1.jpg"
+        title="mark"
+        sx={{
+          width: '70px',
+          height: '70px',
+          borderRadius: '10px',
+          boxShadow: '10px 10px 5px 2px rgba(0, 0, 0, 0.25)',
+          position: 'absolute',
+          top: boxPosition.top,
+          left: boxPosition.left,
+          transform: 'translate(-50%, -130%)',
+        }}/> 
         <CardMedia
         key={index}
         component="img"
         image="/image/mark-location.png"
         title="mark"
         sx={{
-          width: '50px',
-          height: '50px',
+          width: '30px',
+          height: '30px',
           position: 'absolute',
           top: boxPosition.top,
           left: boxPosition.left,
           transform: 'translate(-50%, -50%)',
         }}/> 
+        </>
+        
       ))}
     </>
   )
