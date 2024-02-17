@@ -23,14 +23,14 @@ const Menu: React.FC<MenuProps> =  ({setContent, onClick, handleSideMenu}) => {
       <List content={"메뉴"}/>
       <Box sx={{
         display: 'flex', alignItems: 'center',flexDirection:'column' , paddingBottom: 10}}>
-        <SideButton content={"메인 페이지"} onClick={()=>onClick &&onClick('메인 페이지')} handleSideMenu={handleSideMenu}/>
-        <SideButton content={"나의 동화 목록"} onClick={()=>onClick &&onClick('나의 동화 목록')} handleSideMenu={handleSideMenu}/>
-        <SideButton content={"나의 단어 목록"} onClick={()=>onClick &&onClick('나의 단어 목록')} handleSideMenu={handleSideMenu}/>
+        <SideButton content={"메인 페이지"} onClick={()=>onClick &&onClick('메인 페이지')} handleSideMenu={handleSideMenu} setOpen = {setOpenLoginModal}/>
+        <SideButton content={"나의 동화 목록"} onClick={()=>onClick &&onClick('나의 동화 목록')} handleSideMenu={handleSideMenu} setOpen = {setOpenLoginModal}/>
+        <SideButton content={"나의 단어 목록"} onClick={()=>onClick &&onClick('나의 단어 목록')} handleSideMenu={handleSideMenu} setOpen = {setOpenLoginModal}/>
       </Box>
       <List content={"언어 설정"}/>
       <Box sx={{
         display: 'flex', alignItems: 'center',flexDirection:'column'}}>
-          <SideButton content={"바로 가기"} onClick={handleLanguageSettingClick} handleSideMenu={handleSideMenu}/>
+          <SideButton content={"바로 가기"} onClick={handleLanguageSettingClick} handleSideMenu={handleSideMenu} setOpen = {setOpenLoginModal}/>
       </Box>
       <Box sx={{width: '30px', height: '30px', bgcolor: 'red'}} onClick={()=>setUserRole('USER')}></Box>
       <Box sx={{

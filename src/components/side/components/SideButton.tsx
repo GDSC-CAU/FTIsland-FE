@@ -8,22 +8,24 @@ interface SideButtonProps {
   onClick: (content: string) => void;
   handleSideMenu: (isOpen: boolean) => void;
   word?: boolean;
-  setOpen?: (isOpen: boolean) => void;
+  setOpen: (isOpen: boolean) => void;
 }
 
 const SideButton: React.FC<SideButtonProps> = ({content, backgroundColor, onClick, handleSideMenu, word, setOpen}) => {
   const [isHovered, setIsHovered] = useState(false);
-  const {setUserRole} = useUser();
+  const {setUserRole, userRole} = useUser();
 
   const handleClick = () => {
     if(onClick){
-      onClick(content);
-      if(content === '바로 가기')handleSideMenu(true);
+      if(userRole ==='USER' || content ==='바로 가기'){
+        onClick(content);
+      }
+      if(content === '바로 가기' || userRole !=='USER' && content !=='메인 페이지')handleSideMenu(true);
       else if(content ==='로그인')handleSideMenu(true);
       else handleSideMenu(false);
 
     }
-    if(content !== '로그아웃' && setOpen){
+    if(content !=='메인 페이지' && content !=='바로 가기' && (userRole !== 'USER' || (content === '로그인' && setOpen))){
       setOpen(true);
     }
     if(content === '로그아웃')setUserRole(null);
