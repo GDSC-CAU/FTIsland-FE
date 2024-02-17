@@ -1,5 +1,6 @@
 import { Avatar, Box, Typography } from '@mui/material'
 import React, { useState } from 'react'
+import { useUser } from 'src/hook/useUser';
 
 interface SideButtonProps {
   content: string;
@@ -12,17 +13,20 @@ interface SideButtonProps {
 
 const SideButton: React.FC<SideButtonProps> = ({content, backgroundColor, onClick, handleSideMenu, word, setOpen}) => {
   const [isHovered, setIsHovered] = useState(false);
+  const {setUserRole} = useUser();
 
   const handleClick = () => {
     if(onClick){
       onClick(content);
       if(content === '바로 가기')handleSideMenu(true);
-      else if(content === '로그아웃' || content ==='로그인')handleSideMenu(true);
+      else if(content ==='로그인')handleSideMenu(true);
       else handleSideMenu(false);
+
     }
-    if(setOpen){
+    if(content !== '로그아웃' && setOpen){
       setOpen(true);
     }
+    if(content === '로그아웃')setUserRole(null);
   }
 
   return (
