@@ -127,7 +127,7 @@ const StoryCard = ({
             position: 'relative',
             width: '100%',
             // height: { xs: '50%', sm: '40%' },
-            minHeight: '40%',
+            minHeight: isClickable || isMobile ? '40%' : '30%',
             borderRadius: '20px',
             m: { xs: 1, sm: 2 },
             p: { xs: 1, sm: 2 },
@@ -136,7 +136,7 @@ const StoryCard = ({
           }}
         >
           <Typography
-            variant={isMobile ? 'h6' : 'h4'}
+            variant={isMobile ? 'h4' : 'h4'}
             sx={{
               fontWeight: 900,
               textAlign: 'center',
@@ -155,11 +155,12 @@ const StoryCard = ({
           </Typography>
           <Typography
             sx={{
-              fontSize: isMobile ? '14px' : '17.5px',
+              fontSize: isClickable && !isMobile ? '17.5px' : '21.5px',
               fontWeight: 600,
               textAlign: 'center',
               color: 'white',
               textShadow: '1px',
+              wordBreak: 'break-all',
             }}
           >
             {description}

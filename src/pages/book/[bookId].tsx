@@ -1,4 +1,5 @@
 import { ReactElement, useEffect, useState } from 'react';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import {
   Box,
@@ -11,10 +12,10 @@ import {
   useTheme,
 } from '@mui/material';
 
-import Layout from 'src/components/Layout';
 import BookCover from 'src/components/book/BookCover';
 import BookContent from 'src/components/book/BookContent';
 import BookQuiz from 'src/components/book/BookQuiz';
+import Layout from 'src/components/Layout';
 
 export type BookContentDataType = {
   bookId: number;
@@ -27,17 +28,22 @@ export type BookContentDataType = {
   image: string;
 };
 
-const BookPage = () => {
+const BookPage = ({
+  bookId,
+  limit,
+  offset,
+}: {
+  bookId: string;
+  limit: string | null;
+  offset: string | null;
+}) => {
   const { breakpoints } = useTheme();
   const isMobile = useMediaQuery(breakpoints.down('sm'));
-  const { query, replace } = useRouter();
+  const { replace } = useRouter();
 
-  const [bookContentStep, setBookContentStep] = useState(query.limit ? 1 : 0);
-  const [bookLimit, setBookLimit] = useState(Number(query.limit) || 1);
-  const [currentOffset, setCurrentOffset] = useState(Number(query.offset) || 0);
-
-  // 쿼리파라미터에서 가져올때 유효성 검사 로직 필요!!
-  // 전체 리밋을 넘는지, 그리고 모바일에서는 2까지만 가능하도록 해야함
+  const [bookContentStep, setBookContentStep] = useState(limit ? 1 : 0);
+  const [bookLimit, setBookLimit] = useState(Number(limit) || 1);
+  const [currentOffset, setCurrentOffset] = useState(Number(offset) || 0);
 
   const testData1 = {
     bookId: 1,
@@ -85,15 +91,37 @@ const BookPage = () => {
       page: 4,
       mainLan: 'ko',
       subLan: 'en',
-      korContents: '어느 날 엄마돼지는 아기돼지 삼 형제를 불러 모았어요.',
-      mainContents: '어느 날 엄마돼지는 아기돼지 삼 형제를 불러 모았어요.',
+      korContents: '어느 날 엄마돼지는 아기돼지 삼 형제를 불러 모았어요.@@@@@',
+      mainContents: '어느 날 엄마돼지는 아기돼지 삼 형제를 불러 모았어요.@@@@',
       subContents: 'One day, the mother pig called the three little pigs together.',
       image: '/image/coverImg3.jpg',
     },
   ];
 
-  const bookContentData = testData2;
+  const testData3 = [
+    {
+      mainQuestion:
+        '1. 만약에 콩쥐와 팥쥐가 서로 다른 음식을 좋아하는데, 어떤 음식을 좋아할 것 같아? 그 이유는 무엇일까?',
+      subQuestion:
+        '1. If Kongjwi and Patjwi like different foods, what food do you think they like? What is the reason?',
+    },
+    {
+      mainQuestion:
+        '2. 콩쥐와 팥쥐가 함께 모험을 떠난다면, 어떤 도전에 직면하게 될 것 같아? 그 상황에서 둘은 어떻게 협력할 수 있을까?',
+      subQuestion:
+        '2. If Kongjwi and Patjwi go on an adventure together, what challenges do you think they will face? How can the two cooperate in that situation?',
+    },
+    {
+      mainQuestion:
+        '3. 이야기의 결말을 바꿔서, 콩쥐와 팥쥐가 무엇인가를 함께 찾는 여정을 떠나게 된다면, 그것이 무엇일지 상상해봐.',
+      subQuestion:
+        '3. If you change the ending of the story and Kongjwi and Patjwi go on a journey to find something together, imagine what that would be.',
+    },
+  ];
+
   const bookSummaryData = testData1;
+  const bookContentData = testData2;
+  const bookQuizData = testData3;
 
   const handleChangeStep = (isNext: boolean) => {
     setBookContentStep((prev) => {
@@ -138,11 +166,11 @@ const BookPage = () => {
   }, [bookLimit, isMobile]);
 
   useEffect(() => {
-    if (bookContentStep === 1)
-      replace(`/book/${query.bookId}?limit=${bookLimit}&offset=${currentOffset}`);
-    else replace(`/book/${query.bookId}`);
+    if (bookContentStep !== 0)
+      replace(`/book/${Number(bookId)}?limit=${bookLimit}&offset=${currentOffset}`);
+    else replace(`/book/${Number(bookId)}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bookLimit, currentOffset, query.bookId, bookContentStep]);
+  }, [bookLimit, currentOffset, bookId, bookContentStep]);
 
   return (
     <Box
@@ -181,7 +209,7 @@ const BookPage = () => {
               value={bookLimit}
               onChange={(e) => {
                 setBookLimit(e.target.value as number);
-                replace(`/book/${query.bookId}?limit=${e.target.value}&offset=${currentOffset}`);
+                replace(`/book/${bookId}?limit=${e.target.value}&offset=${currentOffset}`);
               }}
               input={<InputBase />}
               MenuProps={{
@@ -189,6 +217,8 @@ const BookPage = () => {
                 MenuListProps: { sx: { padding: 0 } },
               }}
               sx={{
+                display: bookContentStep === 1 ? 'block' : 'none',
+                overflow: 'hidden',
                 '.MuiSelect-select': {
                   px: 1,
                   ':before': {
@@ -226,11 +256,44 @@ const BookPage = () => {
         />
       ) : null}
 
-      {bookContentStep === 2 ? <BookQuiz /> : null}
+      {bookContentStep === 2 ? (
+        <BookQuiz
+          bookCoverImage={bookSummaryData.image}
+          bookQuizData={bookQuizData}
+          handleChangeStep={handleChangeStep}
+        />
+      ) : null}
     </Box>
   );
 };
 
 BookPage.getLayout = (page: ReactElement) => <Layout>{page}</Layout>;
+
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext,
+) => {
+  const { bookId, limit, offset } = context.query;
+
+  const isBookIdValid = isNaN(Number(bookId)) || Number(bookId) < 1;
+  // const isLimitValid =
+  //   limit === undefined || isNaN(Number(limit)) || Number(limit) < 1 || Number(limit) > 5;
+  // const isOffsetValid = offset === undefined || isNaN(Number(offset)) || Number(offset) < 0;
+  if (isBookIdValid) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      bookId: bookId,
+      limit: limit ?? null,
+      offset: offset ?? null,
+    },
+  };
+};
 
 export default BookPage;
