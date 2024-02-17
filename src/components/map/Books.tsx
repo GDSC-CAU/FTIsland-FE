@@ -38,7 +38,7 @@ const islandBoxPositions: Record<string, BoxPosition[]> = {
     ],
     "미지의 섬": [
       { top: '80%', left: '37%'},
-      { top: '35%', left: '32%'},
+      { top: '35%', left: '33%'},
       { top: '55%', left: '55%'},
       { top: '70%', left: '67%'},
     ],
@@ -53,12 +53,13 @@ const Books = ({island} : {island: string}) => {
         <CardMedia
         key={index}
         component="img"
-        image="/image/coverImg1.jpg"
+        image="/image/coverImg2.jpg"
         title="mark"
         sx={{
           width: '70px',
           height: '70px',
           borderRadius: '10px',
+          border: '4px solid white',
           boxShadow: '10px 10px 5px 2px rgba(0, 0, 0, 0.25)',
           position: 'absolute',
           top: boxPosition.top,
