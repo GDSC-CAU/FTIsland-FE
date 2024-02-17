@@ -1,6 +1,8 @@
 import { Avatar, Box, Button, CardMedia, IconButton, Modal, Typography } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
 import React from 'react'
+import { useUser } from 'src/hook/useUser';
+import { getLogin } from 'src/apis/login';
 
 interface LoginProps {
   open: boolean;
@@ -8,8 +10,14 @@ interface LoginProps {
 }
 
 const Login: React.FC<LoginProps> = ({open, setOpen}) => {
+const {setToken, setUserId, setUserRole} = useUser();
+
   const handleClose = () => {
     setOpen(false);
+  }
+
+  const handleClick = async () => {
+    await getLogin(setToken, setUserId, setUserRole);
   }
 
   return (
@@ -32,7 +40,7 @@ const Login: React.FC<LoginProps> = ({open, setOpen}) => {
           FT 아일랜드
         </Typography>
 
-        <Button variant='contained' sx={buttonStyle()}>
+        <Button variant='contained' sx={buttonStyle()} onClick={handleClick}>
           <Avatar src="image/google.png" alt="google" sx={{width: '25px', height: '25px', marginRight: '15px'}}/>
           구글 로그인</Button>
       </Box>

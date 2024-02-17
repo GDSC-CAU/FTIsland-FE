@@ -1,19 +1,20 @@
 import { Box, Button, IconButton, Modal, SelectChangeEvent, TextField, Typography } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
-import React, { useState } from 'react'
+import React from 'react'
 import LanguageButton from '../side/components/LanguageButton';
+import { useUser } from 'src/hook/useUser';
 
 interface LoginProps {
   open: boolean;
   setOpen: (value: boolean) => void;
 }
 
-const Login: React.FC<LoginProps> = ({open, setOpen}) => {
+const Join: React.FC<LoginProps> = ({open, setOpen}) => {
+  const {user, setMainLanguage, setSubLanguage, setUserRole} = useUser();
   const handleClose = () => {
+    setUserRole(null);
     setOpen(false);
   }
-  const [mainLanguage, setMainLanguage] = useState('한국어');
-  const [subLanguage, setSubLanguage] = useState('English');
 
   const handleMainLanguageChange = (event: SelectChangeEvent<string>) => {
     setMainLanguage(event.target.value as string);
@@ -50,14 +51,14 @@ const Login: React.FC<LoginProps> = ({open, setOpen}) => {
           <Typography variant="h6" sx={{fontWeight: 900, marginTop:'20px',}}>
           주언어
         </Typography>
-        <LanguageButton language={mainLanguage} handleLanguageChange={handleMainLanguageChange}/>
+        <LanguageButton language={user.mainLanguage} handleLanguageChange={handleMainLanguageChange}/>
           </Box>
 
           <Box sx={{width: '33%', marginLeft:'5px',}}>
           <Typography variant="h6" sx={{fontWeight: 900, marginTop:'20px'}}>
           보조언어
         </Typography>
-        <LanguageButton language={subLanguage} handleLanguageChange={handleSubLanguageChange} />
+        <LanguageButton language={user.subLanguage} handleLanguageChange={handleSubLanguageChange} />
           </Box>
 
         </Box>
@@ -68,7 +69,7 @@ const Login: React.FC<LoginProps> = ({open, setOpen}) => {
   )
 }
 
-export default Login;
+export default Join;
 
 const boxStyle = () => ({ 
   width: {xs: '100%', sm:'500px'}, 

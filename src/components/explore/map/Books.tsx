@@ -50,35 +50,33 @@ const Books = ({ island }: { island: string }) => {
     <>
       {boxPositions?.map((boxPosition, index) => (
         <Fragment key={index}>
-          <CardMedia
-            component="img"
-            image="/image/coverImg2.jpg"
-            title="mark"
-            sx={{
-              width: '70px',
-              height: '70px',
-              borderRadius: '10px',
-              border: '4px solid white',
-              boxShadow: '10px 10px 5px 2px rgba(0, 0, 0, 0.25)',
-              position: 'absolute',
-              top: boxPosition.top,
-              left: boxPosition.left,
-              transform: 'translate(-50%, -130%)',
-            }}
-          />
-          <CardMedia
-            component="img"
-            image="/image/mark-location.png"
-            title="mark"
-            sx={{
-              width: '30px',
-              height: '30px',
-              position: 'absolute',
-              top: boxPosition.top,
-              left: boxPosition.left,
-              transform: 'translate(-50%, -50%)',
-            }}
-          />
+        <CardMedia
+        component="img"
+        image="/image/coverImg2.jpg"
+        title="mark"
+        sx={{
+          width: {xs:'70px', sm:'100px'},
+          height: {xs:'70px', sm:'100px'},
+          borderRadius: '10px',
+          border: '4px solid white',
+          boxShadow: '10px 10px 5px 2px rgba(0, 0, 0, 0.25)',
+          position: 'absolute',
+          top: boxPosition.top,
+          left: boxPosition.left,
+          transform: 'translate(-50%, -130%)',
+        }}/> 
+        <CardMedia
+        component="img"
+        image="/image/mark-location.png"
+        title="mark"
+        sx={{
+          width: '30px',
+          height: '30px',
+          position: 'absolute',
+          top: boxPosition.top,
+          left: boxPosition.left,
+          transform: 'translate(-50%, -50%)',
+        }}/> 
         </Fragment>
       ))}
     </>
