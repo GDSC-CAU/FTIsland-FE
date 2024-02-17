@@ -29,7 +29,16 @@ const Appbar = ({
           }}
           sx={{ display: 'flex', alignItems: 'center', px: 2, gap: 2, cursor: 'pointer' }}
         >
-          <Box sx={{ width: '36px', height: '36px', borderRadius: '50%', bgcolor: '#39A7FF' }} />
+          <Box
+            sx={{
+              width: '36px',
+              height: '36px',
+              backgroundImage: 'url(/favicon.ico)',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'contain',
+            }}
+          />
           <Typography variant="h4" component="h1" sx={{ fontWeight: 600, whiteSpace: 'nowrap' }}>
             FT Island
           </Typography>
