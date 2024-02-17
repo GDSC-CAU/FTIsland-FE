@@ -10,8 +10,8 @@ export interface UserContextValues{
     setSubLanguage :(value: string) => void;
     token: string | null;
     setToken: (value: string | null) => void;
-    userId: string | null;
-    setUserId: (value: string | null) => void;
+    userId: string | number;
+    setUserId: (value: string | number) => void;
     userRole: string | null;
     setUserRole: (value: string | null) => void;
 }
@@ -26,7 +26,7 @@ const contextDefaultValue: UserContextValues = {
     setSubLanguage: () => {},
     token: null,
     setToken: () => {},
-    userId: null,
+    userId: -1,
     setUserId: () => {},
     userRole: null,
     setUserRole: () => {},

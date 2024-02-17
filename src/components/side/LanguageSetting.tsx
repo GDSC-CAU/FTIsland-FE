@@ -5,6 +5,7 @@ import List from './components/List';
 import Back from './components/Back';
 import LanguageButton from './components/LanguageButton';
 import { useUser } from 'src/hook/useUser';
+import {postLanguages} from './../../../src/apis/language'
 
 interface MenuProps {
   setContent: (setContent: ReactElement) => void;
@@ -13,17 +14,23 @@ interface MenuProps {
 }
 
 const LanguageSetting: React.FC<MenuProps> = ({setContent, onClick, handleSideMenu}) => {
-  const {user, setMainLanguage, setSubLanguage} = useUser();
+  const {user, userId, setMainLanguage, setSubLanguage} = useUser();
   
   const handleBack = () => {
     setContent(<Menu setContent={setContent} onClick={onClick} handleSideMenu={handleSideMenu} />);
   };
 
-  const handleMainLanguageChange = (event: SelectChangeEvent<string>) => {
+  const handleMainLanguageChange = async (event: SelectChangeEvent<string>) => {
     setMainLanguage(event.target.value as string);
+    if(userId!==-1 && typeof userId === 'string'){
+      await postLanguages(userId, user.mainLanguage, user.subLanguage);
+    }
   };
-  const handleSubLanguageChange = (event: SelectChangeEvent<string>) => {
+  const handleSubLanguageChange = async (event: SelectChangeEvent<string>) => {
     setSubLanguage(event.target.value as string);  // 클릭된 내용을 mainLanguage 상태에 저장
+    if(userId!==-1 && typeof userId === 'string'){
+      await postLanguages(userId, user.mainLanguage, user.subLanguage);
+    }
   };
 
   return (
