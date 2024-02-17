@@ -10,14 +10,14 @@ interface LoginProps {
 }
 
 const Login: React.FC<LoginProps> = ({open, setOpen}) => {
-const {setCode, setUserId, setUserRole} = useUser();
+const {setToken, setUserId, setUserRole} = useUser();
 
   const handleClose = () => {
     setOpen(false);
   }
 
   const handleClick = async () => {
-    await getLogin(setCode, setUserId, setUserRole);
+    await getLogin(setToken, setUserId, setUserRole);
   }
 
   return (
