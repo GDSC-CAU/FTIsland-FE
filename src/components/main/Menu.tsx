@@ -6,19 +6,25 @@ import MyWord from './MyWord'
 interface MenuProps {
     handleClick: (newContent: ReactElement) => void;
     tabIndex: number;
+    handleOpenLoginModal: () => void;
   }
 
-  const Menu: React.FC<MenuProps> = ({ handleClick, tabIndex }) => {
+  const Menu: React.FC<MenuProps> = ({ handleClick, tabIndex, handleOpenLoginModal }) => {
     const [value, setValue] = useState(0);
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('sm'));
+    const login = false;
 
     const handleChange = (event:React.SyntheticEvent, newValue: number) => {
+      if(login){
         setValue(newValue);
-
+  
         if(newValue === 0)handleClick(<Explore/>);
         else if(newValue === 1)handleClick(<Recent/>);
         else if(newValue === 2)handleClick(<MyWord/>);
+      }else{
+        handleOpenLoginModal();
+      }
     }
     useEffect(()=>{
       setValue(tabIndex);
