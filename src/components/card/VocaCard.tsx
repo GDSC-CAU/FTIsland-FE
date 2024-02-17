@@ -136,6 +136,31 @@ const VocaCard = ({
           }}
         >
           <Box
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            sx={{
+              position: 'absolute',
+              top: '12px',
+              right: '16px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1,
+
+              '> p': {
+                fontWeight: 600,
+              },
+            }}
+          >
+            {/* <Typography variant="body2">보조언어</Typography> */}
+            {/* <SwitchButton
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            /> */}
+            {/* <Typography variant="body2">주언어</Typography> */}
+          </Box>
+          <Box
             sx={{
               display: 'flex',
               flexDirection: 'column',
