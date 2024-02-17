@@ -3,6 +3,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import React from 'react'
 import LanguageButton from '../side/components/LanguageButton';
 import { useUser } from 'src/hook/useUser';
+import { postLanguages } from 'src/apis/language';
 
 interface LoginProps {
   open: boolean;
@@ -10,10 +11,15 @@ interface LoginProps {
 }
 
 const Join: React.FC<LoginProps> = ({open, setOpen}) => {
-  const {user, setMainLanguage, setSubLanguage, setUserRole} = useUser();
+  const {user, userId, setNickName, setMainLanguage, setSubLanguage, setUserRole} = useUser();
   const handleClose = () => {
+    setNickName('');
     setUserRole(null);
     setOpen(false);
+  };
+
+  const handleNickNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNickName(event.target.value);
   }
 
   const handleMainLanguageChange = (event: SelectChangeEvent<string>) => {
@@ -22,7 +28,17 @@ const Join: React.FC<LoginProps> = ({open, setOpen}) => {
   };
   const handleSubLanguageChange = (event: SelectChangeEvent<string>) => {
     setSubLanguage(event.target.value as string);  // 클릭된 내용을 mainLanguage 상태에 저장
+  };
+
+  const handleJoin = async () => {
+    if(user.nickName.length === 0 || user.nickName == null){
+      alert('별명의 길이가 1자 이상이어야 합니다');
+    }
+    else if(typeof userId === 'string'){
+      await postLanguages(userId, user.nickName, user.mainLanguage, user.subLanguage);
+    }
   }
+
   return (
     <Modal open={open} onClose={handleClose}>
       <Box sx={boxStyle()}>
@@ -38,7 +54,7 @@ const Join: React.FC<LoginProps> = ({open, setOpen}) => {
         <Typography variant="h5" sx={{fontWeight: 900, marginBottom: '15px'}}>
           아이의 별명을 지어주세요!
         </Typography>
-        <TextField id="outlined-basic" label="별명" variant="outlined" sx={textFieldStyle()}>asdf</TextField>
+        <TextField id="outlined-basic" label="별명" variant="outlined" onChange={handleNickNameChange} sx={textFieldStyle()}/>
         
         <Typography variant="h5" sx={{fontWeight: 900, marginTop:'50px'}}>
           언어 선택
@@ -63,7 +79,7 @@ const Join: React.FC<LoginProps> = ({open, setOpen}) => {
 
         </Box>
 
-        <Button variant='contained' sx={buttonStyle()}>회원가입</Button>
+        <Button variant='contained' sx={buttonStyle()} onClick={handleJoin}>회원가입</Button>
       </Box>
     </Modal>
   )
