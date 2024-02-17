@@ -58,7 +58,7 @@ const boxStyle = () => ({
   top: '50%', 
   left: '50%', 
   transform: 'translate(-50%, -50%)',
-  borderRadius: '20px',
+  borderRadius: {xs: '0px', sm: '20px'},
 
   display: 'flex',
   flexDirection: 'column',
