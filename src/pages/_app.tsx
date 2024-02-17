@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, GlobalStyles } from '@mui/material';
+import { UserProvider } from 'src/contexts/UserContext';
 
 const globalStyle = (
   <GlobalStyles
@@ -69,11 +70,13 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <UserProvider>
       <ThemeProvider theme={theme}>
         {globalStyle}
         <CssBaseline />
         {getLayout(<Component {...pageProps} />)}
       </ThemeProvider>
+      </UserProvider>
     </>
   );
 }
