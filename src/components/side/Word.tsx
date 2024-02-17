@@ -45,7 +45,7 @@ const Word: React.FC<MenuProps> = ({onClick, handleSideMenu}) => {
         {detail}
       </Box>
       <Box sx={{display: 'flex', justifyContent: 'center'}}>
-        <SideButton content={"나의 단어 목록"} onClick={()=>onClick &&onClick('나의 단어 목록')} handleSideMenu={handleSideMenu} word={true}/>
+        <SideButton content={"나의 단어 목록"} onClick={()=>onClick &&onClick('나의 단어 목록')} handleSideMenu={handleSideMenu} word={true} />
       </Box>
       
     </Box>
