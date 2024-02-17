@@ -3,6 +3,7 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import Explore from './Explore'
 import Recent from './Recent'
 import MyWord from './MyWord'
+import { useUser } from 'src/hook/useUser'
 interface MenuProps {
     handleClick: (newContent: ReactElement) => void;
     tabIndex: number;
@@ -10,13 +11,13 @@ interface MenuProps {
   }
 
   const Menu: React.FC<MenuProps> = ({ handleClick, tabIndex, handleOpenLoginModal }) => {
+    const {userRole} = useUser();
     const [value, setValue] = useState(0);
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('sm'));
-    const login = false;
 
     const handleChange = (event:React.SyntheticEvent, newValue: number) => {
-      if(login){
+      if(userRole === "USER"){
         setValue(newValue);
   
         if(newValue === 0)handleClick(<Explore/>);
