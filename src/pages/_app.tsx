@@ -65,17 +65,18 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         <meta charSet="utf-8" />
         <meta
           name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=contain"
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
 
       <UserProvider>
-      <ThemeProvider theme={theme}>
-        {globalStyle}
-        <CssBaseline />
-        {getLayout(<Component {...pageProps} />)}
-      </ThemeProvider>
+        <ThemeProvider theme={theme}>
+          {globalStyle}
+          <CssBaseline />
+          {getLayout(<Component {...pageProps} />)}
+        </ThemeProvider>
       </UserProvider>
     </>
   );

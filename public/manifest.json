@@ -1,0 +1,27 @@
+{
+  "background_color": "#ffffff",
+  "categories": ["entertainment", "social"],
+  "description": "Language Bridge with Multicultural Families",
+  "dir": "auto",
+  "display": "standalone",
+  "display_override": ["standalone", "window-controls-overlay"],
+  "icons": [
+    {
+      "purpose": "any",
+      "src": "/image/pwa/manifest-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "purpose": "any",
+      "src": "/image/pwa/manifest-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "name": "FT Island",
+  "scope": "/",
+  "short_name": "FT Island",
+  "start_url": "/",
+  "theme_color": "#ffffff"
+}
