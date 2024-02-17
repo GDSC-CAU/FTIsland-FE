@@ -56,8 +56,8 @@ const Books = ({island} : {island: string}) => {
         image="/image/coverImg2.jpg"
         title="mark"
         sx={{
-          width: '70px',
-          height: '70px',
+          width: {xs:'70px', sm:'100px'},
+          height: {xs:'70px', sm:'100px'},
           borderRadius: '10px',
           border: '4px solid white',
           boxShadow: '10px 10px 5px 2px rgba(0, 0, 0, 0.25)',
