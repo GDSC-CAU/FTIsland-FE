@@ -16,3 +16,14 @@ export const getIslandInfo = async (islandName:string, userId:string|number) => 
         console.error(error);
     }
 }
+
+export const getBookDetail = async (id:string|number) => {
+  try{
+    const url = baseURL + `/book/info?bookId=${id}`;
+    const response = await axios.post(url);
+    return response.data;
+
+  }catch(error){
+      console.error(error);
+  }
+}
