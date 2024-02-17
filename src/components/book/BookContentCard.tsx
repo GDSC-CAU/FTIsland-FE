@@ -5,7 +5,7 @@ import NextIcon from '@mui/icons-material/ArrowForwardIosRounded';
 
 import { BookContentDataType } from 'src/pages/book/[bookId]';
 import throttling from 'src/utils/throttling';
-import { googleTTS } from 'src/utils/tts';
+import { windowTTS } from 'src/utils/tts';
 
 const BookContentCard = ({
   bookLimit,
@@ -69,7 +69,7 @@ const BookContentCard = ({
                   }}
                   icon={<SoundIcon />}
                   onClick={() => {
-                    throttling(() => googleTTS(mainContents, mainLan), 1000);
+                    throttling(() => windowTTS(mainContents, mainLan), 1000);
                   }}
                 />
 
@@ -92,7 +92,7 @@ const BookContentCard = ({
                   }}
                   icon={<SoundIcon />}
                   onClick={() => {
-                    throttling(() => googleTTS(subContents, subLan), 1000);
+                    throttling(() => windowTTS(subContents, subLan), 1000);
                   }}
                 />
                 <Typography
@@ -147,7 +147,7 @@ const BookContentCard = ({
                       }}
                       icon={<SoundIcon />}
                       onClick={() => {
-                        throttling(() => googleTTS(mainContents, mainLan), 1000);
+                        throttling(() => windowTTS(mainContents, mainLan), 1000);
                       }}
                     />
                     <Typography
@@ -177,7 +177,7 @@ const BookContentCard = ({
                       }}
                       icon={<SoundIcon />}
                       onClick={() => {
-                        throttling(() => googleTTS(subContents, subLan), 1000);
+                        throttling(() => windowTTS(subContents, subLan), 1000);
                       }}
                     />
                     <Typography
