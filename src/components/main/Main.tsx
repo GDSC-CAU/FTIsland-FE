@@ -8,6 +8,7 @@ import MyWord from './MyWord';
 import Login from '../login/Login';
 import Join from '../login/Join';
 import { useUser } from 'src/hook/useUser';
+import { getBookExample } from 'src/apis/language';
 
 const Main = ({tabIndex} : {tabIndex : number}) => {
   const [content, setContent] = useState<ReactElement>(<Explore/>);
@@ -31,7 +32,7 @@ const Main = ({tabIndex} : {tabIndex : number}) => {
     if(tabIndex === 0)handleClick(<Explore/>);
     else if(tabIndex === 1)handleClick(<Recent/>);
     else if(tabIndex === 2)handleClick(<MyWord/>);
-
+    getBookExample();
     if(userRole === 'GUEST')handleOpenJoinModal();
   }, [tabIndex, userRole]);
 

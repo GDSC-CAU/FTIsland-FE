@@ -11,7 +11,7 @@ const SideMenu = ({
 }: {
   open: boolean;
   handleSideMenu: (isOpen: boolean) => void;
-  onClick?: (content: string) => void;
+  onClick: (content: string) => void;
 }) => {
   const { asPath } = useRouter();
   const [content, setContent] = useState<React.ReactElement | null>(null);

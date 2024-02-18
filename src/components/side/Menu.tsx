@@ -8,7 +8,7 @@ import { useUser } from 'src/hook/useUser';
 
 interface MenuProps {
     setContent: (setContent: ReactElement) => void;
-    onClick?: (content: string) => void;
+    onClick: (content: string) => void;
     handleSideMenu: (content: boolean) => void;
   }
 
@@ -23,9 +23,9 @@ const Menu: React.FC<MenuProps> =  ({setContent, onClick, handleSideMenu}) => {
       <List content={"메뉴"}/>
       <Box sx={{
         display: 'flex', alignItems: 'center',flexDirection:'column' , paddingBottom: 10}}>
-        <SideButton content={"메인 페이지"} onClick={()=>onClick &&onClick('메인 페이지')} handleSideMenu={handleSideMenu} setOpen = {setOpenLoginModal}/>
-        <SideButton content={"나의 동화 목록"} onClick={()=>onClick &&onClick('나의 동화 목록')} handleSideMenu={handleSideMenu} setOpen = {setOpenLoginModal}/>
-        <SideButton content={"나의 단어 목록"} onClick={()=>onClick &&onClick('나의 단어 목록')} handleSideMenu={handleSideMenu} setOpen = {setOpenLoginModal}/>
+        <SideButton content={"메인 페이지"} onClick={()=>onClick('메인 페이지')} handleSideMenu={handleSideMenu} setOpen = {setOpenLoginModal}/>
+        <SideButton content={"나의 동화 목록"} onClick={()=>onClick('나의 동화 목록')} handleSideMenu={handleSideMenu} setOpen = {setOpenLoginModal}/>
+        <SideButton content={"나의 단어 목록"} onClick={()=>onClick('나의 단어 목록')} handleSideMenu={handleSideMenu} setOpen = {setOpenLoginModal}/>
       </Box>
       <List content={"언어 설정"}/>
       <Box sx={{

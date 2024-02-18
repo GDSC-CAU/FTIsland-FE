@@ -68,14 +68,20 @@ const Books = ({ island }: { island: string }) => {
   const [focusBook, setFocusBook] = useState<StoryDataType | null>(null);
   const handleBookDetail = async (id:number) => {
     try{
-      const response = await getBookDetail(id);
+      // const response = await getBookDetail(id);
+      const response = 'hi';
       if (response){
         setFocusBook({
-          bookId: id,
-          title: response.title,
-          description: response.description,
-          images: response.image,
+          // bookId: id,
+          // title: response.title,
+          // description: response.description,
+          // images: response.image,
+          bookId: 4,
+          title: '숲 속 생존기',
+          description: '세상에서 양파를 제일 싫어하는 소년의 좌충우돌 양파 멸종시키기 대작전',
+          images: '/image/coverImg4.jpg',
         });
+        setIsOpenFocusStory(true);
       }
     }catch(error){
       console.error(error);

@@ -7,7 +7,7 @@ import SideMenu from './SideMenu';
 
 interface LayoutProps {
   children: ReactNode;
-  onClick?: (content: string) => void;
+  onClick: (content: string) => void;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children, onClick }) => {
