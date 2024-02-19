@@ -41,8 +41,11 @@ const {setToken, setUserId, setUserRole} = useUser();
         </Typography>
 
         <Button variant='contained' sx={buttonStyle()} onClick={handleClick}>
-          <Avatar src="image/google.png" alt="google" sx={{width: '25px', height: '25px', marginRight: '15px'}}/>
+          <Avatar src="image/lock.png" alt="google" sx={{width: '20px', height: '20px', marginRight: '15px'}}/>
           구글 로그인</Button>
+          <Button variant='contained' sx={buttonStyle()} onClick={handleClick}>
+          <Avatar src="image/join.png" alt="google" sx={{width: '20px', height: '20px', marginRight: '15px'}}/>
+          회원가입</Button>
       </Box>
     </Modal>
   )
@@ -74,6 +77,7 @@ const buttonStyle = () => ({
   color: 'black',
   fontWeight: 'bold',
   fontSize: '20px',
+  marginBottom: '20px',
   '&:hover': {
     backgroundColor: '#FF8383',
     color: 'white',
