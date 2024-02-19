@@ -15,6 +15,8 @@ export const postLogin = async ({id, password}:{id:string; password:string;}) =>
     if(response){
       if(response.status === 201){
         return response.data;
+      }else if(response.status === 409){
+        alert('아이디가 중복됩니다.');
       }
     }
 
