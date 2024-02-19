@@ -1,9 +1,8 @@
-import { Box, Button, IconButton, Modal, SelectChangeEvent, TextField, Typography } from '@mui/material'
+import { Box, Button, CardMedia, IconButton, Modal, TextField, Typography } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
-import React from 'react'
-import LanguageButton from '../side/components/LanguageButton';
+import React, { useState } from 'react';
+import { postLogin } from 'src/apis/login';
 import { useUser } from 'src/hook/useUser';
-import { postLanguages } from 'src/apis/language';
 
 interface LoginProps {
   open: boolean;
@@ -11,31 +10,36 @@ interface LoginProps {
 }
 
 const Login: React.FC<LoginProps> = ({open, setOpen}) => {
-  const {user, userId, setNickName, setMainLanguage, setSubLanguage, setUserRole} = useUser();
+  const {setUserId} = useUser();
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+
   const handleClose = () => {
-    setNickName('');
-    setUserRole(null);
+    // setNickName('');
+    // setUserRole(null);
     setOpen(false);
   };
 
-  const handleNickNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNickName(event.target.value);
+  const handleIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setId(event.target.value);
   }
 
-  const handleMainLanguageChange = (event: SelectChangeEvent<string>) => {
-    setMainLanguage(event.target.value as string);
-    console.log(event.target.value as string);
-  };
-  const handleSubLanguageChange = (event: SelectChangeEvent<string>) => {
-    setSubLanguage(event.target.value as string);  // 클릭된 내용을 mainLanguage 상태에 저장
-  };
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  }
 
-  const handleJoin = async () => {
-    if(user.nickName.length === 0 || user.nickName == null){
-      alert('별명의 길이가 1자 이상이어야 합니다');
+  const handleLogin = async () => {
+    if(id.length === 0 || id == null){
+      alert('아이디의 길이가 1자 이상이어야 합니다');
     }
-    else if(typeof userId === 'string'){
-      await postLanguages(userId, user.nickName, user.mainLanguage, user.subLanguage);
+    else if(password.length === 0 || password == null){
+      alert('비밀번호의 길이가 1자 이상이어야 합니다');
+    }
+    else {
+      const data = await postLogin({id, password});
+      if(data){
+        setUserId(data.userId);
+      }
     }
   }
 
@@ -47,39 +51,29 @@ const Login: React.FC<LoginProps> = ({open, setOpen}) => {
         >
           <CloseIcon sx={{ width: '28px', height: '28px' }} />
         </IconButton>
+        <CardMedia
+          image="/image/coverImg1.jpg"
+          sx={{
+            position: 'relative',
+            aspectRatio: '1/1',
+            width: '40%',
+            borderRadius:'100px'
+          }}/>
         <Typography variant="h4" sx={{ fontWeight: 900, marginTop:'2%',marginBottom: '5%', color:'#39A7FF'}}>
-          FT 아일랜드에 오신 것을 환영합니다!
+          FT Island
         </Typography>
 
-        <Typography variant="h5" sx={{fontWeight: 900, marginBottom: '15px'}}>
-          아이의 별명을 지어주세요!
+        <Typography variant="h5" sx={{fontWeight: 900, marginBottom: '5px'}}>
+          아이디
         </Typography>
-        <TextField id="outlined-basic" label="별명" variant="outlined" onChange={handleNickNameChange} sx={textFieldStyle()}/>
-        
-        <Typography variant="h5" sx={{fontWeight: 900, marginTop:'50px'}}>
-          언어 선택
+        <TextField id="outlined-basic" label="아이디" variant="outlined" onChange={handleIdChange} sx={textFieldStyle()}/>
+
+        <Typography variant="h5" sx={{fontWeight: 900, marginBottom: '5px'}}>
+          비밀번호
         </Typography>
+        <TextField id="outlined-basic" label="비밀번호" variant="outlined" onChange={handlePasswordChange} sx={textFieldStyle()}/>
 
-        <Box sx={{display:'flex', justifyContent:'center', alignContent: 'space-between', width:'100%', 
-        height:'35%'}}>
-          
-          <Box sx={{width: '33%', marginRight: '5px'}}>
-          <Typography variant="h6" sx={{fontWeight: 900, marginTop:'20px',}}>
-          주언어
-        </Typography>
-        <LanguageButton language={user.mainLanguage} handleLanguageChange={handleMainLanguageChange}/>
-          </Box>
-
-          <Box sx={{width: '33%', marginLeft:'5px',}}>
-          <Typography variant="h6" sx={{fontWeight: 900, marginTop:'20px'}}>
-          보조언어
-        </Typography>
-        <LanguageButton language={user.subLanguage} handleLanguageChange={handleSubLanguageChange} />
-          </Box>
-
-        </Box>
-
-        <Button variant='contained' sx={buttonStyle()} onClick={handleJoin}>회원가입</Button>
+        <Button variant='contained' sx={buttonStyle()} onClick={handleLogin}>로그인</Button>
       </Box>
     </Modal>
   )
@@ -105,6 +99,7 @@ const boxStyle = () => ({
 })
 
 const textFieldStyle = () => ({
+  marginBottom: '30px',
   '& .MuiOutlinedInput-root': {
     '& fieldset': {
       borderColor: '#FF8383',
@@ -131,4 +126,4 @@ const buttonStyle = () => ({
   },
   
 
-})
+});
