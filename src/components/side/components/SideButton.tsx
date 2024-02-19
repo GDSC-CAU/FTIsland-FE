@@ -21,11 +21,11 @@ const SideButton: React.FC<SideButtonProps> = ({content, backgroundColor, onClic
         onClick(content);
       }
       if(content === '바로 가기' || userRole !=='USER' && content !=='메인 페이지')handleSideMenu(true);
-      else if(content ==='로그인')handleSideMenu(true);
+      else if(content ==='로그인/회원가입')handleSideMenu(true);
       else handleSideMenu(false);
 
     }
-    if(content !=='메인 페이지' && content !=='바로 가기' && (userRole !== 'USER' || (content === '로그인' && setOpen))){
+    if(content !=='메인 페이지' && content !=='바로 가기' && (userRole !== 'USER' || (content === '로그인/회원가입' && setOpen))){
       if(setOpen !== undefined){
         setOpen(true);
       }

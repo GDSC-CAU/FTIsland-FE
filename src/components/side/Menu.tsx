@@ -35,7 +35,7 @@ const Menu: React.FC<MenuProps> =  ({setContent, onClick, handleSideMenu}) => {
       <Box sx={{width: '30px', height: '30px', bgcolor: 'red'}} onClick={()=>setUserRole('USER')}></Box>
       <Box sx={{
         display: 'flex', alignItems: 'center',flexDirection:'column',height: '33vh', justifyContent: 'flex-end'}}>
-          <SideButton content={userRole==="USER"?"로그아웃":"로그인"} backgroundColor={"white"} onClick={()=>{onClick && onClick('로그아웃');}} handleSideMenu={handleSideMenu} setOpen = {setOpenLoginModal}/>
+          <SideButton content={userRole==="USER"?"로그아웃":"로그인/회원가입"} backgroundColor={"white"} onClick={()=>{onClick && onClick('로그아웃');}} handleSideMenu={handleSideMenu} setOpen = {setOpenLoginModal}/>
           <Login open={openLoginModal} setOpen={setOpenLoginModal}></Login>
       </Box>
     </Box>
