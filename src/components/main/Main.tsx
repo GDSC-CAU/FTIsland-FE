@@ -5,7 +5,7 @@ import Explore from './Explore';
 import Menu from './Menu';
 import Recent from './Recent';
 import MyWord from './MyWord';
-import Login from '../login/Login';
+import Login from '../login/Enter';
 import Join from '../login/Join';
 import { useUser } from 'src/hook/useUser';
 import { getBookExample } from 'src/apis/language';
