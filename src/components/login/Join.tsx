@@ -67,11 +67,11 @@ const Join: React.FC<LoginProps> = ({open, setOpen}) => {
         <Typography variant="h5" sx={{fontWeight: 900, marginBottom: '5px'}}>
           아이디
         </Typography>
-        <TextField id="outlined-basic" label="별명" variant="outlined" onChange={handleIdChange} sx={textFieldStyle()}/>
+        <TextField id="outlined-basic" label="아이디" variant="outlined" onChange={handleIdChange} sx={textFieldStyle()}/>
         <Typography variant="h5" sx={{fontWeight: 900, marginBottom: '5px'}}>
           비밀번호
         </Typography>
-        <TextField id="outlined-basic" label="별명" variant="outlined" onChange={handlePasswordChange} sx={textFieldStyle()}/>
+        <TextField id="outlined-basic" label="비밀번호" variant="outlined" onChange={handlePasswordChange} sx={textFieldStyle()}/>
 
         <Typography variant="h5" sx={{fontWeight: 900, marginBottom: '5px'}}>
           별명
