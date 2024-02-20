@@ -6,6 +6,7 @@ import { getBookDetail, getIslandInfo } from 'src/apis/island';
 import StoryCard, { StoryDataType } from 'src/components/card/StoryCard';
 import { useUser } from 'src/hook/useUser';
 import Progress from './Progress';
+import { convertIslandName } from 'src/utils/convertIslandName';
 interface BoxPosition {
   top: string;
   left: string;
@@ -19,12 +20,12 @@ interface Book{
 }
 
 const Books = ({ island }: { island: string }) => {
-  const { user, userId } = useUser();
+  const { user, userId, userRole } = useUser();
   const [books, setBooks] = useState<Book[]>([]);
   const userIslandName = user.nickName ? `${user.nickName}의 섬` : '지혜의 섬';
   const realIslandName = useCallback(() => {
-    if (user.nickName) return '지혜';
-    else return island.replace('의 섬', '');
+    if (user.nickName) return convertIslandName('지혜');
+    else return convertIslandName(island.replace('의 섬', ''));
   }, [user.nickName, island]);
 
   const islandBoxPositions: Record<string, BoxPosition[]> = {
@@ -88,7 +89,7 @@ const Books = ({ island }: { island: string }) => {
   useEffect(() => {
     const fetchBookInfo = async () => {
       try {
-        const response = await getIslandInfo(realIslandName(), userId);
+        const response = await getIslandInfo((realIslandName()), userId);
         if(response){
           setBooks(response.data);
         }
@@ -105,7 +106,7 @@ const Books = ({ island }: { island: string }) => {
       {boxPositions?.map((boxPosition, index) => (
         <Fragment key={index}>
 
-        {books[index]?.image &&
+        {books[index]?.image && userRole === 'USER' &&
         <Box sx={{ position: 'absolute', top: boxPosition.top, left: boxPosition.left, transform: 'translate(-50%, -1500%)', width: '100px', height: '10px', bgcolor:'white', borderRadius:'20px', display: 'flex', alignItems:'center'}}>
           <Progress value={books[index].progress}/>
         </Box>
