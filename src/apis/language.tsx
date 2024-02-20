@@ -16,12 +16,3 @@ export const postLanguages = async (userId:string, nickName:string, mainLanguage
         console.error(error);
     }
 }
-
-export const getBookExample = async () => {
-  try{
-    const response = await axios.get(`${baseURL}/book/info?bookId=1`);
-    console.log(response);
-  }catch(error){
-    console.error(error);
-  }
-}

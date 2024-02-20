@@ -6,18 +6,16 @@ export const postLogin = async ({id, password}:{id:string; password:string;}) =>
 	try {
 
     const data = {
-      id: id,
-      password: password,
+      inputId: id,
+      inputPassword: password,
     }
 
     const response = await axios.post(`${baseURL}/login`, data);
 
-    if(response){
-      if(response.status === 201){
-        return response.data;
-      }else if(response.status === 409){
-        alert('아이디 혹은 비밀번호가 일치하지 않습니다.');
-      }
+    if(response && response.status === 200){
+      return response.data;
+    }else{
+      alert('등록된 정보가 없습니다.');
     }
 
 	} catch (error) {
@@ -30,20 +28,20 @@ export const postJoin = async ({id, password, name, mainLanguage, subLanguage}
 	try {
 
     const data = {
-      id: id,
-      password: password,
+      inputId: id,
+      inputPassword: password,
       name: name,
       mainLanguage: mainLanguage,
       subLanguage: subLanguage,
     }
+    console.log(data);
 
     const response = await axios.post(`${baseURL}/sign-up`, data);
-
     if(response){
-      if(response.status === 201){//...수정해야함
+      if(response.status === 200){//...수정해야함
         return response.data;
-      }else if(response.status === 404){
-        alert('회원가입에 실패했습니다. 다시 시도해주세요.');
+      }else {
+        alert("Join Failed");
       }
     }
 

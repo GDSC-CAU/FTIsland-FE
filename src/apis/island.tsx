@@ -8,7 +8,7 @@ export const getIslandInfo = async (islandName:string, userId:string|number) => 
         islandName: islandName,
         userId: userId,
       }
-      const url = baseURL + '/island/book';
+      const url = baseURL + '/island/books';
       const response = await axios.post(url, data);
       return response;
 
