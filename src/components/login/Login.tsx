@@ -10,13 +10,14 @@ interface LoginProps {
 }
 
 const Login: React.FC<LoginProps> = ({open, setOpen}) => {
-  const {setUserId} = useUser();
+  const {setUserId, setUserRole} = useUser();
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
 
   const handleClose = () => {
     // setNickName('');
     // setUserRole(null);
+    setUserRole("GUEST");
     setOpen(false);
   };
 
