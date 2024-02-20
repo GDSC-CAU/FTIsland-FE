@@ -43,7 +43,7 @@ const Island = ({ island }: { island: string }) => {
       return '/image/island5.webp';
     } else if (island === '미지의 섬') {
       return '/image/island7.webp';
-    }
+    } else return '/image/island2.webp';
   };
 
   return (

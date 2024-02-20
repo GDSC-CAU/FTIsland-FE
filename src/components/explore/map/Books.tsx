@@ -65,7 +65,7 @@ const Books = ({ island }: { island: string }) => {
       { top: '70%', left: '67%' },
     ],
   };
-  const boxPositions = islandBoxPositions[island];
+  const boxPositions = islandBoxPositions[island] || islandBoxPositions[userIslandName];
   const [isOpenFocusStory, setIsOpenFocusStory] = useState(false);
   const [focusBook, setFocusBook] = useState<StoryDataType | null>(null);
   const handleBookDetail = async (id: number) => {
