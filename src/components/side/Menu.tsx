@@ -14,7 +14,7 @@ interface MenuProps {
   }
 
 const Menu: React.FC<MenuProps> =  ({setContent, handleSideMenu}) => {
-  const {userRole, setUserRole} = useUser();
+  const {userRole} = useUser();
   const [openEnterModal, setOpenEnterModal] = useState(false);
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openJoinModal, setOpenJoinModal] = useState(false);
@@ -35,7 +35,6 @@ const Menu: React.FC<MenuProps> =  ({setContent, handleSideMenu}) => {
         display: 'flex', alignItems: 'center',flexDirection:'column'}}>
           <SideButton content={"바로 가기"} handleLanguage={handleLanguageSettingClick} handleSideMenu={handleSideMenu} setOpenEnter = {setOpenEnterModal}/>
       </Box>
-      <Box sx={{width: '30px', height: '30px', bgcolor: 'red'}} onClick={()=>setUserRole('USER')}></Box>
       <Box sx={{
         display: 'flex', alignItems: 'center',flexDirection:'column',height: '33vh', justifyContent: 'flex-end'}}>
           <SideButton content={userRole==="USER"?"로그아웃":"로그인/회원가입"} backgroundColor={"white"} handleSideMenu={handleSideMenu} setOpenEnter = {setOpenEnterModal}/>

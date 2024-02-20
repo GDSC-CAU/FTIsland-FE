@@ -1,7 +1,7 @@
 import { Box, Chip, Typography, useMediaQuery, useTheme } from '@mui/material';
 import SoundIcon from '@mui/icons-material/VolumeUp';
 
-import { BookContentDataType } from 'src/pages/book/[bookId]';
+import { BookContentDataType } from 'src/types/book';
 import throttling from 'src/utils/throttling';
 import { windowTTS } from 'src/utils/tts';
 

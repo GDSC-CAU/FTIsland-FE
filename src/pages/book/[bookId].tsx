@@ -11,22 +11,15 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import { QueryClient, dehydrate, useQuery } from '@tanstack/react-query';
 
+import { createQuiz, getBookContent, getBookInfo } from 'src/apis/book';
 import BookCover from 'src/components/book/BookCover';
 import BookContent from 'src/components/book/BookContent';
 import BookQuiz from 'src/components/book/BookQuiz';
 import Layout from 'src/components/Layout';
-
-export type BookContentDataType = {
-  bookId: number;
-  page: number;
-  mainLan: string;
-  subLan: string;
-  korContents: string;
-  mainContents: string;
-  subContents: string;
-  image: string;
-};
+import Loading from 'src/components/Loading';
+import { useUser } from 'src/hook/useUser';
 
 const BookPage = ({
   bookId,
@@ -40,88 +33,28 @@ const BookPage = ({
   const { breakpoints } = useTheme();
   const isMobile = useMediaQuery(breakpoints.down('sm'));
   const { replace } = useRouter();
+  const { userId } = useUser();
 
-  const [bookContentStep, setBookContentStep] = useState(limit ? 1 : 0);
+  const [bookContentStep, setBookContentStep] = useState(limit ? 1 : 2);
   const [bookLimit, setBookLimit] = useState(Number(limit) || 1);
   const [currentOffset, setCurrentOffset] = useState(Number(offset) || 0);
 
-  const testData1 = {
-    bookId: 1,
-    title: '아기 돼지 삼형제',
-    description: '아기 돼지들이 ~~~',
-    category: '모험',
-    country: '영국',
-    totalPage: 12,
-    image: '/image/coverImg2.jpg',
-  };
+  const { data: bookInfoData, isLoading: isBookCoverLoading } = useQuery({
+    queryKey: ['bookInfoData', bookId],
+    queryFn: async () => await getBookInfo(Number(bookId)),
+  });
 
-  const testData2 = [
-    {
-      bookId: 1,
-      page: 1,
-      mainLan: 'ko',
-      subLan: 'en',
-      korContents: '어느 숲 속 마을에 엄마돼지와 아기돼지 삼 형제가 살고 있었어요.',
-      mainContents: '어느 숲 속 마을에 엄마돼지와 아기돼지 삼 형제가 살고 있었어요.',
-      subContents: 'A mother pig and three little pigs lived in a forest village.',
-      image: '/image/coverImg1.jpg',
-    },
-    {
-      bookId: 1,
-      page: 2,
-      mainLan: 'ko',
-      subLan: 'en',
-      korContents: '어느 날 엄마돼지는 아기돼지 삼 형제를 불러 모았어요.',
-      mainContents: '어느 날 엄마돼지는 아기돼지 삼 형제를 불러 모았어요.',
-      subContents: 'One day, the mother pig called the three little pigs together.',
-      image: '/image/coverImg3.jpg',
-    },
-    {
-      bookId: 1,
-      page: 3,
-      mainLan: 'ko',
-      subLan: 'en',
-      korContents: '어느 숲 속 마을에 엄마돼지와 아기돼지 삼 형제가 살고 있었어요.',
-      mainContents: '어느 숲어느 숲어느 숲어느 숲어느 숲어느 숲어느 숲어느 숲',
-      subContents: 'A mother pig aA mother pig aA mother pig aA mother pig aA mother pig a',
-      image: '/image/coverImg1.jpg',
-    },
-    {
-      bookId: 1,
-      page: 4,
-      mainLan: 'ko',
-      subLan: 'en',
-      korContents: '어느 날 엄마돼지는 아기돼지 삼 형제를 불러 모았어요.@@@@@',
-      mainContents: '어느 날 엄마돼지는 아기돼지 삼 형제를 불러 모았어요.@@@@',
-      subContents: 'One day, the mother pig called the three little pigs together.',
-      image: '/image/coverImg3.jpg',
-    },
-  ];
+  const { data: bookContentData, isLoading: isBookContentLoading } = useQuery({
+    queryKey: ['bookContentData', bookId],
+    queryFn: async () => await getBookContent(Number(bookId), 'ko', 'en'),
+    // queryFn: async () => await getBookContent(Number(bookId), user.mainLanguage, user.subLanguage),
+  });
 
-  const testData3 = [
-    {
-      mainQuestion:
-        '1. 만약에 콩쥐와 팥쥐가 서로 다른 음식을 좋아하는데, 어떤 음식을 좋아할 것 같아? 그 이유는 무엇일까?',
-      subQuestion:
-        '1. If Kongjwi and Patjwi like different foods, what food do you think they like? What is the reason?',
-    },
-    {
-      mainQuestion:
-        '2. 콩쥐와 팥쥐가 함께 모험을 떠난다면, 어떤 도전에 직면하게 될 것 같아? 그 상황에서 둘은 어떻게 협력할 수 있을까?',
-      subQuestion:
-        '2. If Kongjwi and Patjwi go on an adventure together, what challenges do you think they will face? How can the two cooperate in that situation?',
-    },
-    {
-      mainQuestion:
-        '3. 이야기의 결말을 바꿔서, 콩쥐와 팥쥐가 무엇인가를 함께 찾는 여정을 떠나게 된다면, 그것이 무엇일지 상상해봐.',
-      subQuestion:
-        '3. If you change the ending of the story and Kongjwi and Patjwi go on a journey to find something together, imagine what that would be.',
-    },
-  ];
-
-  const bookSummaryData = testData1;
-  const bookContentData = testData2;
-  const bookQuizData = testData3;
+  const { data: bookQuizData, isLoading: isBookQuizDataLoading } = useQuery({
+    queryKey: ['bookQuizData', bookId],
+    queryFn: async () => await createQuiz(userId, Number(bookId), 'ko', 'en'),
+    // await createQuiz(userId, Number(bookId), user.mainLanguage, user.subLanguage),
+  });
 
   const handleChangeStep = (isNext: boolean) => {
     setBookContentStep((prev) => {
@@ -165,12 +98,16 @@ const BookPage = ({
     }
   }, [bookLimit, isMobile]);
 
-  useEffect(() => {
-    if (bookContentStep !== 0)
-      replace(`/book/${Number(bookId)}?limit=${bookLimit}&offset=${currentOffset}`);
-    else replace(`/book/${Number(bookId)}`);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bookLimit, currentOffset, bookId, bookContentStep]);
+  // useEffect(() => {
+  //   if (bookContentStep !== 0)
+  //     replace(`/book/${Number(bookId)}?limit=${bookLimit}&offset=${currentOffset}`);
+  //   else replace(`/book/${Number(bookId)}`);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [bookLimit, currentOffset, bookId, bookContentStep]);
+
+  if (bookContentStep === 0 && isBookCoverLoading) return <Loading />;
+  if (bookContentStep === 1 && isBookContentLoading) return <Loading />;
+  if (bookContentStep === 2 && isBookQuizDataLoading) return <Loading />;
 
   return (
     <Box
@@ -201,7 +138,7 @@ const BookPage = ({
             variant={isMobile ? 'h5' : 'h4'}
             sx={{ fontWeight: 600, whiteSpace: 'nowrap' }}
           >
-            {bookSummaryData.title}
+            {bookInfoData.title}
           </Typography>
           <Tooltip title="첫 페이지에서만 설정이 가능합니다." placement="top" disableTouchListener>
             <Select
@@ -244,7 +181,7 @@ const BookPage = ({
       ) : null}
 
       {bookContentStep === 0 ? (
-        <BookCover bookSummaryData={bookSummaryData} handleChangeStep={handleChangeStep} />
+        <BookCover bookSummaryData={bookInfoData} handleChangeStep={handleChangeStep} />
       ) : null}
 
       {bookContentStep === 1 ? (
@@ -258,7 +195,7 @@ const BookPage = ({
 
       {bookContentStep === 2 ? (
         <BookQuiz
-          bookCoverImage={bookSummaryData.image}
+          bookCoverImage={bookInfoData.image}
           bookQuizData={bookQuizData}
           handleChangeStep={handleChangeStep}
         />
@@ -275,6 +212,7 @@ export const getServerSideProps: GetServerSideProps = async (
   const { bookId, limit, offset } = context.query;
 
   const isBookIdValid = isNaN(Number(bookId)) || Number(bookId) < 1;
+
   // const isLimitValid =
   //   limit === undefined || isNaN(Number(limit)) || Number(limit) < 1 || Number(limit) > 5;
   // const isOffsetValid = offset === undefined || isNaN(Number(offset)) || Number(offset) < 0;
@@ -287,8 +225,15 @@ export const getServerSideProps: GetServerSideProps = async (
     };
   }
 
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery({
+    queryKey: ['bookInfo', bookId],
+    queryFn: () => getBookInfo(Number(bookId)),
+  });
+
   return {
     props: {
+      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
       bookId: bookId,
       limit: limit ?? null,
       offset: offset ?? null,
