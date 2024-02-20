@@ -24,9 +24,8 @@ const Books = ({ island }: { island: string }) => {
   const [books, setBooks] = useState<Book[]>([]);
   const userIslandName = user.nickName ? `${user.nickName}의 섬` : '지혜의 섬';
   const realIslandName = useCallback(() => {
-    if (user.nickName) return convertIslandName('지혜');
-    else return convertIslandName(island.replace('의 섬', ''));
-  }, [user.nickName, island]);
+    return convertIslandName(island.replace('의 섬', ''));
+  }, [island]);
 
   const islandBoxPositions: Record<string, BoxPosition[]> = {
     [userIslandName]: [
@@ -89,7 +88,7 @@ const Books = ({ island }: { island: string }) => {
   useEffect(() => {
     const fetchBookInfo = async () => {
       try {
-        const response = await getIslandInfo((realIslandName()), userId);
+        const response = await getIslandInfo(realIslandName(), userId);
         if(response){
           setBooks(response.data);
         }
