@@ -9,10 +9,12 @@ export const getLastReadBook = async (userId: number, bookId: number) =>
     bookId,
   });
 
+// 동화페이지에 추가
 // 완성 [GET] /book/info : 동화 정보 API
 export const getBookInfo = async (bookId: number) =>
   await requestAPIWithoutToken('GET', `/book/info?bookId=${bookId}`);
 
+// 동화페이지에 추가
 // 완성 [POST] /book/content : 동화 내용 API
 export const getBookContent = async (bookId: number, mainLan: string, subLan: string) =>
   await requestAPIWithoutToken('POST', `/book/content`, {
@@ -45,6 +47,7 @@ export const createQuiz = async (userId: number, bookId: number, mainLan: string
     subLan,
   });
 
+// 메인 탭, 사이드메뉴 탭에 적용
 // 완성 [POST] /book/recent-books : 최근 읽은 동화들 정보 API
 export const getRecentBookListInfo = async (userId: number) =>
   await requestAPIWithoutToken('POST', `/book/recent-books`, {

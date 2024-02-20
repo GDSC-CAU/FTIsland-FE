@@ -1,10 +1,10 @@
-import { Avatar, Box, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import { Avatar, Box, Typography } from '@mui/material';
+import React, { useState } from 'react';
 import { useUser } from 'src/hook/useUser';
 
 interface SideButtonProps {
   content: string;
-  backgroundColor?: string;  // backgroundColor prop 추가
+  backgroundColor?: string; // backgroundColor prop 추가
   handleLanguage?: (content?: string) => void;
   handleSideMenu: (isOpen: boolean) => void;
   word?: boolean;
@@ -12,60 +12,77 @@ interface SideButtonProps {
   setOpenJoin?: (isOpen: boolean) => void;
 }
 
-const SideButton: React.FC<SideButtonProps> = ({content, backgroundColor, handleSideMenu, handleLanguage, word, setOpenEnter}) => {
+const SideButton: React.FC<SideButtonProps> = ({
+  content,
+  backgroundColor,
+  handleSideMenu,
+  handleLanguage,
+  word,
+  setOpenEnter,
+}) => {
   const [isHovered, setIsHovered] = useState(false);
-  const {setUserRole, userRole, setMenu} = useUser();
+  const { setUserRole, userRole, setMenu } = useUser();
 
   const handleClick = () => {
     //Language
-    if(content==='바로 가기' && handleLanguage){
+    if (content === '바로 가기' && handleLanguage) {
       handleLanguage();
     }
 
     //사이드창 계속 열지 말지
-    if(userRole!=='USER' || content ==='바로 가기'){
+    if (userRole !== 'USER' || content === '바로 가기') {
       handleSideMenu(true);
-    }
-    else handleSideMenu(false);
+    } else handleSideMenu(false);
 
     //메인 창 내용
-    if(userRole ==='USER' || content ==='메인 페이지'){
+    if (userRole === 'USER' || content === '메인 페이지') {
       setMenu(content);
       handleSideMenu(false);
     }
 
-    if(content !=='메인 페이지' && content !=='바로 가기' && (userRole !== 'USER' || (content === '로그인/회원가입' && setOpenEnter))){
-      if(setOpenEnter !== undefined){
+    if (
+      content !== '메인 페이지' &&
+      content !== '바로 가기' &&
+      (userRole !== 'USER' || (content === '로그인/회원가입' && setOpenEnter))
+    ) {
+      if (setOpenEnter !== undefined) {
         setOpenEnter(true);
       }
     }
-    if(content === '로그아웃'){
-      setUserRole("GUEST");
+    if (content === '로그아웃') {
+      setUserRole('GUEST');
       localStorage.clear();
       location.reload();
     }
-  }
+  };
 
   return (
-    <Box 
+    <Box
       sx={boxStyle(backgroundColor, word)}
-      onMouseEnter = {()=> setIsHovered(true)}
-      onMouseLeave = {()=> setIsHovered(false)}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       onClick={handleClick}
     >
-      <Typography variant="h5" sx={listStyle()} >{content}</Typography>
-      <Avatar 
-        src={!isHovered && backgroundColor==undefined ? "/image/arrow-right-white.png":"/image/arrow-right-black.png" }
-        alt="arrow right" 
-        sx={{ width: '15%', height: 'auto' }}/>
+      <Typography variant="h5" sx={listStyle()}>
+        {content}
+      </Typography>
+      <Avatar
+        src={
+          !isHovered && backgroundColor == undefined
+            ? '/image/arrow-right-white.png'
+            : '/image/arrow-right-black.png'
+        }
+        alt="arrow right"
+        sx={{ width: '15%', height: 'auto' }}
+      />
     </Box>
-  )
-}
+  );
+};
 
 export default SideButton;
 
-const boxStyle = (backgroundColor: string | undefined, word: boolean | undefined)=>{
-  if(backgroundColor)
+const boxStyle = (backgroundColor: string | undefined, word: boolean | undefined) => {
+  if (backgroundColor)
     return {
       padding: 1.2,
       width: '80%',
@@ -74,18 +91,18 @@ const boxStyle = (backgroundColor: string | undefined, word: boolean | undefined
       alignItems: 'center',
       bgcolor: backgroundColor,
       color: 'black',
-      
-      marginTop: word?1:3, 
-      borderRadius: 10, 
+
+      marginTop: word ? 1 : 3,
+      borderRadius: 10,
       boxShadow: 3,
-      display: 'flex', 
+      display: 'flex',
       flexDirection: 'row',
       cursor: 'pointer',
-      '&:hover':{
+      '&:hover': {
         color: 'white',
         bgcolor: '#FF8383',
-      }
-    }
+      },
+    };
   return {
     padding: 1.2,
     width: '80%',
@@ -94,23 +111,22 @@ const boxStyle = (backgroundColor: string | undefined, word: boolean | undefined
     alignItems: 'center',
     bgcolor: backgroundColor || '#FF8383',
     color: 'white',
-  
-    marginTop: word?1:3, 
-    borderRadius: 10, 
+
+    marginTop: word ? 1 : 3,
+    borderRadius: 10,
     boxShadow: 3,
-    display: 'flex', 
+    display: 'flex',
     flexDirection: 'row',
     cursor: 'pointer',
-    '&:hover':{
+    '&:hover': {
       bgcolor: 'white',
       color: 'black',
-    }
-  } 
-  
+    },
+  };
 };
 
-const listStyle = ()=>({
-    fontFamily: 'sans-serif',
-    fontWeight: 'bold',
-    width: '80%'
-  });
+const listStyle = () => ({
+  fontFamily: 'sans-serif',
+  fontWeight: 'bold',
+  width: '80%',
+});
