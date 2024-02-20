@@ -63,7 +63,6 @@ export const UserProvider = ({children}:{children:ReactNode}) => {
       const newSubLanguage = localStorage.getItem('subLanguage');
       console.log(newUserId, newName, newMainLanguage, newSubLanguage);
       if(newUserId && newName && newMainLanguage && newSubLanguage){
-        console.log('호호호호');
         setUserId(newUserId);
         setNickName(newName);
         setMainLanguage(newMainLanguage);
