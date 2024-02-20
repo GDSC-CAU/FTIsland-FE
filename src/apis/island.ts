@@ -2,10 +2,10 @@ import axios from 'axios';
 
 const baseURL = process.env.NEXT_PUBLIC_SERVER_URL;
 
-export const getIslandInfo = async (islandName: string, userId: string | number) => {
+export const getIslandInfo = async (islandId: number, userId: string | number) => {
   try {
     const data = {
-      islandName: islandName,
+      islandId: islandId,
       userId: userId,
     };
     const url = baseURL + '/island/books';

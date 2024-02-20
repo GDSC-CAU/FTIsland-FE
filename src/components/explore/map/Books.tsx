@@ -1,28 +1,31 @@
-import { CardMedia, Dialog, IconButton, Slide } from '@mui/material';
+import { Box, CardMedia, Dialog, IconButton, Slide } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
 import CloseIcon from '@mui/icons-material/CloseRounded';
 import React, { Fragment, ReactElement, forwardRef, useCallback, useEffect, useState } from 'react';
 import { getBookDetail, getIslandInfo } from 'src/apis/island';
 import StoryCard, { StoryDataType } from 'src/components/card/StoryCard';
 import { useUser } from 'src/hook/useUser';
+import Progress from './Progress';
+import { convertIslandName } from 'src/utils/convertIslandName';
 interface BoxPosition {
   top: string;
   left: string;
 }
-interface Book {
+interface Book{
   bookId: number;
   title: string;
-  process: number;
+  description: string;
+  progress: number;
   image: string;
 }
 
 const Books = ({ island }: { island: string }) => {
-  const { user, userId } = useUser();
+  const { user, userId, userRole } = useUser();
   const [books, setBooks] = useState<Book[]>([]);
   const userIslandName = user.nickName ? `${user.nickName}의 섬` : '지혜의 섬';
   const realIslandName = useCallback(() => {
-    if (user.nickName) return '지혜';
-    else return island.replace('의 섬', '');
+    if (user.nickName) return convertIslandName('지혜');
+    else return convertIslandName(island.replace('의 섬', ''));
   }, [user.nickName, island]);
 
   const islandBoxPositions: Record<string, BoxPosition[]> = {
@@ -86,9 +89,8 @@ const Books = ({ island }: { island: string }) => {
   useEffect(() => {
     const fetchBookInfo = async () => {
       try {
-        const response = await getIslandInfo(realIslandName(), userId);
-        console.log(response);
-        if (response) {
+        const response = await getIslandInfo((realIslandName()), userId);
+        if(response){
           setBooks(response.data);
         }
       } catch (error) {
@@ -103,36 +105,41 @@ const Books = ({ island }: { island: string }) => {
     <>
       {boxPositions?.map((boxPosition, index) => (
         <Fragment key={index}>
-          <CardMedia
-            component="img"
-            image={books[index]?.image || '/image/coverImg2.jpg'}
-            title="mark"
-            onClick={() => handleBookDetail(books[index]?.bookId)}
-            sx={{
-              width: { xs: '70px', sm: '100px' },
-              height: { xs: '70px', sm: '100px' },
-              borderRadius: '10px',
-              border: '4px solid white',
-              boxShadow: '10px 10px 5px 2px rgba(0, 0, 0, 0.25)',
-              position: 'absolute',
-              top: boxPosition.top,
-              left: boxPosition.left,
-              transform: 'translate(-50%, -130%)',
-            }}
-          />
-          <CardMedia
-            component="img"
-            image="/image/mark-location.png"
-            title="mark"
-            sx={{
-              width: '30px',
-              height: '30px',
-              position: 'absolute',
-              top: boxPosition.top,
-              left: boxPosition.left,
-              transform: 'translate(-50%, -50%)',
-            }}
-          />
+
+        {books[index]?.image && userRole === 'USER' &&
+        <Box sx={{ position: 'absolute', top: boxPosition.top, left: boxPosition.left, transform: 'translate(-50%, -1500%)', width: '100px', height: '10px', bgcolor:'white', borderRadius:'20px', display: 'flex', alignItems:'center'}}>
+          <Progress value={books[index].progress}/>
+        </Box>
+        }
+
+        <CardMedia
+        component="img"
+        image={books[index]?.image || "/image/bookLock.webp"}
+        title="mark"
+        onClick={()=>handleBookDetail(books[index]?.bookId)}
+        sx={{
+          width: {xs:'70px', sm:'100px'},
+          height: {xs:'70px', sm:'100px'},
+          borderRadius: '10px',
+          border: '4px solid white',
+          boxShadow: '10px 10px 5px 2px rgba(0, 0, 0, 0.25)',
+          position: 'absolute',
+          top: boxPosition.top,
+          left: boxPosition.left,
+          transform: 'translate(-50%, -130%)',
+        }}/>
+        <CardMedia
+        component="img"
+        image="/image/mark-location.png"
+        title="mark"
+        sx={{
+          width: '30px',
+          height: '30px',
+          position: 'absolute',
+          top: boxPosition.top,
+          left: boxPosition.left,
+          transform: 'translate(-50%, -50%)',
+        }}/>
         </Fragment>
       ))}
       {isOpenFocusStory && focusBook ? (

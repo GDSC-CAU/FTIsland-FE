@@ -21,15 +21,15 @@ const LanguageSetting: React.FC<MenuProps> = ({setContent, handleSideMenu}) => {
 
   const handleMainLanguageChange = async (event: SelectChangeEvent<string>) => {
     setMainLanguage(event.target.value as string);
-    if(userId!==-1 && typeof userId === 'string' && userRole !== 'GUEST'){
-      await postLanguages(userId, user.nickName, user.mainLanguage, user.subLanguage);
+    if(userRole === 'USER'){
+      await postLanguages(userId, user.mainLanguage, user.subLanguage);
     }
   };
   const handleSubLanguageChange = async (event: SelectChangeEvent<string>) => {
     setSubLanguage(event.target.value as string);  // 클릭된 내용을 mainLanguage 상태에 저장
-    if(userId!==-1 && typeof userId === 'string' && userRole !== 'GUEST'){
-      await postLanguages(userId, user.nickName, user.mainLanguage, user.subLanguage);
-    }
+    // if(userId!==-1 && typeof userId === 'string' && userRole !== 'GUEST'){
+    //   await postLanguages(userId, user.nickName, user.mainLanguage, user.subLanguage);
+    // }
   };
 
   return (

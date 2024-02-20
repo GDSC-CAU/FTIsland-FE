@@ -30,12 +30,12 @@ const SideButton: React.FC<SideButtonProps> = ({
     }
 
     //사이드창 계속 열지 말지
-    if (userRole !== 'USER' || content === '바로 가기') {
+    if (userRole !== 'USER' && content === '바로 가기') {
       handleSideMenu(true);
     } else handleSideMenu(false);
 
     //메인 창 내용
-    if (userRole === 'USER' || content === '메인 페이지') {
+    if ((userRole === 'USER' || content === '메인 페이지') && content !=='바로 가기') {
       setMenu(content);
       handleSideMenu(false);
     }
