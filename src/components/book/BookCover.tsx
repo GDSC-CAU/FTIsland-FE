@@ -3,27 +3,20 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getLastReadBook } from 'src/apis/book';
 import { useUser } from 'src/hook/useUser';
+import { BookInfoType } from 'src/types/book';
 
 const BookCover = ({
   bookSummaryData,
   handleChangeStep,
   handleClickLastReadBook,
 }: {
-  bookSummaryData: {
-    bookId: number;
-    title: string;
-    description: string;
-    category: string;
-    country: string;
-    totalPage: number;
-    image: string;
-  };
+  bookSummaryData: BookInfoType;
   handleChangeStep: (isNext: boolean) => void;
   handleClickLastReadBook: (offset: number, limit: number) => void;
 }) => {
   const { userId } = useUser();
 
-  const { bookId, title, description, category, country, image } = bookSummaryData;
+  const { id: bookId, title, description, category, country, image } = bookSummaryData;
 
   const { data: bookLastReadData, isLoading: isBookLastReadLoading } = useQuery({
     queryKey: ['bookLastReadData', userId, bookId],
@@ -114,7 +107,10 @@ const BookCover = ({
           <Button
             onClick={() => {
               handleChangeStep(true);
-              handleClickLastReadBook(bookLastReadData.offset, bookLastReadData.limit);
+              handleClickLastReadBook(
+                Number(bookLastReadData.offset),
+                Number(bookLastReadData.limitNum),
+              );
             }}
           >
             {isBookLastReadLoading ? (
