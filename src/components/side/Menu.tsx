@@ -27,19 +27,19 @@ const Menu: React.FC<MenuProps> =  ({setContent, onClick, handleSideMenu}) => {
       <List content={"메뉴"}/>
       <Box sx={{
         display: 'flex', alignItems: 'center',flexDirection:'column' , paddingBottom: 10}}>
-        <SideButton content={"메인 페이지"} onClick={()=>onClick('메인 페이지')} handleSideMenu={handleSideMenu}/>
-        <SideButton content={"나의 동화 목록"} onClick={()=>onClick('나의 동화 목록')} handleSideMenu={handleSideMenu}/>
-        <SideButton content={"나의 단어 목록"} onClick={()=>onClick('나의 단어 목록')} handleSideMenu={handleSideMenu}/>
+        <SideButton content={"메인 페이지"} onClick={()=>onClick('메인 페이지')} setOpenEnter={setOpenEnterModal} handleSideMenu={handleSideMenu}/>
+        <SideButton content={"나의 동화 목록"} onClick={()=>onClick('나의 동화 목록')} setOpenEnter={setOpenEnterModal} handleSideMenu={handleSideMenu}/>
+        <SideButton content={"나의 단어 목록"} onClick={()=>onClick('나의 단어 목록')} setOpenEnter={setOpenEnterModal} handleSideMenu={handleSideMenu} />
       </Box>
       <List content={"언어 설정"}/>
       <Box sx={{
         display: 'flex', alignItems: 'center',flexDirection:'column'}}>
-          <SideButton content={"바로 가기"} onClick={handleLanguageSettingClick} handleSideMenu={handleSideMenu} setOpenLogin = {setOpenEnterModal}/>
+          <SideButton content={"바로 가기"} onClick={handleLanguageSettingClick} handleSideMenu={handleSideMenu} setOpenEnter = {setOpenEnterModal}/>
       </Box>
       <Box sx={{width: '30px', height: '30px', bgcolor: 'red'}} onClick={()=>setUserRole('USER')}></Box>
       <Box sx={{
         display: 'flex', alignItems: 'center',flexDirection:'column',height: '33vh', justifyContent: 'flex-end'}}>
-          <SideButton content={userRole==="USER"?"로그아웃":"로그인/회원가입"} backgroundColor={"white"} onClick={()=>{onClick && onClick('로그아웃');}} handleSideMenu={handleSideMenu} setOpenLogin = {setOpenEnterModal}/>
+          <SideButton content={userRole==="USER"?"로그아웃":"로그인/회원가입"} backgroundColor={"white"} onClick={()=>{onClick && onClick('로그아웃');}} handleSideMenu={handleSideMenu} setOpenEnter = {setOpenEnterModal}/>
           <Enter open={openEnterModal} setOpen={setOpenEnterModal} setOpenLogin = {setOpenLoginModal} setOpenJoin={setOpenJoinModal}/>
           <Login open={openLoginModal} setOpen={setOpenLoginModal}/>
           <Join open={openJoinModal} setOpen={setOpenJoinModal}/>
