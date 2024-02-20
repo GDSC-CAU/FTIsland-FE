@@ -1,10 +1,11 @@
-import { CardMedia, Dialog, IconButton, Slide } from '@mui/material';
+import { Box, CardMedia, Dialog, IconButton, Slide } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
 import CloseIcon from '@mui/icons-material/CloseRounded';
 import React, { Fragment, ReactElement, forwardRef, useCallback, useEffect, useState } from 'react';
 import { getBookDetail, getIslandInfo } from 'src/apis/island';
 import StoryCard, { StoryDataType } from 'src/components/card/StoryCard';
 import { useUser } from 'src/hook/useUser';
+import Progress from './Progress';
 interface BoxPosition {
   top: string;
   left: string;
@@ -13,6 +14,7 @@ interface Book{
   bookId: number;
   title: string;
   description: string;
+  progress: number;
   image: string;
 }
 
@@ -88,6 +90,7 @@ const Books = ({ island }: { island: string }) => {
       try{
         const response = await getIslandInfo(realIslandName(), userId);
         if(response){
+          console.log(response.data);
           setBooks(response.data);
         }        
       }catch(error){
@@ -102,6 +105,13 @@ const Books = ({ island }: { island: string }) => {
     <>
       {boxPositions?.map((boxPosition, index) => (
         <Fragment key={index}>
+
+        {books[index]?.image &&
+        <Box sx={{ position: 'absolute', top: boxPosition.top, left: boxPosition.left, transform: 'translate(-50%, -1500%)', width: '100px', height: '10px', bgcolor:'white', borderRadius:'20px', display: 'flex', alignItems:'center'}}>
+          <Progress value={books[index].progress}/>
+        </Box>
+        }
+
         <CardMedia
         component="img"
         image={books[index]?.image || "/image/bookLock.webp"}
