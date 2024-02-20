@@ -1454,6 +1454,30 @@
   dependencies:
     tslib "^2.4.0"
 
+"@tanstack/query-core@5.21.4":
+  version "5.21.4"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.21.4.tgz#456431d41fb82e25b21809e47b39e9dc1fa525d3"
+  integrity sha512-k3u4RcDAtcCurs8KVEIf52k4yUayc852v4ZQrtI8pkEii71riM9758A2WVGo5T/v4/X7b1RLON5g0aDvkoZYCA==
+
+"@tanstack/query-devtools@5.21.3":
+  version "5.21.3"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-devtools/-/query-devtools-5.21.3.tgz#944719dbccf862615349d4a66bfcf8d81c2e04f5"
+  integrity sha512-tRJ3uYpF8mLqb+Na25DqPsqdsK38Ff1HIse3znQIEoGMzf7rJKTwV9HCn/9cPQTyTcAuSUZOajyCVz7hnbdCdQ==
+
+"@tanstack/react-query-devtools@^5.21.4":
+  version "5.21.4"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query-devtools/-/react-query-devtools-5.21.4.tgz#4ac169c7b1a1b405893124b7d4a63d59c74598a8"
+  integrity sha512-pmH8Zu6frp7uQ/l+Cfd38PrRch1/88PItsnT2WxbpM58vdji4/h4prCoYe66nZh+UNTmcECY5nxp29rE0MT2UQ==
+  dependencies:
+    "@tanstack/query-devtools" "5.21.3"
+
+"@tanstack/react-query@^5.21.4":
+  version "5.21.4"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.21.4.tgz#3a1a264fcf326ba684cf990e70e6dacd4e59f67e"
+  integrity sha512-tzl4mGerfPKmJsPDWbfKol0eBEk8bsgtMZJOwnbUvvSRnYZzS9OfX9CD/dbQLr+JjIvSekWKaDBTo3oXeeFhoQ==
+  dependencies:
+    "@tanstack/query-core" "5.21.4"
+
 "@types/estree@0.0.39":
   version "0.0.39"
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.39.tgz#e177e699ee1b8c22d23174caaa7422644389509f"
