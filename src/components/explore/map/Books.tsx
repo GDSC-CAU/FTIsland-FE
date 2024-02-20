@@ -10,10 +10,10 @@ interface BoxPosition {
   left: string;
 }
 interface Book{
-  bookId: number,
-  title: string,
-  process: number,
-  image: string,
+  bookId: number;
+  title: string;
+  description: string;
+  image: string;
 }
 
 const Books = ({ island }: { island: string }) => {
@@ -70,7 +70,6 @@ const Books = ({ island }: { island: string }) => {
     try{
       const response = await getBookDetail(id);
       if (response){
-        console.log(response);
         setFocusBook({
           bookId: id,
           title: response.title,
@@ -88,7 +87,6 @@ const Books = ({ island }: { island: string }) => {
     const fetchBookInfo = async () => {
       try{
         const response = await getIslandInfo(realIslandName(), userId);
-        console.log(response);
         if(response){
           setBooks(response.data);
         }        
@@ -106,7 +104,7 @@ const Books = ({ island }: { island: string }) => {
         <Fragment key={index}>
         <CardMedia
         component="img"
-        image={books[index]?.image || "/image/coverImg2.jpg"}
+        image={books[index]?.image || "/image/bookLock.webp"}
         title="mark"
         onClick={()=>handleBookDetail(books[index]?.bookId)}
         sx={{
