@@ -5,11 +5,10 @@ import Back from './components/Back';
 import SideButton from './components/SideButton';
 
 interface MenuProps {
-  onClick?: (content: string) => void;
   handleSideMenu: (content: boolean) => void;
 }
 
-const Word: React.FC<MenuProps> = ({onClick, handleSideMenu}) => {
+const Word: React.FC<MenuProps> = ({handleSideMenu}) => {
   const [word, setWord] = useState("");
   const [detail, setDetail] = useState("detail");
 
@@ -45,7 +44,7 @@ const Word: React.FC<MenuProps> = ({onClick, handleSideMenu}) => {
         {detail}
       </Box>
       <Box sx={{display: 'flex', justifyContent: 'center'}}>
-        <SideButton content={"나의 단어 목록"} onClick={()=>onClick &&onClick('나의 단어 목록')} handleSideMenu={handleSideMenu} word={true} />
+        <SideButton content={"나의 단어 목록"} handleSideMenu={handleSideMenu} word={true} />
       </Box>
       
     </Box>

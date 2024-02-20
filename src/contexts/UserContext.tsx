@@ -15,6 +15,8 @@ export interface UserContextValues{
     setUserId: (value: string | number) => void;
     userRole: string | null;
     setUserRole: (value: string | null) => void;
+    menu: string | null;
+    setMenu: (value: string | null) => void;
 }
 
 const contextDefaultValue: UserContextValues = {
@@ -32,6 +34,8 @@ const contextDefaultValue: UserContextValues = {
     setUserId: () => {},
     userRole: "GUEST",
     setUserRole: () => {},
+    menu: "메인 페이지",
+    setMenu: () => {},
 };
 
 export const UserContext = createContext(contextDefaultValue);
@@ -43,6 +47,7 @@ export const UserProvider = ({children}:{children:ReactNode}) => {
   // const [token, setToken] = useState(contextDefaultValue.token);
   const [userId, setUserId] = useState(contextDefaultValue.userId);
   const [userRole, setUserRole] = useState(contextDefaultValue.userRole);
+  const [menu, setMenu] = useState(contextDefaultValue.menu);
 
   useEffect(()=>{
     contextDefaultValue.user.nickName = nickName;
@@ -51,7 +56,7 @@ export const UserProvider = ({children}:{children:ReactNode}) => {
   }, [nickName, mainLanguage, subLanguage]);
 
   return (
-    <UserContext.Provider value={{user: contextDefaultValue.user, setNickName, setMainLanguage, setSubLanguage, userId, setUserId, userRole, setUserRole}}>
+    <UserContext.Provider value={{user: contextDefaultValue.user, setNickName, setMainLanguage, setSubLanguage, userId, setUserId, userRole, setUserRole, menu, setMenu}}>
       {children}
     </UserContext.Provider>
   )

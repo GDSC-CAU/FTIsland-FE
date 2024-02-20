@@ -1,9 +1,10 @@
-import { Box, Button, IconButton, Modal, SelectChangeEvent, TextField, Typography } from '@mui/material'
+import { Box, Button, IconButton, Modal, SelectChangeEvent, Typography } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
 import React, { useState } from 'react'
 import LanguageButton from '../side/components/LanguageButton';
 import { useUser } from 'src/hook/useUser';
 import { postJoin } from 'src/apis/login';
+import JoinTextField from './JoinTextField';
 
 interface LoginProps {
   open: boolean;
@@ -71,21 +72,12 @@ const Join: React.FC<LoginProps> = ({open, setOpen}) => {
         <Typography variant="h4" sx={{ fontWeight: 900, marginTop:'2%',marginBottom: '5%', color:'#39A7FF'}}>
           FT 아일랜드에 오신 것을 환영합니다!
         </Typography>
-        <Typography variant="h5" sx={{fontWeight: 900, marginBottom: '5px'}}>
-          아이디
-        </Typography>
-        <TextField id="outlined-basic" label="아이디" variant="outlined" onChange={handleIdChange} sx={textFieldStyle()}/>
-        <Typography variant="h5" sx={{fontWeight: 900, marginBottom: '5px'}}>
-          비밀번호
-        </Typography>
-        <TextField id="outlined-basic" label="비밀번호" variant="outlined" onChange={handlePasswordChange} sx={textFieldStyle()}/>
 
-        <Typography variant="h5" sx={{fontWeight: 900, marginBottom: '5px'}}>
-          별명
-        </Typography>
-        <TextField id="outlined-basic" label="별명" variant="outlined" onChange={handleNameChange} sx={textFieldStyle()}/>
+        <JoinTextField title={"아이디"} handleChange={handleIdChange}/>
+        <JoinTextField title={"비밀번호"} handleChange={handlePasswordChange}/>
+        <JoinTextField title={"별명"} handleChange={handleNameChange}/>
         
-        <Typography variant="h5" sx={{fontWeight: 900, marginTop:'50px'}}>
+        <Typography variant="h5" sx={{fontWeight: 900, marginTop:'10px'}}>
           언어 선택
         </Typography>
 
@@ -131,21 +123,6 @@ const boxStyle = () => ({
   justifyContent: 'center',
   alignItems: 'center',
   textAlign: 'center',
-})
-
-const textFieldStyle = () => ({
-  marginBottom: '10px',
-  '& .MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderColor: '#FF8383',
-    },
-    '&:hover fieldset': {
-      borderColor: 'red',
-    },
-    '&.Mui-focused fieldset': {
-      borderColor: '#FF4A4A',
-    },
-  },
 })
 
 const buttonStyle = () => ({

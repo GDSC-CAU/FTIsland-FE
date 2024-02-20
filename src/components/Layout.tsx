@@ -7,10 +7,9 @@ import SideMenu from './SideMenu';
 
 interface LayoutProps {
   children: ReactNode;
-  onClick: (content: string) => void;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, onClick }) => {
+const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { route } = useRouter();
   const [sideMenuOpen, setSideMenuOpen] = useState(false);
 
@@ -24,7 +23,7 @@ const Layout: React.FC<LayoutProps> = ({ children, onClick }) => {
     <Box sx={{ minWidth: '320px' }}>
       <Appbar handleSideMenu={handleSideMenu} />
 
-      <SideMenu open={sideMenuOpen} handleSideMenu={handleSideMenu} onClick={onClick} />
+      <SideMenu open={sideMenuOpen} handleSideMenu={handleSideMenu}/>
 
       <Toolbar variant="dense" />
 

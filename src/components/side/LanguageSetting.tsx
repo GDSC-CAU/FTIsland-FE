@@ -9,15 +9,14 @@ import {postLanguages} from './../../../src/apis/language'
 
 interface MenuProps {
   setContent: (setContent: ReactElement) => void;
-  onClick?: (content: string) => void;
   handleSideMenu: (content: boolean) => void;
 }
 
-const LanguageSetting: React.FC<MenuProps> = ({setContent, onClick, handleSideMenu}) => {
+const LanguageSetting: React.FC<MenuProps> = ({setContent, handleSideMenu}) => {
   const {user, userId, userRole, setMainLanguage, setSubLanguage} = useUser();
   
   const handleBack = () => {
-    setContent(<Menu setContent={setContent} onClick={onClick} handleSideMenu={handleSideMenu} />);
+    setContent(<Menu setContent={setContent} handleSideMenu={handleSideMenu} />);
   };
 
   const handleMainLanguageChange = async (event: SelectChangeEvent<string>) => {
