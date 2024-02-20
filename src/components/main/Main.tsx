@@ -38,7 +38,6 @@ const Main = ({ tabIndex }: { tabIndex: number }) => {
     if (tabIndex === 0) handleClick(<Explore />);
     else if (tabIndex === 1) handleClick(<Recent recentBookListData={recentBookListData} />);
     else if (tabIndex === 2) handleClick(<MyWord />);
-    getBookExample();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tabIndex, userRole]);
 

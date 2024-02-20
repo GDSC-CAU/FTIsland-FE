@@ -2,7 +2,7 @@ import { Box, IconButton, Typography } from '@mui/material';
 import BackIcon from '@mui/icons-material/ArrowBackIosRounded';
 import NextIcon from '@mui/icons-material/ArrowForwardIosRounded';
 
-import { BookContentDataType } from 'src/pages/book/[bookId]';
+import { BookContentDataType } from 'src/types/book';
 
 import BookSingleContentCard from './BookSingleContentCard';
 import BookMultiContentCard from './BookMultiContentCard';

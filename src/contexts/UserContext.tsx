@@ -55,15 +55,13 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     contextDefaultValue.user.subLanguage = subLanguage;
   }, [nickName, mainLanguage, subLanguage]);
 
-  useEffect(()=>{
-    if(localStorage.getItem('userRole') ==='USER'){
-      const newUserId = localStorage.getItem('userId');
+  useEffect(() => {
+    if (localStorage.getItem('userRole') === 'USER') {
+      const newUserId = Number(localStorage.getItem('userId'));
       const newName = localStorage.getItem('name');
       const newMainLanguage = localStorage.getItem('mainLanguage');
       const newSubLanguage = localStorage.getItem('subLanguage');
-      console.log(newUserId, newName, newMainLanguage, newSubLanguage);
-      if(newUserId && newName && newMainLanguage && newSubLanguage){
-        console.log('호호호호');
+      if (newUserId && newName && newMainLanguage && newSubLanguage) {
         setUserId(newUserId);
         setNickName(newName);
         setMainLanguage(newMainLanguage);
