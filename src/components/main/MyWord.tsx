@@ -1,30 +1,23 @@
-import React, { useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 
-import { getVocaList } from 'src/testData/vocaListData';
+import { deleteVoca } from 'src/apis/voca';
+import { useUser } from 'src/hook/useUser';
 
 import VocaCard from '../card/VocaCard';
 
 type VocaType = { vocaId: number; word: string };
 
-const MyWord = () => {
-  const [vocaList, setVocaList] = useState<VocaType[]>([]);
+const MyWord = ({ vocaListData }: { vocaListData: VocaType[] }) => {
+  const { userId } = useUser();
 
-  useEffect(() => {
-    setVocaList(getVocaList());
-  }, []);
-
-  // 일단 index로 삭제, 추후에 id로 삭제하는걸로 변경
-  const handleDeleteVoca = (targetIndex: number) => {
-    setVocaList((prev) => {
-      return prev.filter((_, idx) => idx != targetIndex);
-    });
+  const handleDeleteVoca = async (targetIndex: number) => {
+    await deleteVoca(userId, targetIndex);
   };
 
   return (
     <Box
       sx={{
-        display: vocaList.length === 0 ? 'block' : 'grid',
+        display: vocaListData.length === 0 ? 'block' : 'grid',
         gridTemplateColumns: {
           xs: '1fr',
           sm: '1fr 1fr',
@@ -37,11 +30,11 @@ const MyWord = () => {
         transformStyle: 'preserve-3d',
       }}
     >
-      {vocaList.map(({ vocaId }, idx) => (
+      {vocaListData.map(({ vocaId }, idx) => (
         <VocaCard key={vocaId} vocaId={vocaId} index={idx} handleDeleteVoca={handleDeleteVoca} />
       ))}
 
-      {vocaList.length === 0 ? (
+      {vocaListData.length === 0 ? (
         <Typography variant="h5" sx={{ textAlign: 'center' }}>
           추가된 단어가 없습니다.
         </Typography>

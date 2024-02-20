@@ -7,7 +7,7 @@ import SoundIcon from '@mui/icons-material/VolumeUp';
 import BackIcon from '@mui/icons-material/ArrowBackIosRounded';
 import NextIcon from '@mui/icons-material/ArrowForwardIosRounded';
 
-import { windowTTS } from 'src/utils/tts';
+import { googleTTS } from 'src/utils/tts';
 import throttling from 'src/utils/throttling';
 import { useUser } from 'src/hook/useUser';
 import convertedLanguageCode from 'src/utils/convertedLanguageCode';
@@ -120,7 +120,7 @@ const BookQuiz = ({
                 icon={<SoundIcon />}
                 onClick={() => {
                   throttling(
-                    () => windowTTS(mainQuestion, convertedLanguageCode(user.mainLanguage)),
+                    () => googleTTS(mainQuestion, convertedLanguageCode(user.mainLanguage)),
                     1000,
                   );
                 }}
@@ -139,7 +139,7 @@ const BookQuiz = ({
                 icon={<SoundIcon />}
                 onClick={() => {
                   throttling(
-                    () => windowTTS(subQuestion, convertedLanguageCode(user.subLanguage)),
+                    () => googleTTS(subQuestion, convertedLanguageCode(user.subLanguage)),
                     1000,
                   );
                 }}
