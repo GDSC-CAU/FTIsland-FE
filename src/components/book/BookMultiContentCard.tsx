@@ -3,7 +3,7 @@ import SoundIcon from '@mui/icons-material/VolumeUp';
 
 import { BookContentDataType } from 'src/types/book';
 import throttling from 'src/utils/throttling';
-import { windowTTS } from 'src/utils/tts';
+import { googleTTS } from 'src/utils/tts';
 
 const BookMultiContentCard = ({
   bookLimit,
@@ -63,7 +63,7 @@ const BookMultiContentCard = ({
                 }}
                 icon={<SoundIcon />}
                 onClick={() => {
-                  throttling(() => windowTTS(mainContents, mainLan), 1000);
+                  throttling(() => googleTTS(mainContents, mainLan), 1000);
                 }}
               />
               <Typography
@@ -87,7 +87,7 @@ const BookMultiContentCard = ({
                 }}
                 icon={<SoundIcon />}
                 onClick={() => {
-                  throttling(() => windowTTS(subContents, subLan), 1000);
+                  throttling(() => googleTTS(subContents, subLan), 1000);
                 }}
               />
               <Typography

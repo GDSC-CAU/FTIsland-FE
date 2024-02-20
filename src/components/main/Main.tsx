@@ -11,6 +11,7 @@ import { useUser } from 'src/hook/useUser';
 import Login from '../login/Login';
 import { getRecentBookListInfo } from 'src/apis/book';
 import { useQuery } from '@tanstack/react-query';
+import { getVocaList } from 'src/apis/voca';
 
 const Main = ({ tabIndex }: { tabIndex: number }) => {
   const [content, setContent] = useState<ReactElement>(<Explore />);
@@ -26,6 +27,13 @@ const Main = ({ tabIndex }: { tabIndex: number }) => {
     initialData: [],
   });
 
+  const { data: vocaListData } = useQuery({
+    queryKey: ['vocaList', userId],
+    queryFn: async () => await getVocaList(userId),
+    enabled: userRole === 'USER',
+    initialData: [],
+  });
+
   const handleClick = (newContent: ReactElement) => {
     setContent(newContent);
   };
@@ -37,7 +45,7 @@ const Main = ({ tabIndex }: { tabIndex: number }) => {
   useEffect(() => {
     if (tabIndex === 0) handleClick(<Explore />);
     else if (tabIndex === 1) handleClick(<Recent recentBookListData={recentBookListData} />);
-    else if (tabIndex === 2) handleClick(<MyWord />);
+    else if (tabIndex === 2) handleClick(<MyWord vocaListData={vocaListData} />);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tabIndex, userRole]);
 
