@@ -9,11 +9,11 @@ interface BoxPosition {
   top: string;
   left: string;
 }
-interface Book{
-  bookId: number,
-  title: string,
-  process: number,
-  image: string,
+interface Book {
+  bookId: number;
+  title: string;
+  process: number;
+  image: string;
 }
 
 const Books = ({ island }: { island: string }) => {
@@ -21,7 +21,7 @@ const Books = ({ island }: { island: string }) => {
   const [books, setBooks] = useState<Book[]>([]);
   const userIslandName = user.nickName ? `${user.nickName}의 섬` : '지혜의 섬';
   const realIslandName = useCallback(() => {
-    if(user.nickName) return "지혜";
+    if (user.nickName) return '지혜';
     else return island.replace('의 섬', '');
   }, [user.nickName, island]);
 
@@ -66,33 +66,32 @@ const Books = ({ island }: { island: string }) => {
   const boxPositions = islandBoxPositions[island];
   const [isOpenFocusStory, setIsOpenFocusStory] = useState(false);
   const [focusBook, setFocusBook] = useState<StoryDataType | null>(null);
-  const handleBookDetail = async (id:number) => {
-    try{
+  const handleBookDetail = async (id: number) => {
+    try {
       const response = await getBookDetail(id);
-      if (response){
-        console.log(response);
+      if (response) {
         setFocusBook({
           bookId: id,
           title: response.title,
           description: response.description,
-          images: response.image,
+          image: response.image,
         });
         setIsOpenFocusStory(true);
       }
-    }catch(error){
+    } catch (error) {
       console.error(error);
     }
-  }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     const fetchBookInfo = async () => {
-      try{
+      try {
         const response = await getIslandInfo(realIslandName(), userId);
         console.log(response);
-        if(response){
+        if (response) {
           setBooks(response.data);
-        }        
-      }catch(error){
+        }
+      } catch (error) {
         console.error(error);
       }
     };
@@ -104,43 +103,45 @@ const Books = ({ island }: { island: string }) => {
     <>
       {boxPositions?.map((boxPosition, index) => (
         <Fragment key={index}>
-        <CardMedia
-        component="img"
-        image={books[index]?.image || "/image/coverImg2.jpg"}
-        title="mark"
-        onClick={()=>handleBookDetail(books[index]?.bookId)}
-        sx={{
-          width: {xs:'70px', sm:'100px'},
-          height: {xs:'70px', sm:'100px'},
-          borderRadius: '10px',
-          border: '4px solid white',
-          boxShadow: '10px 10px 5px 2px rgba(0, 0, 0, 0.25)',
-          position: 'absolute',
-          top: boxPosition.top,
-          left: boxPosition.left,
-          transform: 'translate(-50%, -130%)',
-        }}/>
-        <CardMedia
-        component="img"
-        image="/image/mark-location.png"
-        title="mark"
-        sx={{
-          width: '30px',
-          height: '30px',
-          position: 'absolute',
-          top: boxPosition.top,
-          left: boxPosition.left,
-          transform: 'translate(-50%, -50%)',
-        }}/>
+          <CardMedia
+            component="img"
+            image={books[index]?.image || '/image/coverImg2.jpg'}
+            title="mark"
+            onClick={() => handleBookDetail(books[index]?.bookId)}
+            sx={{
+              width: { xs: '70px', sm: '100px' },
+              height: { xs: '70px', sm: '100px' },
+              borderRadius: '10px',
+              border: '4px solid white',
+              boxShadow: '10px 10px 5px 2px rgba(0, 0, 0, 0.25)',
+              position: 'absolute',
+              top: boxPosition.top,
+              left: boxPosition.left,
+              transform: 'translate(-50%, -130%)',
+            }}
+          />
+          <CardMedia
+            component="img"
+            image="/image/mark-location.png"
+            title="mark"
+            sx={{
+              width: '30px',
+              height: '30px',
+              position: 'absolute',
+              top: boxPosition.top,
+              left: boxPosition.left,
+              transform: 'translate(-50%, -50%)',
+            }}
+          />
         </Fragment>
       ))}
       {isOpenFocusStory && focusBook ? (
-      <StoryCardPopup
-        focusStoryData={focusBook}
-        open={isOpenFocusStory}
-        onClose={() => setIsOpenFocusStory(false)}
-      />
-    ) : null}
+        <StoryCardPopup
+          focusStoryData={focusBook}
+          open={isOpenFocusStory}
+          onClose={() => setIsOpenFocusStory(false)}
+        />
+      ) : null}
     </>
   );
 };
@@ -176,23 +177,25 @@ const StoryCardPopup = ({
         width: { xs: '360px', sm: '500px' },
       },
     }}
-  >  <IconButton
-  onClick={() => onClose()}
-  sx={{
-    position: 'absolute',
-    top: '8px',
-    right: '8px',
-  }}
->
-  <CloseIcon
-    sx={{
-      backgroundColor: 'grey',
-      borderRadius: '20px',
-      color: 'white',
-      width: { xs: '24px', sm: '40px' },
-      height: { xs: '24px', sm: '40px' },
-    }}
-  />
-</IconButton>
-<StoryCard isClickable={false} bookData={focusStoryData} />
-</Dialog>);
+  >
+    <IconButton
+      onClick={() => onClose()}
+      sx={{
+        position: 'absolute',
+        top: '8px',
+        right: '8px',
+      }}
+    >
+      <CloseIcon
+        sx={{
+          backgroundColor: 'grey',
+          borderRadius: '20px',
+          color: 'white',
+          width: { xs: '24px', sm: '40px' },
+          height: { xs: '24px', sm: '40px' },
+        }}
+      />
+    </IconButton>
+    <StoryCard isClickable={false} bookData={focusStoryData} />
+  </Dialog>
+);

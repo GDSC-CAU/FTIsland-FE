@@ -1,8 +1,13 @@
-import { Box, Button, Chip, Typography } from '@mui/material';
+import { Box, Button, Chip, CircularProgress, Typography } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
+
+import { getLastReadBook } from 'src/apis/book';
+import { useUser } from 'src/hook/useUser';
 
 const BookCover = ({
   bookSummaryData,
   handleChangeStep,
+  handleClickLastReadBook,
 }: {
   bookSummaryData: {
     bookId: number;
@@ -14,8 +19,17 @@ const BookCover = ({
     image: string;
   };
   handleChangeStep: (isNext: boolean) => void;
+  handleClickLastReadBook: (offset: number, limit: number) => void;
 }) => {
-  const { title, description, category, country, image } = bookSummaryData;
+  const { userId } = useUser();
+
+  const { bookId, title, description, category, country, image } = bookSummaryData;
+
+  const { data: bookLastReadData, isLoading: isBookLastReadLoading } = useQuery({
+    queryKey: ['bookLastReadData', userId, bookId],
+    queryFn: async () => await getLastReadBook(userId, Number(bookId)),
+    enabled: bookSummaryData !== undefined,
+  });
 
   return (
     <Box sx={{ width: '100%', height: '100%', flex: 1 }}>
@@ -100,9 +114,14 @@ const BookCover = ({
           <Button
             onClick={() => {
               handleChangeStep(true);
+              handleClickLastReadBook(bookLastReadData.offset, bookLastReadData.limit);
             }}
           >
-            <Typography variant="h6">이어서 읽기</Typography>
+            {isBookLastReadLoading ? (
+              <CircularProgress size={24} />
+            ) : (
+              <Typography variant="h6">이어서 읽기</Typography>
+            )}
           </Button>
         </Box>
       </Box>
