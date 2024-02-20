@@ -6,7 +6,7 @@ export const getIslandInfo = async (islandId: number, userId: string | number) =
   try {
     const data = {
       islandId: islandId,
-      userId: userId,
+      userId: userId||-1,
     };
     const url = baseURL + '/island/books';
     const response = await axios.post(url, data);
