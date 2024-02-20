@@ -23,7 +23,7 @@ const Books = ({ island }: { island: string }) => {
   const [books, setBooks] = useState<Book[]>([]);
   const userIslandName = user.nickName ? `${user.nickName}의 섬` : '지혜의 섬';
   const realIslandName = useCallback(() => {
-    if(user.nickName) return "지혜";
+    if (user.nickName) return '지혜';
     else return island.replace('의 섬', '');
   }, [user.nickName, island]);
 
@@ -68,31 +68,31 @@ const Books = ({ island }: { island: string }) => {
   const boxPositions = islandBoxPositions[island];
   const [isOpenFocusStory, setIsOpenFocusStory] = useState(false);
   const [focusBook, setFocusBook] = useState<StoryDataType | null>(null);
-  const handleBookDetail = async (id:number) => {
-    try{
+  const handleBookDetail = async (id: number) => {
+    try {
       const response = await getBookDetail(id);
-      if (response){
+      if (response) {
         setFocusBook({
           bookId: id,
           title: response.title,
           description: response.description,
-          images: response.image,
+          image: response.image,
         });
         setIsOpenFocusStory(true);
       }
-    }catch(error){
+    } catch (error) {
       console.error(error);
     }
-  }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     const fetchBookInfo = async () => {
-      try{
+      try {
         const response = await getIslandInfo(realIslandName(), userId);
         if(response){
           setBooks(response.data);
-        }        
-      }catch(error){
+        }
+      } catch (error) {
         console.error(error);
       }
     };
@@ -142,12 +142,12 @@ const Books = ({ island }: { island: string }) => {
         </Fragment>
       ))}
       {isOpenFocusStory && focusBook ? (
-      <StoryCardPopup
-        focusStoryData={focusBook}
-        open={isOpenFocusStory}
-        onClose={() => setIsOpenFocusStory(false)}
-      />
-    ) : null}
+        <StoryCardPopup
+          focusStoryData={focusBook}
+          open={isOpenFocusStory}
+          onClose={() => setIsOpenFocusStory(false)}
+        />
+      ) : null}
     </>
   );
 };
@@ -183,23 +183,25 @@ const StoryCardPopup = ({
         width: { xs: '360px', sm: '500px' },
       },
     }}
-  >  <IconButton
-  onClick={() => onClose()}
-  sx={{
-    position: 'absolute',
-    top: '8px',
-    right: '8px',
-  }}
->
-  <CloseIcon
-    sx={{
-      backgroundColor: 'grey',
-      borderRadius: '20px',
-      color: 'white',
-      width: { xs: '24px', sm: '40px' },
-      height: { xs: '24px', sm: '40px' },
-    }}
-  />
-</IconButton>
-<StoryCard isClickable={false} bookData={focusStoryData} />
-</Dialog>);
+  >
+    <IconButton
+      onClick={() => onClose()}
+      sx={{
+        position: 'absolute',
+        top: '8px',
+        right: '8px',
+      }}
+    >
+      <CloseIcon
+        sx={{
+          backgroundColor: 'grey',
+          borderRadius: '20px',
+          color: 'white',
+          width: { xs: '24px', sm: '40px' },
+          height: { xs: '24px', sm: '40px' },
+        }}
+      />
+    </IconButton>
+    <StoryCard isClickable={false} bookData={focusStoryData} />
+  </Dialog>
+);
