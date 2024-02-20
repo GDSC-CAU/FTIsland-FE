@@ -2,8 +2,11 @@ import { ReactNode, useState } from 'react';
 import { Box, Card, CardMedia, IconButton, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/CloseRounded';
 import BookIcon from '@mui/icons-material/MenuBookRounded';
+import { useQuery } from '@tanstack/react-query';
 
-import { getVocaDescription } from 'src/testData/vocaDetailData';
+import { getVocaDescription } from 'src/apis/voca';
+import { useUser } from 'src/hook/useUser';
+import convertedLanguageCode from 'src/utils/convertedLanguageCode';
 import throttling from 'src/utils/throttling';
 
 import SoundButton from '../button/SoundButton';
@@ -48,7 +51,19 @@ const VocaCard = ({
   index: number;
   handleDeleteVoca: (targetIndex: number) => void;
 }) => {
-  const { word, description, bookName } = getVocaDescription(vocaId);
+  const { user, userRole } = useUser();
+  const {
+    data: { word, description, bookName },
+  } = useQuery({
+    queryKey: ['vocaDetailData', vocaId, user.mainLanguage, user.subLanguage],
+    queryFn: async () =>
+      await getVocaDescription(
+        vocaId,
+        convertedLanguageCode(user.mainLanguage),
+        convertedLanguageCode(user.subLanguage),
+      ),
+    enabled: userRole === 'USER',
+  });
 
   const [isBackPage, setIsBackPage] = useState(false);
 

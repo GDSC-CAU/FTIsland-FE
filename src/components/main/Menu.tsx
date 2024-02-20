@@ -1,11 +1,15 @@
-import { Box, Tab, Tabs, useMediaQuery, useTheme } from '@mui/material';
 import React, { ReactElement, useEffect, useState } from 'react';
+import { Box, Tab, Tabs, useMediaQuery, useTheme } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
+
+import { getRecentBookListInfo } from 'src/apis/book';
+import { getVocaList } from 'src/apis/voca';
+import { useUser } from 'src/hook/useUser';
+
 import Explore from './Explore';
 import Recent from './Recent';
 import MyWord from './MyWord';
-import { useUser } from 'src/hook/useUser';
-import { getRecentBookListInfo } from 'src/apis/book';
-import { useQuery } from '@tanstack/react-query';
+
 interface MenuProps {
   handleClick: (newContent: ReactElement) => void;
   tabIndex: number;
@@ -25,17 +29,27 @@ const Menu: React.FC<MenuProps> = ({ handleClick, tabIndex, handleOpenEnterModal
     initialData: [],
   });
 
+  const { data: vocaListData } = useQuery({
+    queryKey: ['vocaList', userId],
+    queryFn: async () => await getVocaList(userId),
+    enabled: userRole === 'USER',
+    initialData: [],
+    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60 * 5,
+  });
+
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     if (userRole === 'USER') {
       setValue(newValue);
 
       if (newValue === 0) handleClick(<Explore />);
       else if (newValue === 1) handleClick(<Recent recentBookListData={recentBookListData} />);
-      else if (newValue === 2) handleClick(<MyWord />);
+      else if (newValue === 2) handleClick(<MyWord vocaListData={vocaListData} />);
     } else {
       handleOpenEnterModal();
     }
   };
+
   useEffect(() => {
     setValue(tabIndex);
   }, [tabIndex]);

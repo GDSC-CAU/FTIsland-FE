@@ -3,7 +3,7 @@ import SoundIcon from '@mui/icons-material/VolumeUp';
 
 import { BookContentDataType } from 'src/types/book';
 import throttling from 'src/utils/throttling';
-import { windowTTS } from 'src/utils/tts';
+import { googleTTS } from 'src/utils/tts';
 
 const BookSingleContentCard = ({ bookContent }: { bookContent: BookContentDataType }) => {
   const { breakpoints } = useTheme();
@@ -42,7 +42,7 @@ const BookSingleContentCard = ({ bookContent }: { bookContent: BookContentDataTy
             }}
             icon={<SoundIcon />}
             onClick={() => {
-              throttling(() => windowTTS(mainContents, mainLan), 1000);
+              throttling(() => googleTTS(mainContents, mainLan), 1000);
             }}
           />
 
@@ -62,7 +62,7 @@ const BookSingleContentCard = ({ bookContent }: { bookContent: BookContentDataTy
             }}
             icon={<SoundIcon />}
             onClick={() => {
-              throttling(() => windowTTS(subContents, subLan), 1000);
+              throttling(() => googleTTS(subContents, subLan), 1000);
             }}
           />
           <Typography variant={isMobile ? 'h6' : 'h5'} sx={{ wordBreak: 'break-all', ml: 0.5 }}>
