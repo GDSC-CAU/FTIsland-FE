@@ -31,8 +31,8 @@ export const postJoin = async ({id, password, name, mainLanguage, subLanguage}
       inputId: id,
       inputPassword: password,
       name: name,
-      mainLanguage: mainLanguage,
-      subLanguage: subLanguage,
+      mainLanguage: mainLanguage || "ko",
+      subLanguage: subLanguage || 'en',
     }
     console.log(data);
 

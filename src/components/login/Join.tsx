@@ -5,6 +5,7 @@ import LanguageButton from '../side/components/LanguageButton';
 import { useUser } from 'src/hook/useUser';
 import { postJoin } from 'src/apis/login';
 import JoinTextField from './JoinTextField';
+import convertedLanguageCode from 'src/utils/convertedLanguageCode';
 
 interface LoginProps {
   open: boolean;
@@ -55,7 +56,7 @@ const Join: React.FC<LoginProps> = ({open, setOpen}) => {
       alert('비밀번호의 길이가 1자 이상이어야 합니다.');
     }
     else if(typeof id === 'string'){
-      const data = await postJoin({id, password, name, mainLanguage, subLanguage});
+      const data = await postJoin({id, password, name, mainLanguage:convertedLanguageCode(mainLanguage), subLanguage:convertedLanguageCode(subLanguage)});
       if(data){
         console.log(data);
         if(data.status === 404){

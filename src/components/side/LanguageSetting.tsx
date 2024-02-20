@@ -25,12 +25,14 @@ const LanguageSetting: React.FC<MenuProps> = ({setContent, handleSideMenu}) => {
     if(userRole === 'USER'){
       await putLanguage(userId, convertedLanguageCode(user.mainLanguage), convertedLanguageCode(user.subLanguage));
     }
+    event.stopPropagation();
   };
   const handleSubLanguageChange = async (event: SelectChangeEvent<string>) => {
     setSubLanguage(event.target.value as string);
     if(userRole === 'USER'){
       await putLanguage(userId, convertedLanguageCode(user.mainLanguage), convertedLanguageCode(user.subLanguage));
     }
+    event.stopPropagation();
   };
 
   return (
