@@ -90,7 +90,6 @@ const Books = ({ island }: { island: string }) => {
       try{
         const response = await getIslandInfo(realIslandName(), userId);
         if(response){
-          console.log(response.data);
           setBooks(response.data);
         }        
       }catch(error){
