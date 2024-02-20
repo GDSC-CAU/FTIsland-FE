@@ -9,8 +9,8 @@ export interface UserContextValues{
     setNickName :(value: string) => void;
     setMainLanguage :(value: string) => void;
     setSubLanguage :(value: string) => void;
-    token: string | null;
-    setToken: (value: string | null) => void;
+    // token: string | null;
+    // setToken: (value: string | null) => void;
     userId: string | number;
     setUserId: (value: string | number) => void;
     userRole: string | null;
@@ -26,11 +26,11 @@ const contextDefaultValue: UserContextValues = {
     setNickName: () => {},
     setMainLanguage: () => {},
     setSubLanguage: () => {},
-    token: null,
-    setToken: () => {},
+    // token: null,
+    // setToken: () => {},
     userId: -1,
     setUserId: () => {},
-    userRole: null,
+    userRole: "GUEST",
     setUserRole: () => {},
 };
 
@@ -40,7 +40,7 @@ export const UserProvider = ({children}:{children:ReactNode}) => {
   const [nickName, setNickName] = useState(contextDefaultValue.user.nickName);
   const [mainLanguage, setMainLanguage] = useState(contextDefaultValue.user.mainLanguage);
   const [subLanguage, setSubLanguage] = useState(contextDefaultValue.user.subLanguage);
-  const [token, setToken] = useState(contextDefaultValue.token);
+  // const [token, setToken] = useState(contextDefaultValue.token);
   const [userId, setUserId] = useState(contextDefaultValue.userId);
   const [userRole, setUserRole] = useState(contextDefaultValue.userRole);
 
@@ -51,7 +51,7 @@ export const UserProvider = ({children}:{children:ReactNode}) => {
   }, [nickName, mainLanguage, subLanguage]);
 
   return (
-    <UserContext.Provider value={{user: contextDefaultValue.user, setNickName, setMainLanguage, setSubLanguage, token, setToken, userId, setUserId, userRole, setUserRole}}>
+    <UserContext.Provider value={{user: contextDefaultValue.user, setNickName, setMainLanguage, setSubLanguage, userId, setUserId, userRole, setUserRole}}>
       {children}
     </UserContext.Provider>
   )

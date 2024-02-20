@@ -3,7 +3,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import React, { useState } from 'react'
 import LanguageButton from '../side/components/LanguageButton';
 import { useUser } from 'src/hook/useUser';
-import { postLanguages } from 'src/apis/language';
 import { postJoin } from 'src/apis/login';
 
 interface LoginProps {
@@ -21,7 +20,7 @@ const Join: React.FC<LoginProps> = ({open, setOpen}) => {
 
   const handleClose = () => {
     // setNickName('');
-    setUserRole(null);
+    setUserRole("GUEST");
     setOpen(false);
   };
   
@@ -50,6 +49,14 @@ const Join: React.FC<LoginProps> = ({open, setOpen}) => {
     }
     else if(typeof id === 'string'){
       const data = await postJoin({id, password, name, mainLanguage, subLanguage});
+      if(data){
+        if(data.message === "ok"){
+          setUserRole("USER");
+        }
+        else if(data.message === "duplicated id"){
+          alert("중복된 ID입니다");
+        }
+      }
     }
   }
 

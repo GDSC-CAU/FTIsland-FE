@@ -40,10 +40,10 @@ export const postJoin = async ({id, password, name, mainLanguage, subLanguage}
     const response = await axios.post(`${baseURL}/sign-up`, data);
 
     if(response){
-      if(response.status === 201){
+      if(response.status === 201){//...수정해야함
         return response.data;
-      }else if(response.status === 409){
-        alert('ID가 중복됩니다. ID를 다시 입력해주세요');
+      }else if(response.status === 404){
+        alert('회원가입에 실패했습니다. 다시 시도해주세요.');
       }
     }
 
