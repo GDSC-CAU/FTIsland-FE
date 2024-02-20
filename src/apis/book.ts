@@ -2,6 +2,7 @@ import { requestAPIWithoutToken } from './api-helper';
 
 // 비회원일때 userId -1 보내기
 
+// 동화페이지 커버 컴포넌트에 추가
 // 완성 [POST] /book/explore : 동화 마지막으로 읽은 정보 가져오기 API
 export const getLastReadBook = async (userId: number, bookId: number) =>
   await requestAPIWithoutToken('POST', `/book/explore`, {
@@ -23,6 +24,7 @@ export const getBookContent = async (bookId: number, mainLan: string, subLan: st
     subLan,
   });
 
+// 동화페이지에서 나갈때 호출
 // [PUT] 완성 /book/last-page : 마지막으로 읽은 페이지 수정 API
 export const updateLastPage = async (
   userId: number,
@@ -37,6 +39,7 @@ export const updateLastPage = async (
     limitNum,
   });
 
+// 동화페이지에 추가
 // 완성 [POST] /book/quiz : 생각해보기 문제 생성 API
 // 6초 걸림
 export const createQuiz = async (userId: number, bookId: number, mainLan: string, subLan: string) =>

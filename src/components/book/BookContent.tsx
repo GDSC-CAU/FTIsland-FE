@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 import BackIcon from '@mui/icons-material/ArrowBackIosRounded';
 import NextIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import QuizIcon from '@mui/icons-material/RecordVoiceOverRounded';
 
 import { BookContentDataType } from 'src/types/book';
 
@@ -17,6 +18,8 @@ const BookContent = ({
   currentOffset: number;
   handleChangePage: (isNext: boolean) => void;
 }) => {
+  const isLastPage = Number(Math.ceil(bookContentData.length / bookLimit)) - 1 === currentOffset;
+
   return (
     <Box sx={{ height: '100%', display: { sm: 'flex' } }}>
       <Box
@@ -46,6 +49,7 @@ const BookContent = ({
 
       <Box sx={{ height: '100%', mx: { sm: 'auto' }, flex: 1 }}>
         <BookContentCard
+          isLastPage={isLastPage}
           bookLimit={bookLimit}
           bookContentData={bookContentData}
           currentOffset={currentOffset}
@@ -74,7 +78,7 @@ const BookContent = ({
           },
         }}
       >
-        <NextIcon />
+        {isLastPage ? <QuizIcon /> : <NextIcon />}
       </Box>
     </Box>
   );

@@ -9,6 +9,8 @@ import NextIcon from '@mui/icons-material/ArrowForwardIosRounded';
 
 import { windowTTS } from 'src/utils/tts';
 import throttling from 'src/utils/throttling';
+import { useUser } from 'src/hook/useUser';
+import convertedLanguageCode from 'src/utils/convertedLanguageCode';
 
 const BookQuiz = ({
   bookCoverImage,
@@ -25,6 +27,7 @@ const BookQuiz = ({
   const { push } = useRouter();
   const { breakpoints } = useTheme();
   const isMobile = useMediaQuery(breakpoints.down('sm'));
+  const { user } = useUser();
 
   const [currentQuizNumber, setCurrentQuizNumber] = useState(0);
 
@@ -59,6 +62,7 @@ const BookQuiz = ({
             alignItems: 'center',
             borderRadius: '20px',
             mx: 1.5,
+            bgcolor: currentQuizNumber === 0 ? '#FFE5E5' : 'white',
 
             svg: {
               color: '#FF8D8D',
@@ -115,7 +119,10 @@ const BookQuiz = ({
                 }}
                 icon={<SoundIcon />}
                 onClick={() => {
-                  throttling(() => windowTTS(mainQuestion), 1000);
+                  throttling(
+                    () => windowTTS(mainQuestion, convertedLanguageCode(user.mainLanguage)),
+                    1000,
+                  );
                 }}
               />
               <Typography variant={isMobile ? 'h6' : 'h5'}>{mainQuestion}</Typography>
@@ -131,7 +138,10 @@ const BookQuiz = ({
                 }}
                 icon={<SoundIcon />}
                 onClick={() => {
-                  throttling(() => windowTTS(subQuestion), 1000);
+                  throttling(
+                    () => windowTTS(subQuestion, convertedLanguageCode(user.subLanguage)),
+                    1000,
+                  );
                 }}
               />
               <Typography variant={isMobile ? 'h6' : 'h5'}>{subQuestion}</Typography>
@@ -184,6 +194,7 @@ const BookQuiz = ({
             alignItems: 'center',
             borderRadius: '20px',
             mx: 1.5,
+            bgcolor: currentQuizNumber < bookQuizData.length - 1 ? 'white' : '#FFE5E5',
 
             svg: {
               color: '#FF8D8D',

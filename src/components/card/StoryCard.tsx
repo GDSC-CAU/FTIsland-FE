@@ -17,7 +17,7 @@ export type StoryDataType = {
   bookId: number;
   title: string;
   description: string;
-  images: string;
+  image: string;
 };
 
 const Transition = forwardRef(function Transition(
@@ -90,7 +90,7 @@ const StoryCard = ({
 
   const [isOpenFocusStory, setIsOpenFocusStory] = useState(false);
 
-  const { bookId, title, description, images } = bookData;
+  const { bookId, title, description, image } = bookData;
 
   return (
     <>
@@ -103,7 +103,7 @@ const StoryCard = ({
           cursor: 'pointer',
           aspectRatio: '3/4',
           borderRadius: '20px',
-          backgroundImage: `url(${images})`,
+          backgroundImage: `url(${image})`,
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
