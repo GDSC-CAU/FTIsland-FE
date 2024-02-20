@@ -1,8 +1,9 @@
-import { Box, Button, CardMedia, IconButton, Modal, TextField, Typography } from '@mui/material'
+import { Box, Button, CardMedia, IconButton, Modal, Typography } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
 import React, { useState } from 'react';
 import { postLogin } from 'src/apis/login';
 import { useUser } from 'src/hook/useUser';
+import JoinTextField from './JoinTextField';
 
 interface LoginProps {
   open: boolean;
@@ -64,15 +65,8 @@ const Login: React.FC<LoginProps> = ({open, setOpen}) => {
           FT Island
         </Typography>
 
-        <Typography variant="h5" sx={{fontWeight: 900, marginBottom: '5px'}}>
-          아이디
-        </Typography>
-        <TextField id="outlined-basic" label="아이디" variant="outlined" onChange={handleIdChange} sx={textFieldStyle()}/>
-
-        <Typography variant="h5" sx={{fontWeight: 900, marginBottom: '5px'}}>
-          비밀번호
-        </Typography>
-        <TextField id="outlined-basic" label="비밀번호" variant="outlined" onChange={handlePasswordChange} sx={textFieldStyle()}/>
+        <JoinTextField title={"아이디"} handleChange={handleIdChange}/>
+        <JoinTextField title={"비밀번호"} handleChange={handlePasswordChange}/>
 
         <Button variant='contained' sx={buttonStyle()} onClick={handleLogin}>로그인</Button>
       </Box>
@@ -97,22 +91,7 @@ const boxStyle = () => ({
   justifyContent: 'center',
   alignItems: 'center',
   textAlign: 'center',
-})
-
-const textFieldStyle = () => ({
-  marginBottom: '30px',
-  '& .MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderColor: '#FF8383',
-    },
-    '&:hover fieldset': {
-      borderColor: 'red',
-    },
-    '&.Mui-focused fieldset': {
-      borderColor: '#FF4A4A',
-    },
-  },
-})
+});
 
 const buttonStyle = () => ({
   width: '300px',
@@ -125,6 +104,5 @@ const buttonStyle = () => ({
     backgroundColor: '#FF8383',
     color: 'white',
   },
-  
-
+  marginTop: '10px',
 });

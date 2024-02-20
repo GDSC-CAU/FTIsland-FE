@@ -40,7 +40,7 @@ const Enter: React.FC<LoginProps> = ({open, setOpen, setOpenLogin, setOpenJoin})
             borderRadius:'100px'
           }}/>
         <Typography variant="h4" sx={{ fontWeight: 900, marginTop:'2%',marginBottom: '10%', color:'#39A7FF'}}>
-          FT 아일랜드
+          FT Island
         </Typography>
 
         <Button variant='contained' sx={buttonStyle()} onClick={handleClick}>
