@@ -1,8 +1,9 @@
-import { Avatar, Box, Button, CardMedia, IconButton, Modal, Typography } from '@mui/material'
+import { Box, Button, CardMedia, IconButton, Modal, Typography } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
-import React from 'react'
+import React, { useState } from 'react';
+import { postLogin } from 'src/apis/login';
 import { useUser } from 'src/hook/useUser';
-import { getLogin } from 'src/apis/login';
+import JoinTextField from './JoinTextField';
 
 interface LoginProps {
   open: boolean;
@@ -10,14 +11,38 @@ interface LoginProps {
 }
 
 const Login: React.FC<LoginProps> = ({open, setOpen}) => {
-const {setToken, setUserId, setUserRole} = useUser();
+  const {setUserId, setUserRole} = useUser();
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleClose = () => {
+    // setNickName('');
+    // setUserRole(null);
+    setUserRole("GUEST");
     setOpen(false);
+  };
+
+  const handleIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setId(event.target.value);
   }
 
-  const handleClick = async () => {
-    await getLogin(setToken, setUserId, setUserRole);
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  }
+
+  const handleLogin = async () => {
+    if(id.length === 0 || id == null){
+      alert('아이디의 길이가 1자 이상이어야 합니다');
+    }
+    else if(password.length === 0 || password == null){
+      alert('비밀번호의 길이가 1자 이상이어야 합니다');
+    }
+    else {
+      const data = await postLogin({id, password});
+      if(data){
+        setUserId(data.userId);
+      }
+    }
   }
 
   return (
@@ -36,13 +61,14 @@ const {setToken, setUserId, setUserRole} = useUser();
             width: '40%',
             borderRadius:'100px'
           }}/>
-        <Typography variant="h4" sx={{ fontWeight: 900, marginTop:'2%',marginBottom: '10%', color:'#39A7FF'}}>
-          FT 아일랜드
+        <Typography variant="h4" sx={{ fontWeight: 900, marginTop:'2%',marginBottom: '5%', color:'#39A7FF'}}>
+          FT Island
         </Typography>
 
-        <Button variant='contained' sx={buttonStyle()} onClick={handleClick}>
-          <Avatar src="image/google.png" alt="google" sx={{width: '25px', height: '25px', marginRight: '15px'}}/>
-          구글 로그인</Button>
+        <JoinTextField title={"아이디"} handleChange={handleIdChange}/>
+        <JoinTextField title={"비밀번호"} handleChange={handlePasswordChange}/>
+
+        <Button variant='contained' sx={buttonStyle()} onClick={handleLogin}>로그인</Button>
       </Box>
     </Modal>
   )
@@ -65,7 +91,7 @@ const boxStyle = () => ({
   justifyContent: 'center',
   alignItems: 'center',
   textAlign: 'center',
-})
+});
 
 const buttonStyle = () => ({
   width: '300px',
@@ -78,7 +104,5 @@ const buttonStyle = () => ({
     backgroundColor: '#FF8383',
     color: 'white',
   },
-  
-  display: 'flex',
-  justifyContent: 'flex-start',
-})
+  marginTop: '10px',
+});

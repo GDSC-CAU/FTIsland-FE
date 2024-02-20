@@ -9,9 +9,7 @@ const Explore = () => {
   const userIslandName = user.nickName ? `${user.nickName}의 섬` : '지혜의 섬';
   const [selectedIsland, setSelectedIsland] = useState(userIslandName);
   const isSmallScreen = useMediaQuery('(max-width:600px)');
-  // const handleClick = () => {
 
-  // }
   return (
     <Box sx={{ display: 'flex', flexDirection: isSmallScreen ? 'column' : 'row', width: "100%", gap: 1 }}>
 

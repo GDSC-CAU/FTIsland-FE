@@ -5,29 +5,38 @@ import { useUser } from 'src/hook/useUser';
 interface SideButtonProps {
   content: string;
   backgroundColor?: string;  // backgroundColor prop 추가
-  onClick: (content: string) => void;
+  handleLanguage?: (content?: string) => void;
   handleSideMenu: (isOpen: boolean) => void;
   word?: boolean;
-  setOpen?: (isOpen: boolean) => void;
+  setOpenEnter?: (isOpen: boolean) => void;
+  setOpenJoin?: (isOpen: boolean) => void;
 }
 
-const SideButton: React.FC<SideButtonProps> = ({content, backgroundColor, onClick, handleSideMenu, word, setOpen}) => {
+const SideButton: React.FC<SideButtonProps> = ({content, backgroundColor, handleSideMenu, handleLanguage, word, setOpenEnter}) => {
   const [isHovered, setIsHovered] = useState(false);
-  const {setUserRole, userRole} = useUser();
+  const {setUserRole, userRole, setMenu} = useUser();
 
   const handleClick = () => {
-    if(onClick){
-      if(userRole ==='USER' || content ==='바로 가기'){
-        onClick(content);
-      }
-      if(content === '바로 가기' || userRole !=='USER' && content !=='메인 페이지')handleSideMenu(true);
-      else if(content ==='로그인')handleSideMenu(true);
-      else handleSideMenu(false);
-
+    //Language
+    if(content==='바로 가기' && handleLanguage){
+      handleLanguage();
     }
-    if(content !=='메인 페이지' && content !=='바로 가기' && (userRole !== 'USER' || (content === '로그인' && setOpen))){
-      if(setOpen !== undefined){
-        setOpen(true);
+
+    //사이드창 계속 열지 말지
+    if(userRole!=='USER' || content ==='바로 가기'){
+      handleSideMenu(true);
+    }
+    else handleSideMenu(false);
+
+    //메인 창 내용
+    if(userRole ==='USER' || content ==='메인 페이지'){
+      setMenu(content);
+      handleSideMenu(false);
+    }
+
+    if(content !=='메인 페이지' && content !=='바로 가기' && (userRole !== 'USER' || (content === '로그인/회원가입' && setOpenEnter))){
+      if(setOpenEnter !== undefined){
+        setOpenEnter(true);
       }
     }
     if(content === '로그아웃')setUserRole(null);

@@ -7,18 +7,16 @@ import Menu from './side/Menu'
 const SideMenu = ({
   open,
   handleSideMenu,
-  onClick
 }: {
   open: boolean;
   handleSideMenu: (isOpen: boolean) => void;
-  onClick?: (content: string) => void;
 }) => {
   const { asPath } = useRouter();
   const [content, setContent] = useState<React.ReactElement | null>(null);
 
   useEffect(()=>{
-    setContent((<Menu setContent={setContent} onClick={onClick} handleSideMenu={handleSideMenu}/>));
-  }, [setContent, onClick, handleSideMenu]);
+    setContent((<Menu setContent={setContent} handleSideMenu={handleSideMenu}/>));
+  }, [setContent, handleSideMenu]);
 
   useEffect(() => {
     handleSideMenu(false);

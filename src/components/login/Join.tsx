@@ -1,9 +1,10 @@
-import { Box, Button, IconButton, Modal, SelectChangeEvent, TextField, Typography } from '@mui/material'
+import { Box, Button, IconButton, Modal, SelectChangeEvent, Typography } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
-import React from 'react'
+import React, { useState } from 'react'
 import LanguageButton from '../side/components/LanguageButton';
 import { useUser } from 'src/hook/useUser';
-import { postLanguages } from 'src/apis/language';
+import { postJoin } from 'src/apis/login';
+import JoinTextField from './JoinTextField';
 
 interface LoginProps {
   open: boolean;
@@ -11,31 +12,52 @@ interface LoginProps {
 }
 
 const Join: React.FC<LoginProps> = ({open, setOpen}) => {
-  const {user, userId, setNickName, setMainLanguage, setSubLanguage, setUserRole} = useUser();
+  const {user, setUserRole} = useUser();
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [mainLanguage, setMainLanguage] = useState("");
+  const [subLanguage, setSubLanguage] = useState("");
+
   const handleClose = () => {
-    setNickName('');
-    setUserRole(null);
+    // setNickName('');
+    setUserRole("GUEST");
     setOpen(false);
   };
+  
+  const handleIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setId(event.target.value);
+  }
 
-  const handleNickNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNickName(event.target.value);
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  }
+
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
   }
 
   const handleMainLanguageChange = (event: SelectChangeEvent<string>) => {
     setMainLanguage(event.target.value as string);
-    console.log(event.target.value as string);
   };
   const handleSubLanguageChange = (event: SelectChangeEvent<string>) => {
-    setSubLanguage(event.target.value as string);  // 클릭된 내용을 mainLanguage 상태에 저장
+    setSubLanguage(event.target.value as string);
   };
 
   const handleJoin = async () => {
     if(user.nickName.length === 0 || user.nickName == null){
       alert('별명의 길이가 1자 이상이어야 합니다');
     }
-    else if(typeof userId === 'string'){
-      await postLanguages(userId, user.nickName, user.mainLanguage, user.subLanguage);
+    else if(typeof id === 'string'){
+      const data = await postJoin({id, password, name, mainLanguage, subLanguage});
+      if(data){
+        if(data.message === "ok"){
+          setUserRole("USER");
+        }
+        else if(data.message === "duplicated id"){
+          alert("중복된 ID입니다");
+        }
+      }
     }
   }
 
@@ -51,17 +73,16 @@ const Join: React.FC<LoginProps> = ({open, setOpen}) => {
           FT 아일랜드에 오신 것을 환영합니다!
         </Typography>
 
-        <Typography variant="h5" sx={{fontWeight: 900, marginBottom: '15px'}}>
-          아이의 별명을 지어주세요!
-        </Typography>
-        <TextField id="outlined-basic" label="별명" variant="outlined" onChange={handleNickNameChange} sx={textFieldStyle()}/>
+        <JoinTextField title={"아이디"} handleChange={handleIdChange}/>
+        <JoinTextField title={"비밀번호"} handleChange={handlePasswordChange}/>
+        <JoinTextField title={"별명"} handleChange={handleNameChange}/>
         
-        <Typography variant="h5" sx={{fontWeight: 900, marginTop:'50px'}}>
+        <Typography variant="h5" sx={{fontWeight: 900, marginTop:'10px'}}>
           언어 선택
         </Typography>
 
         <Box sx={{display:'flex', justifyContent:'center', alignContent: 'space-between', width:'100%', 
-        height:'35%'}}>
+        height:'25%'}}>
           
           <Box sx={{width: '33%', marginRight: '5px'}}>
           <Typography variant="h6" sx={{fontWeight: 900, marginTop:'20px',}}>
@@ -102,20 +123,6 @@ const boxStyle = () => ({
   justifyContent: 'center',
   alignItems: 'center',
   textAlign: 'center',
-})
-
-const textFieldStyle = () => ({
-  '& .MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderColor: '#FF8383',
-    },
-    '&:hover fieldset': {
-      borderColor: 'red',
-    },
-    '&.Mui-focused fieldset': {
-      borderColor: '#FF4A4A',
-    },
-  },
 })
 
 const buttonStyle = () => ({

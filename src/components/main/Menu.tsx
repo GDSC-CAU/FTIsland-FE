@@ -7,10 +7,10 @@ import { useUser } from 'src/hook/useUser'
 interface MenuProps {
     handleClick: (newContent: ReactElement) => void;
     tabIndex: number;
-    handleOpenLoginModal: () => void;
+    handleOpenEnterModal: () => void;
   }
 
-  const Menu: React.FC<MenuProps> = ({ handleClick, tabIndex, handleOpenLoginModal }) => {
+  const Menu: React.FC<MenuProps> = ({ handleClick, tabIndex, handleOpenEnterModal }) => {
     const {userRole} = useUser();
     const [value, setValue] = useState(0);
     const theme = useTheme();
@@ -24,7 +24,7 @@ interface MenuProps {
         else if(newValue === 1)handleClick(<Recent/>);
         else if(newValue === 2)handleClick(<MyWord/>);
       }else{
-        handleOpenLoginModal();
+        handleOpenEnterModal();
       }
     }
     useEffect(()=>{
