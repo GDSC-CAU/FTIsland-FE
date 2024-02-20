@@ -70,6 +70,7 @@ const Books = ({ island }: { island: string }) => {
     try{
       const response = await getBookDetail(id);
       if (response){
+        console.log(response);
         setFocusBook({
           bookId: id,
           title: response.title,
@@ -131,15 +132,15 @@ const Books = ({ island }: { island: string }) => {
           left: boxPosition.left,
           transform: 'translate(-50%, -50%)',
         }}/>
-        {isOpenFocusStory && focusBook ? (
-        <StoryCardPopup
-          focusStoryData={focusBook}
-          open={isOpenFocusStory}
-          onClose={() => setIsOpenFocusStory(false)}
-        />
-      ) : null}
         </Fragment>
       ))}
+      {isOpenFocusStory && focusBook ? (
+      <StoryCardPopup
+        focusStoryData={focusBook}
+        open={isOpenFocusStory}
+        onClose={() => setIsOpenFocusStory(false)}
+      />
+    ) : null}
     </>
   );
 };
@@ -168,9 +169,6 @@ const StoryCardPopup = ({
     open={open}
     TransitionComponent={Transition}
     keepMounted
-    onBackdropClick={() => {
-      onClose();
-    }}
     PaperProps={{
       sx: {
         position: 'relative',
@@ -188,6 +186,8 @@ const StoryCardPopup = ({
 >
   <CloseIcon
     sx={{
+      backgroundColor: 'grey',
+      borderRadius: '20px',
       color: 'white',
       width: { xs: '24px', sm: '40px' },
       height: { xs: '24px', sm: '40px' },

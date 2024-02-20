@@ -63,6 +63,8 @@ const StoryCardPopup = ({
     >
       <CloseIcon
         sx={{
+          backgroundColor: 'grey',
+          borderRadius: '20px',
           color: 'white',
           width: { xs: '24px', sm: '40px' },
           height: { xs: '24px', sm: '40px' },

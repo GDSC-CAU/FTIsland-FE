@@ -19,7 +19,7 @@ export const getIslandInfo = async (islandName: string, userId: string | number)
 export const getBookDetail = async (id: string | number) => {
   try {
     const url = baseURL + `/book/info?bookId=${id}`;
-    const response = await axios.post(url);
+    const response = await axios.get(url);
     return response.data;
   } catch (error) {
     console.error(error);

@@ -1,6 +1,7 @@
 import { Avatar, Box, Button, CardMedia, IconButton, Modal, Typography } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
 import React from 'react';
+import { useUser } from 'src/hook/useUser';
 
 interface LoginProps {
   open: boolean;
@@ -10,7 +11,7 @@ interface LoginProps {
 }
 
 const Enter: React.FC<LoginProps> = ({open, setOpen, setOpenLogin, setOpenJoin}) => {
-// const {setToken, setUserId, setUserRole} = useUser();
+const {setUserRole} = useUser();
 
   const handleClose = () => {
     setOpen(false);
@@ -42,7 +43,7 @@ const Enter: React.FC<LoginProps> = ({open, setOpen, setOpenLogin, setOpenJoin})
         <Typography variant="h4" sx={{ fontWeight: 900, marginTop:'2%',marginBottom: '10%', color:'#39A7FF'}}>
           FT Island
         </Typography>
-
+        <Box sx={{width: '30px', height: '30px', bgcolor: 'red'}} onClick={()=>setUserRole('USER')}></Box>
         <Button variant='contained' sx={buttonStyle()} onClick={handleClick}>
           <Avatar src="image/lock.png" alt="google" sx={{width: '20px', height: '20px', marginRight: '15px'}}/>
           로그인</Button>
