@@ -5,7 +5,8 @@ import List from './components/List';
 import Back from './components/Back';
 import LanguageButton from './components/LanguageButton';
 import { useUser } from 'src/hook/useUser';
-import {postLanguages} from './../../../src/apis/language'
+import {putLanguage} from './../../../src/apis/language'
+import convertedLanguageCode from 'src/utils/convertedLanguageCode';
 
 interface MenuProps {
   setContent: (setContent: ReactElement) => void;
@@ -22,14 +23,16 @@ const LanguageSetting: React.FC<MenuProps> = ({setContent, handleSideMenu}) => {
   const handleMainLanguageChange = async (event: SelectChangeEvent<string>) => {
     setMainLanguage(event.target.value as string);
     if(userRole === 'USER'){
-      await postLanguages(userId, user.mainLanguage, user.subLanguage);
+      await putLanguage(userId, convertedLanguageCode(user.mainLanguage), convertedLanguageCode(user.subLanguage));
     }
+    event.stopPropagation();
   };
   const handleSubLanguageChange = async (event: SelectChangeEvent<string>) => {
-    setSubLanguage(event.target.value as string);  // 클릭된 내용을 mainLanguage 상태에 저장
-    // if(userId!==-1 && typeof userId === 'string' && userRole !== 'GUEST'){
-    //   await postLanguages(userId, user.nickName, user.mainLanguage, user.subLanguage);
-    // }
+    setSubLanguage(event.target.value as string);
+    if(userRole === 'USER'){
+      await putLanguage(userId, convertedLanguageCode(user.mainLanguage), convertedLanguageCode(user.subLanguage));
+    }
+    event.stopPropagation();
   };
 
   return (

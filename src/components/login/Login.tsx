@@ -36,29 +36,22 @@ const Login: React.FC<LoginProps> = ({ open, setOpen }) => {
       alert('비밀번호의 길이가 1자 이상이어야 합니다');
     } else {
       const data = await postLogin({ id, password });
-      if (data) {
-        setUserId(data.userId);
-      } else {
-        const data = await postLogin({ id, password });
-        if (data) {
-          if (data.status === 200) {
-            setUserId(data.data.userId);
-            setNickName(data.data.name);
-            setMainLanguage(data.data.mainLanguage);
-            setSubLanguage(data.data.subLanguage);
-            setUserRole('USER');
+      if (data && data.status === 200) {
+        setUserId(data.data.userId);
+        setNickName(data.data.name);
+        setMainLanguage(data.data.mainLanguage);
+        setSubLanguage(data.data.subLanguage);
+        setUserRole('USER');
 
-            localStorage.setItem('userId', data.data.userId);
-            localStorage.setItem('name', data.data.name);
-            localStorage.setItem('mainLanguage', data.data.mainLanguage);
-            localStorage.setItem('subLanguage', data.data.subLanguage);
-            localStorage.setItem('userRole', 'USER');
+        localStorage.setItem('userId', data.data.userId);
+        localStorage.setItem('name', data.data.name);
+        localStorage.setItem('mainLanguage', data.data.mainLanguage);
+        localStorage.setItem('subLanguage', data.data.subLanguage);
+        localStorage.setItem('userRole', 'USER');
 
-            location.reload();
-          } else if (data.status === 404) {
-            alert('등록된 정보가 없습니다. 다시 시도하세요.');
-          }
-        }
+        location.reload();
+      } else if (data.status === 404) {
+        alert('등록된 정보가 없습니다. 다시 시도하세요.');
       }
     }
   };
