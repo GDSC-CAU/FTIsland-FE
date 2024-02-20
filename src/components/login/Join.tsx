@@ -16,8 +16,8 @@ const Join: React.FC<LoginProps> = ({open, setOpen}) => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [mainLanguage, setMainLanguage] = useState("");
-  const [subLanguage, setSubLanguage] = useState("");
+  const [mainLanguage, setMainLanguage] = useState("한국어");
+  const [subLanguage, setSubLanguage] = useState("English");
 
   const handleClose = () => {
     // setNickName('');
@@ -45,16 +45,35 @@ const Join: React.FC<LoginProps> = ({open, setOpen}) => {
   };
 
   const handleJoin = async () => {
-    if(user.nickName.length === 0 || user.nickName == null){
-      alert('별명의 길이가 1자 이상이어야 합니다');
+    if(name.length === 0 || name == null){
+      alert('별명의 길이가 1자 이상이어야 합니다.');
+    }
+    else if(id.length === 0){
+      alert('아이디의 길이가 1자 이상이어야 합니다.');
+    }
+    else if(password.length === 0){
+      alert('비밀번호의 길이가 1자 이상이어야 합니다.');
     }
     else if(typeof id === 'string'){
       const data = await postJoin({id, password, name, mainLanguage, subLanguage});
       if(data){
+        console.log(data);
+        if(data.status === 404){
+          if(data.data.valid_inputId){
+            alert(data.data.valid_inputId);
+          }
+          if(data.data.valid_inputPassword){
+            alert(data.data.valid_inputPassword);
+          }
+          if(data.data.valid_inputName){
+            alert(data.data.valid_inputName);
+          }
+        }
         if(data.message === "ok"){
           setUserRole("USER");
+          location.reload();
         }
-        else if(data.message === "duplicated id"){
+        else if(data.message === "duplicate id"){
           alert("중복된 ID입니다");
         }
       }

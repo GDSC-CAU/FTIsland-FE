@@ -39,7 +39,11 @@ const SideButton: React.FC<SideButtonProps> = ({content, backgroundColor, handle
         setOpenEnter(true);
       }
     }
-    if(content === '로그아웃')setUserRole(null);
+    if(content === '로그아웃'){
+      setUserRole("GUEST");
+      localStorage.clear();
+      location.reload();
+    }
   }
 
   return (
