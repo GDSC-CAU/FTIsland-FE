@@ -1,5 +1,4 @@
 export const convertIslandName = (islandName: string) => {
-  console.log(islandName);
   if(islandName === '기쁨'){
     return 2;
   }else if(islandName === '행복'){
