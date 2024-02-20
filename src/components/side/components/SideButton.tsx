@@ -5,7 +5,7 @@ import { useUser } from 'src/hook/useUser';
 interface SideButtonProps {
   content: string;
   backgroundColor?: string;  // backgroundColor prop 추가
-  handleLanguage?: (content: string) => void;
+  handleLanguage?: (content?: string) => void;
   handleSideMenu: (isOpen: boolean) => void;
   word?: boolean;
   setOpenEnter?: (isOpen: boolean) => void;
@@ -18,20 +18,21 @@ const SideButton: React.FC<SideButtonProps> = ({content, backgroundColor, handle
 
   const handleClick = () => {
     //Language
-    if(content==='바로 가기'){
-      handleLanguage;
+    if(content==='바로 가기' && handleLanguage){
+      handleLanguage();
     }
 
     //사이드창 계속 열지 말지
-    if(content === '로그인/회원가입' || content ==='바로 가기'){
+    if(userRole!=='USER' || content ==='바로 가기'){
       handleSideMenu(true);
     }
+    else handleSideMenu(false);
 
     //메인 창 내용
     if(userRole ==='USER' || content ==='메인 페이지'){
       setMenu(content);
+      handleSideMenu(false);
     }
-    else handleSideMenu(false);
 
     if(content !=='메인 페이지' && content !=='바로 가기' && (userRole !== 'USER' || (content === '로그인/회원가입' && setOpenEnter))){
       if(setOpenEnter !== undefined){
