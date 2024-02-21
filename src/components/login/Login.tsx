@@ -16,7 +16,6 @@ const Login: React.FC<LoginProps> = ({ open, setOpen }) => {
   const [password, setPassword] = useState('');
 
   const handleClose = () => {
-    // setNickName('');
     setUserRole('GUEST');
     setOpen(false);
   };

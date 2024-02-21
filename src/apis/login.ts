@@ -34,7 +34,6 @@ export const postJoin = async ({id, password, name, mainLanguage, subLanguage}
       mainLanguage: mainLanguage || "ko",
       subLanguage: subLanguage || 'en',
     }
-    console.log(data);
 
     const response = await axios.post(`${baseURL}/sign-up`, data);
     if(response){

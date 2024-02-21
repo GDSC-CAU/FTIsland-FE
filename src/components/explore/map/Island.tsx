@@ -2,13 +2,10 @@ import React, { useEffect } from 'react';
 import { Box, CardMedia } from '@mui/material';
 
 import Books from './Books';
-import { useUser } from 'src/hook/useUser';
 
 const ISLAND_IMAGE_COUNT = 7;
 
 const Island = ({ island }: { island: string }) => {
-  const { user } = useUser();
-  const userIslandName = user.nickName ? `${user.nickName}의 섬` : '지혜의 섬';
   useEffect(() => {
     const preloadImage = () => {
       const preloadImageList: { src: string }[] = [];
@@ -31,7 +28,7 @@ const Island = ({ island }: { island: string }) => {
   }, []);
 
   const handleIsland = () => {
-    if (island === userIslandName) {
+    if (island === '지혜의 섬') {
       return '/image/island2.webp';
     } else if (island === '기쁨의 섬') {
       return '/image/island1.webp';

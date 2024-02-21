@@ -9,6 +9,7 @@ export const putLanguage = async (userId:number, mainLanguage:string, subLanguag
         mainLanguage: mainLanguage,
         subLanguage: subLanguage,
       }
+      console.log(data);
       await axios.put(`${baseURL}/language`, data);
 
     }catch(error){

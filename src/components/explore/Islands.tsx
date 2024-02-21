@@ -6,17 +6,31 @@ interface MenuProps {
   }
 
 const Islands: React.FC<MenuProps> = ({setSelectedIsland}) => {
-    const [value, setValue] = useState(0);
+  const [value, setValue] = useState(0);
     const { user } = useUser();
-    const userIslandName = user.nickName ? `${user.nickName}의 섬` : '지혜의 섬';
-    const labels = [userIslandName, '기쁨의 섬', '행복의 섬', '용기의 섬', '희망의 섬', '미지의 섬',]
+    const labels = ['지혜의 섬', '기쁨의 섬', '행복의 섬', '용기의 섬', '희망의 섬', '미지의 섬',]
 
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
+    const islandName = (newValue:number) => {
+      if( user.nickName !=="" && newValue === 1){
+        return `지혜의 섬`;
+      }else{
+        return labels[newValue];
+      }
+    }
+  const convertIslandName = (label: string) => {
+    if(label === '지혜의 섬' && user.nickName !==""){
+      return `${user.nickName}의 섬`;
+    }else{
+      return label;
+    }
+  }
+
     const handleChange = (newValue: number) => {
         setValue(newValue);
-        setSelectedIsland(labels[newValue]);
+        setSelectedIsland(islandName(newValue));
     }
     return (
         <Box sx={{ 
@@ -37,7 +51,7 @@ const Islands: React.FC<MenuProps> = ({setSelectedIsland}) => {
                 marginTop: 15 }}
                 onClick={()=>handleChange(index)}
                 >
-                    {label}
+                    {convertIslandName(label)}
                 </Button>
             ))}
         </ButtonGroup>

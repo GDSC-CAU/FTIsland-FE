@@ -14,12 +14,13 @@ interface MenuProps {
   }
 
 const Menu: React.FC<MenuProps> =  ({setContent, handleSideMenu}) => {
-  const {userRole} = useUser();
+  const {userRole, setIsLanguageSetting} = useUser();
   const [openEnterModal, setOpenEnterModal] = useState(false);
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openJoinModal, setOpenJoinModal] = useState(false);
-  const handleLanguageSettingClick = () => {
-    setContent(<LanguageSetting  setContent={setContent} handleSideMenu={handleSideMenu}/>)
+  const handleLanguageSettingClick = async () => {
+    setIsLanguageSetting(true);
+    await setContent(<LanguageSetting  setContent={setContent} handleSideMenu={handleSideMenu}/>);
   }
   return (
     <Box sx={{bgcolor: "#FFE5E5", height: "100vh"}}>
