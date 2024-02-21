@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Box, Drawer } from '@mui/material';
 import Menu from './side/Menu'
+import { useUser } from 'src/hook/useUser';
 //Typography
 
 const SideMenu = ({
@@ -13,10 +14,13 @@ const SideMenu = ({
 }) => {
   const { asPath } = useRouter();
   const [content, setContent] = useState<React.ReactElement | null>(null);
+  const { isLanguageSetting } = useUser();
 
   useEffect(()=>{
-    setContent((<Menu setContent={setContent} handleSideMenu={handleSideMenu}/>));
-  }, [setContent, handleSideMenu]);
+    if(!isLanguageSetting){
+      setContent((<Menu setContent={setContent} handleSideMenu={handleSideMenu}/>));
+    }
+  }, [setContent, handleSideMenu, isLanguageSetting]);
 
   useEffect(() => {
     handleSideMenu(false);

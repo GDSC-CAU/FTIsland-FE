@@ -14,10 +14,11 @@ interface MenuProps {
 }
 
 const LanguageSetting: React.FC<MenuProps> = ({setContent, handleSideMenu}) => {
-  const {user, userId, userRole, setMainLanguage, setSubLanguage} = useUser();
+  const {user, userId, userRole, setMainLanguage, setSubLanguage, setIsLanguageSetting} = useUser();
   
   const handleBack = () => {
     setContent(<Menu setContent={setContent} handleSideMenu={handleSideMenu} />);
+    setIsLanguageSetting(false);
   };
 
   const handleMainLanguageChange = async (event: SelectChangeEvent<string>) => {

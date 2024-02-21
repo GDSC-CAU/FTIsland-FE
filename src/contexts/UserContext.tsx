@@ -17,6 +17,8 @@ export interface UserContextValues {
   setUserRole: (value: 'GUEST' | 'USER') => void;
   menu: string | null;
   setMenu: (value: string | null) => void;
+  isLanguageSetting: boolean;
+  setIsLanguageSetting: (value: boolean) => void;
 }
 
 const contextDefaultValue: UserContextValues = {
@@ -36,6 +38,8 @@ const contextDefaultValue: UserContextValues = {
   setUserRole: () => {},
   menu: '메인 페이지',
   setMenu: () => {},
+  isLanguageSetting: false,
+  setIsLanguageSetting: () => {},
 };
 
 export const UserContext = createContext(contextDefaultValue);
@@ -48,6 +52,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [userId, setUserId] = useState(contextDefaultValue.userId);
   const [userRole, setUserRole] = useState(contextDefaultValue.userRole);
   const [menu, setMenu] = useState(contextDefaultValue.menu);
+  const [isLanguageSetting, setIsLanguageSetting] = useState(contextDefaultValue.isLanguageSetting);
 
   useEffect(() => {
     contextDefaultValue.user.nickName = nickName;
@@ -84,6 +89,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         setUserRole,
         menu,
         setMenu,
+        isLanguageSetting,
+        setIsLanguageSetting,
       }}
     >
       {children}

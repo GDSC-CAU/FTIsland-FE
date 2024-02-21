@@ -8,9 +8,13 @@ interface LanguageButtonProps {
 }
 
 const LanguageButton: React.FC<LanguageButtonProps> = ({language, handleLanguageChange}) => {
+  const handleClick = (event: SelectChangeEvent<string>) => {
+    event.stopPropagation();
+    handleLanguageChange(event);
+  }
   return (
     <Box sx={{display: 'flex', justifyContent: 'center', paddingTop: 3, paddingBottom: 20}}>
-      <Select defaultValue={language} sx={selectBoxStyle}  onChange={handleLanguageChange} 
+      <Select defaultValue={language} sx={selectBoxStyle}  onChange={handleClick} 
         MenuProps={{
           PaperProps: {
             style: {
