@@ -16,9 +16,9 @@ export const getVocaDescription = async (vocaId: number, mainLan: string, subLan
   );
 
 // 단어 카드에서 삭제버튼 눌렀을때 추가
-// [DELETE] /voca/description : 단어 삭제 API
+// [DELETE] /voca : 단어 삭제 API
 export const deleteVoca = async (userId: number, vocaId: number) =>
-  await requestAPIWithoutToken('DELETE', `/voca/description`, {
+  await requestAPIWithoutToken('DELETE', `/voca`, {
     userId,
     vocaId,
   });

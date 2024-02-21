@@ -23,11 +23,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <Box sx={{ minWidth: '320px' }}>
       <Appbar handleSideMenu={handleSideMenu} />
 
-      <SideMenu open={sideMenuOpen} handleSideMenu={handleSideMenu}/>
+      <SideMenu open={sideMenuOpen} handleSideMenu={handleSideMenu} />
 
       <Toolbar variant="dense" />
 
-      <Box component="main" sx={{ mx: 'auto', p: isBookPage ? 0 : 2 }}>
+      <Box component="main" sx={{ mx: 'auto', p: isBookPage ? 0 : 2, maxWidth: '1000px' }}>
         {children}
       </Box>
     </Box>

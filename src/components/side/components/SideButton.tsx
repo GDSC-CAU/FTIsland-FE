@@ -33,7 +33,7 @@ const SideButton: React.FC<SideButtonProps> = ({
     } else handleSideMenu(false);
 
     //메인 창 내용
-    if ((userRole === 'USER' || content === '메인 페이지') && content !=='바로 가기') {
+    if ((userRole === 'USER' || content === '메인 페이지') && content !== '바로 가기') {
       setMenu(content);
       handleSideMenu(false);
     }
@@ -130,7 +130,6 @@ const boxStyle = (backgroundColor: string | undefined, word: boolean | undefined
 };
 
 const listStyle = () => ({
-  fontFamily: 'sans-serif',
   fontWeight: 'bold',
   width: '80%',
 });

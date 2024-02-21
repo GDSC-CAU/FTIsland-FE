@@ -54,8 +54,34 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
+export const typography = {
+  typography: {
+    fontFamily: [
+      'Nunito', // 영어
+      'Poor Story', // 한글
+      'Pretendard',
+      '"Pretendard Variable"',
+      '-apple-system',
+      'BlinkMacSystemFont',
+      'system-ui',
+      'Roboto',
+      '"Helvetica Neue"',
+      '"Segoe UI"',
+      '"Apple SD Gothic Neo"',
+      '"Noto Sans KR"',
+      '"Malgun Gothic"',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+      'sans-serif',
+    ].join(','),
+  },
+};
+
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
-  const theme = createTheme();
+  const theme = createTheme({
+    ...typography,
+  });
 
   const [queryClient] = useState(() => new QueryClient());
 
@@ -64,7 +90,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <>
       <Head>
-        <title>FTIsland</title>
+        <title>Fairy Tale Island</title>
         <meta name="description" content="Language Bridge with Multicultural Families" />
         <meta charSet="utf-8" />
         <meta
@@ -73,6 +99,15 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         />
         <link rel="manifest" href="/manifest.json" />
         <link rel="shortcut icon" href="/favicon.ico" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+        <link
+          href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap&family=Carter+One&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+          rel="stylesheet"
+        />
       </Head>
 
       <QueryClientProvider client={queryClient}>

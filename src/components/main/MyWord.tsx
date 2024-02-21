@@ -5,7 +5,7 @@ import { useUser } from 'src/hook/useUser';
 
 import VocaCard from '../card/VocaCard';
 
-type VocaType = { vocaId: number; word: string };
+type VocaType = { vocaId: number; word: string; image: string; subWord: string };
 
 const MyWord = ({ vocaListData }: { vocaListData: VocaType[] }) => {
   const { userId } = useUser();
@@ -30,8 +30,14 @@ const MyWord = ({ vocaListData }: { vocaListData: VocaType[] }) => {
         transformStyle: 'preserve-3d',
       }}
     >
-      {vocaListData.map(({ vocaId }, idx) => (
-        <VocaCard key={vocaId} vocaId={vocaId} index={idx} handleDeleteVoca={handleDeleteVoca} />
+      {vocaListData.map(({ vocaId, image }, idx) => (
+        <VocaCard
+          key={vocaId}
+          vocaId={vocaId}
+          index={idx}
+          image={image}
+          handleDeleteVoca={handleDeleteVoca}
+        />
       ))}
 
       {vocaListData.length === 0 ? (

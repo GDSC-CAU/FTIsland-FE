@@ -27,7 +27,7 @@ const Appbar = ({
           onClick={() => {
             push('/');
           }}
-          sx={{ display: 'flex', alignItems: 'center', px: 2, gap: 2, cursor: 'pointer' }}
+          sx={{ display: 'flex', alignItems: 'center', pl: 2, gap: 2, cursor: 'pointer' }}
         >
           <Box
             sx={{
@@ -39,8 +39,12 @@ const Appbar = ({
               backgroundSize: 'contain',
             }}
           />
-          <Typography variant="h4" component="h1" sx={{ fontWeight: 600, whiteSpace: 'nowrap' }}>
-            FT Island
+          <Typography
+            variant="h4"
+            component="h1"
+            sx={{ fontWeight: 600, whiteSpace: 'nowrap', fontFamily: 'Carter One' }}
+          >
+            Fairy Tale Island
           </Typography>
         </Box>
         <IconButton

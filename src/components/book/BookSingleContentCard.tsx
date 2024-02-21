@@ -1,15 +1,13 @@
-import { Box, Chip, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Chip } from '@mui/material';
 import SoundIcon from '@mui/icons-material/VolumeUp';
 
 import { BookContentDataType } from 'src/types/book';
 import throttling from 'src/utils/throttling';
 import { googleTTS } from 'src/utils/tts';
+import HighlightedText from './HighlightedText';
 
 const BookSingleContentCard = ({ bookContent }: { bookContent: BookContentDataType }) => {
-  const { breakpoints } = useTheme();
-  const isMobile = useMediaQuery(breakpoints.down('sm'));
-
-  const { image, subLan, mainLan, subContents, mainContents } = bookContent;
+  const { image, subLan, mainLan, subContents, mainContents, vocaList } = bookContent;
 
   return (
     <Box
@@ -45,10 +43,7 @@ const BookSingleContentCard = ({ bookContent }: { bookContent: BookContentDataTy
               throttling(() => googleTTS(mainContents, mainLan), 1000);
             }}
           />
-
-          <Typography variant={isMobile ? 'h6' : 'h5'} sx={{ wordBreak: 'break-all', ml: 0.5 }}>
-            {mainContents}
-          </Typography>
+          <HighlightedText type="main" contents={mainContents} wordList={vocaList} />
         </Box>
 
         <Box>
@@ -65,9 +60,7 @@ const BookSingleContentCard = ({ bookContent }: { bookContent: BookContentDataTy
               throttling(() => googleTTS(subContents, subLan), 1000);
             }}
           />
-          <Typography variant={isMobile ? 'h6' : 'h5'} sx={{ wordBreak: 'break-all', ml: 0.5 }}>
-            {subContents}
-          </Typography>
+          <HighlightedText type="sub" contents={subContents} wordList={vocaList} />
         </Box>
       </Box>
     </Box>

@@ -17,4 +17,9 @@ export type BookContentDataType = {
   mainContents: string;
   subContents: string;
   image: string;
+  vocaList: {
+    vocaId: number;
+    word: string;
+    subWord: string;
+  }[];
 };

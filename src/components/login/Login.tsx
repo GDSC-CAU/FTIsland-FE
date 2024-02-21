@@ -65,7 +65,7 @@ const Login: React.FC<LoginProps> = ({ open, setOpen }) => {
           <CloseIcon sx={{ width: '28px', height: '28px' }} />
         </IconButton>
         <CardMedia
-          image="/image/coverImg1.jpg"
+          image="/favicon.ico"
           sx={{
             position: 'relative',
             aspectRatio: '1/1',
@@ -75,9 +75,16 @@ const Login: React.FC<LoginProps> = ({ open, setOpen }) => {
         />
         <Typography
           variant="h4"
-          sx={{ fontWeight: 900, marginTop: '2%', marginBottom: '5%', color: '#39A7FF' }}
+          sx={{
+            fontWeight: 900,
+            marginTop: '2%',
+            marginBottom: '5%',
+            color: '#39A7FF',
+            whiteSpace: 'nowrap',
+            fontFamily: 'Carter One',
+          }}
         >
-          FT Island
+          Fairy Tale Island
         </Typography>
 
         <JoinTextField title={'아이디'} handleChange={handleIdChange} />

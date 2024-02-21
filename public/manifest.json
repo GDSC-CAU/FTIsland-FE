@@ -19,9 +19,9 @@
       "type": "image/png"
     }
   ],
-  "name": "FT Island",
+  "name": "Fairy Tale Island",
   "scope": "/",
-  "short_name": "FT Island",
+  "short_name": "Fairy Tale Island",
   "start_url": "/",
   "theme_color": "#ffffff"
 }

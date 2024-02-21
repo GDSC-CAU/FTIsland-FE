@@ -81,6 +81,8 @@ export const googleTTS = async (text: string, languageCode?: string, voiceCode =
     const audioBlob = base64ToBlob(audioContent);
     audioFile.src = window.URL.createObjectURL(audioBlob);
     audioFile.play();
+
+    // audioFile.pause();
   };
 
   const fetchGoogleTTS = async (body?: object) => {
