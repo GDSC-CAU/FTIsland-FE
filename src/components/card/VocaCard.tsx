@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { Box, Card, CardMedia, IconButton, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/CloseRounded';
 import BookIcon from '@mui/icons-material/MenuBookRounded';
@@ -10,6 +10,8 @@ import convertedLanguageCode from 'src/utils/convertedLanguageCode';
 import throttling from 'src/utils/throttling';
 
 import SoundButton from '../button/SoundButton';
+import Loading from '../Loading';
+import SwitchButton from '../button/SwitchButton';
 
 const FlippableCard = ({ isBackPage, children }: { isBackPage: boolean; children: ReactNode }) => (
   <Card
@@ -45,27 +47,42 @@ const FlippableCard = ({ isBackPage, children }: { isBackPage: boolean; children
 const VocaCard = ({
   vocaId,
   index,
+  image,
   handleDeleteVoca,
 }: {
   vocaId: number;
   index: number;
+  image: string;
   handleDeleteVoca: (targetIndex: number) => void;
 }) => {
   const { user, userRole } = useUser();
-  const {
-    data: { word, description, bookName },
-  } = useQuery({
-    queryKey: ['vocaDetailData', vocaId, user.mainLanguage, user.subLanguage],
+
+  const [isBackPage, setIsBackPage] = useState(false);
+  const [voacInfo, setVocaInfo] = useState({ bookName: '', word: '', description: '' });
+  const [isMainLanguage, setIsMainLanguage] = useState(false);
+
+  const { data: vocaDetailData, isLoading } = useQuery({
+    queryKey: ['vocaDetailData', vocaId, user.mainLanguage, user.subLanguage, index],
     queryFn: async () =>
       await getVocaDescription(
         vocaId,
         convertedLanguageCode(user.mainLanguage),
         convertedLanguageCode(user.subLanguage),
-      ),
-    enabled: userRole === 'USER',
+      ).then((res) => {
+        setVocaInfo(res[0]);
+      }),
+    enabled: userRole === 'USER' && typeof vocaId === 'number',
+    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60 * 30,
   });
 
-  const [isBackPage, setIsBackPage] = useState(false);
+  useEffect(() => {
+    if (vocaDetailData) {
+      setVocaInfo(vocaDetailData[isMainLanguage ? 0 : 1]);
+    }
+  }, [isMainLanguage, vocaDetailData]);
+
+  if (isLoading) return <Loading />;
 
   return (
     <Box
@@ -83,8 +100,9 @@ const VocaCard = ({
       }}
     >
       <FlippableCard isBackPage={isBackPage}>
+        {/* 앞면 */}
         <CardMedia
-          image="/image/coverImg1.jpg"
+          image={image}
           sx={{
             position: 'relative',
             aspectRatio: '4/3',
@@ -119,17 +137,18 @@ const VocaCard = ({
         >
           <BookIcon sx={{ width: '16px' }} />
           <Typography variant="h6" sx={{ fontSize: { xs: '14px', sm: '16px' }, fontWeight: 900 }}>
-            {bookName}
+            {voacInfo.bookName}
           </Typography>
         </Box>
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flex: 1 }}>
           <Typography variant="h4" sx={{ fontWeight: 900 }}>
-            {word}
+            {voacInfo.word}
           </Typography>
         </Box>
       </FlippableCard>
 
       <FlippableCard isBackPage={!isBackPage}>
+        {/* 뒷면 */}
         <Box
           sx={{
             p: 2,
@@ -167,13 +186,16 @@ const VocaCard = ({
               },
             }}
           >
-            {/* <Typography variant="body2">보조언어</Typography> */}
-            {/* <SwitchButton
+            <Typography variant="body2">Sub</Typography>
+            <SwitchButton
+              value={isMainLanguage}
               onClick={(e) => {
                 e.stopPropagation();
+                const target = e.target as HTMLInputElement;
+                setIsMainLanguage(target.checked);
               }}
-            /> */}
-            {/* <Typography variant="body2">주언어</Typography> */}
+            />
+            <Typography variant="body2">Main</Typography>
           </Box>
           <Box
             sx={{
@@ -190,20 +212,36 @@ const VocaCard = ({
                   width: '50px',
                   height: '50px',
                   borderRadius: '20px',
-                  backgroundImage: `url(${'/image/coverImg1.jpg'})`,
+                  backgroundImage: `url(${image})`,
                   backgroundPosition: 'center',
                   backgroundRepeat: 'no-repeat',
                   backgroundSize: 'cover',
                 }}
               />
-              <Typography variant="h3">{word}</Typography>
+              <Typography variant="h3">{voacInfo.word}</Typography>
             </Box>
             <Box>
               <Box sx={{ mt: '-28px' }}>
-                <SoundButton buttonText="단어 듣기" soundText={word} />
-                <SoundButton buttonText="설명 듣기" soundText={description} />
+                <SoundButton
+                  buttonText="단어 듣기"
+                  soundText={voacInfo.word}
+                  languageCode={
+                    isMainLanguage
+                      ? convertedLanguageCode(user.mainLanguage)
+                      : convertedLanguageCode(user.subLanguage)
+                  }
+                />
+                <SoundButton
+                  buttonText="설명 듣기"
+                  soundText={voacInfo.description}
+                  languageCode={
+                    isMainLanguage
+                      ? convertedLanguageCode(user.mainLanguage)
+                      : convertedLanguageCode(user.subLanguage)
+                  }
+                />
               </Box>
-              <Typography variant="h6">{description}</Typography>
+              <Typography variant="h6">{voacInfo.description}</Typography>
             </Box>
           </Box>
         </Box>

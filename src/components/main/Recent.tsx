@@ -7,8 +7,6 @@ const Recent = ({ recentBookListData }: { recentBookListData: StoryDataType[] })
   const { breakpoints } = useTheme();
   const isMobile = useMediaQuery(breakpoints.down('sm'));
 
-  // const storyList: StoryDataType[] = getBookData();
-
   return (
     <Box
       sx={{

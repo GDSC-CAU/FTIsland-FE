@@ -11,7 +11,7 @@ interface BoxPosition {
   top: string;
   left: string;
 }
-interface Book{
+interface Book {
   bookId: number;
   title: string;
   description: string;
@@ -89,7 +89,7 @@ const Books = ({ island }: { island: string }) => {
     const fetchBookInfo = async () => {
       try {
         const response = await getIslandInfo(realIslandName(), userId);
-        if(response){
+        if (response) {
           setBooks(response.data);
         }
       } catch (error) {
@@ -104,41 +104,56 @@ const Books = ({ island }: { island: string }) => {
     <>
       {boxPositions?.map((boxPosition, index) => (
         <Fragment key={index}>
+          {books[index]?.image && userRole === 'USER' && (
+            <Box
+              sx={{
+                position: 'absolute',
+                top: boxPosition.top,
+                left: boxPosition.left,
+                transform: 'translate(-50%, -1500%)',
+                width: '100px',
+                height: '10px',
+                bgcolor: 'white',
+                borderRadius: '20px',
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              <Progress value={books[index].progress} />
+            </Box>
+          )}
 
-        {books[index]?.image && userRole === 'USER' &&
-        <Box sx={{ position: 'absolute', top: boxPosition.top, left: boxPosition.left, transform: 'translate(-50%, -1500%)', width: '100px', height: '10px', bgcolor:'white', borderRadius:'20px', display: 'flex', alignItems:'center'}}>
-          <Progress value={books[index].progress}/>
-        </Box>
-        }
-
-        <CardMedia
-        component="img"
-        image={books[index]?.image || "/image/bookLock.webp"}
-        title="mark"
-        onClick={()=>handleBookDetail(books[index]?.bookId)}
-        sx={{
-          width: {xs:'70px', sm:'100px'},
-          height: {xs:'70px', sm:'100px'},
-          borderRadius: '10px',
-          border: '4px solid white',
-          boxShadow: '10px 10px 5px 2px rgba(0, 0, 0, 0.25)',
-          position: 'absolute',
-          top: boxPosition.top,
-          left: boxPosition.left,
-          transform: 'translate(-50%, -130%)',
-        }}/>
-        <CardMedia
-        component="img"
-        image="/image/mark-location.png"
-        title="mark"
-        sx={{
-          width: '30px',
-          height: '30px',
-          position: 'absolute',
-          top: boxPosition.top,
-          left: boxPosition.left,
-          transform: 'translate(-50%, -50%)',
-        }}/>
+          <CardMedia
+            component="img"
+            image={books[index]?.image || '/image/bookLock.webp'}
+            title="mark"
+            onClick={() => handleBookDetail(books[index]?.bookId)}
+            sx={{
+              width: { xs: '70px', sm: '100px' },
+              height: { xs: '70px', sm: '100px' },
+              borderRadius: '10px',
+              border: '4px solid white',
+              boxShadow: '10px 10px 5px 2px rgba(0, 0, 0, 0.25)',
+              position: 'absolute',
+              top: boxPosition.top,
+              left: boxPosition.left,
+              transform: 'translate(-50%, -130%)',
+              zIndex: 2,
+            }}
+          />
+          <CardMedia
+            component="img"
+            image="/image/mark-location.png"
+            title="mark"
+            sx={{
+              width: '30px',
+              height: '30px',
+              position: 'absolute',
+              top: boxPosition.top,
+              left: boxPosition.left,
+              transform: 'translate(-50%, -50%)',
+            }}
+          />
         </Fragment>
       ))}
       {isOpenFocusStory && focusBook ? (
