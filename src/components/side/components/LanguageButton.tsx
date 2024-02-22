@@ -1,21 +1,29 @@
 import { Box, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import React from 'react';
+import { useUser } from 'src/hook/useUser';
 
 interface LanguageButtonProps {
-  language: string;
+  sort: string;
   handleLanguageChange: (event: SelectChangeEvent<string>) => void;
 }
 
-const LanguageButton: React.FC<LanguageButtonProps> = ({ language, handleLanguageChange }) => {
+const LanguageButton: React.FC<LanguageButtonProps> = ({ sort, handleLanguageChange }) => {
+  const {user} = useUser();
   const handleClick = (event: SelectChangeEvent<string>) => {
     event.stopPropagation();
     handleLanguageChange(event);
   };
+
+  const getLanguage = () => {
+    if(sort === "main")return user.mainLanguage;
+    else return user.subLanguage;
+  };
+
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', paddingTop: 3, paddingBottom: 20 }}>
       <Select
-        defaultValue={language}
+        defaultValue={getLanguage()}
         sx={selectBoxStyle}
         onChange={handleClick}
         MenuProps={{

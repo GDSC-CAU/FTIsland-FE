@@ -45,10 +45,10 @@ const LanguageSetting: React.FC<MenuProps> = ({setContent, handleSideMenu}) => {
       <Back handleBack={handleBack}/>
       
       <List content={"주언어"}/>
-      <LanguageButton language={user.mainLanguage} handleLanguageChange={handleMainLanguageChange}/>
+      <LanguageButton sort={"main"} handleLanguageChange={handleMainLanguageChange}/>
 
       <List content={"서브 언어"}/>
-      <LanguageButton language={user.subLanguage} handleLanguageChange={handleSubLanguageChange} />
+      <LanguageButton sort={"sub"} handleLanguageChange={handleSubLanguageChange} />
     </Box>
   )
 }

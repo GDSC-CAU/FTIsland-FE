@@ -14,7 +14,7 @@ const Islands: React.FC<MenuProps> = ({ setSelectedIsland }) => {
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
   const islandName = (newValue: number) => {
-    if (user.nickName !== '' && newValue === 1) {
+    if (user.nickName !== '' && newValue === 0) {
       return `지혜의 섬`;
     } else {
       return labels[newValue];
