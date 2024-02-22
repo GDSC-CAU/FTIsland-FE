@@ -3,6 +3,9 @@ import { Box, CardMedia } from '@mui/material';
 import WordTitle from './components/WordTitle';
 import Back from './components/Back';
 import SideButton from './components/SideButton';
+import { useUser } from 'src/hook/useUser';
+import { getVocaDetail } from 'src/apis/voca';
+import convertedLanguageCode from 'src/utils/convertedLanguageCode';
 
 interface MenuProps {
   handleSideMenu: (content: boolean) => void;
@@ -11,17 +14,28 @@ interface MenuProps {
 const Word: React.FC<MenuProps> = ({ handleSideMenu }) => {
   const [word, setWord] = useState('');
   const [detail, setDetail] = useState('detail');
+  const {vocaId, user } = useUser();
 
   const handleBack = () => {
+    console.log(vocaId);
     handleSideMenu(false);
   };
 
   useEffect(() => {
-    setWord('토마토');
-    setDetail(
-      '울퉁불퉁 멋진 몸매에 빨간 옷을 입고 새콤달콤 향내 풍기는 멋쟁이 토마토 토마토 나는야 주스 될거야 꿀꺽 나는야 케첩될거야 찍 나는야 춤을 출거야 헤이 뽐내는 토마토 토마토 울퉁불퉁 멋진 몸매에 빨간 옷을 입고 새콤달콤 향내 풍기는 멋쟁이 토마토 토마토 나는야 주스 될거야 꿀꺽 나는야 케첩될거야 찍 나는야 춤을 출거야 헤이 뽐내는 토마토 토마토',
-    );
-  }, []);
+    // setWord('토마토');
+    // setDetail(
+    //   '울퉁불퉁 멋진 몸매에 빨간 옷을 입고 새콤달콤 향내 풍기는 멋쟁이 토마토 토마토 나는야 주스 될거야 꿀꺽 나는야 케첩될거야 찍 나는야 춤을 출거야 헤이 뽐내는 토마토 토마토 울퉁불퉁 멋진 몸매에 빨간 옷을 입고 새콤달콤 향내 풍기는 멋쟁이 토마토 토마토 나는야 주스 될거야 꿀꺽 나는야 케첩될거야 찍 나는야 춤을 출거야 헤이 뽐내는 토마토 토마토',
+    // );
+    const fetchVocaDetails = async () => {
+      const data = await getVocaDetail(vocaId, convertedLanguageCode(user.mainLanguage), convertedLanguageCode(user.subLanguage));
+      if(data){
+        setWord(data[0]?.word);
+        setDetail(data[0]?.description);
+      }
+    }
+
+    fetchVocaDetails();
+  }, [user, vocaId]);
 
   return (
     <Box sx={{ bgcolor: '#FFE5E5', height: '100vh' }}>

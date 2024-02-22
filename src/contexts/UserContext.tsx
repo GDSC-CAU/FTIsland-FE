@@ -23,6 +23,8 @@ export interface UserContextValues {
   setWordModal: (value: boolean) => void;
   wordEnter: boolean;
   setWordEnter: (value: boolean) => void;
+  vocaId: number;
+  setVocaId: (value: number) => void;
 }
 
 const contextDefaultValue: UserContextValues = {
@@ -48,7 +50,8 @@ const contextDefaultValue: UserContextValues = {
   setWordModal: () => {},
   wordEnter: false,
   setWordEnter: () => {},
-
+  vocaId: 0,
+  setVocaId: () => {},
 };
 
 export const UserContext = createContext(contextDefaultValue);
@@ -64,6 +67,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [isLanguageSetting, setIsLanguageSetting] = useState(contextDefaultValue.isLanguageSetting);
   const [wordModal, setWordModal] = useState(contextDefaultValue.wordModal);
   const [wordEnter, setWordEnter] = useState(contextDefaultValue.wordEnter);
+  const [vocaId, setVocaId] = useState(contextDefaultValue.vocaId);
 
   useEffect(() => {
     contextDefaultValue.user.nickName = nickName;
@@ -106,6 +110,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         setWordModal,
         wordEnter,
         setWordEnter,
+        vocaId,
+        setVocaId,
       }}
     >
       {children}
