@@ -5,11 +5,13 @@ const HighlightedText = ({
   contents,
   wordList,
   sx,
+  handleSideMenu,
 }: {
   type: 'sub' | 'main';
   contents: string;
   wordList: { vocaId: number; word: string; subWord: string }[];
   sx?: SxProps;
+  handleSideMenu: (isOpen: boolean) => void;
 }) => {
   const splitByWordList = (sentence: string, wordList: string[]) => {
     let result = [sentence];
@@ -66,7 +68,9 @@ const HighlightedText = ({
               onClick={() => {
                 // 이부분이 단어 클릭했을때 동작입니다.
                 // 단어를 클릭하면 단어의 id를 리턴하는 함수에여 findVocaIdByWord(wordList, content)
+                handleSideMenu(true);
                 console.log(findVocaIdByWord(wordList, content));
+                // sideMenu(true);
               }}
             >
               {content}

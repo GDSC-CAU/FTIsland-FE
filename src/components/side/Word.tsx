@@ -13,7 +13,7 @@ const Word: React.FC<MenuProps> = ({ handleSideMenu }) => {
   const [detail, setDetail] = useState('detail');
 
   const handleBack = () => {
-    //동화로 이동
+    handleSideMenu(false);
   };
 
   useEffect(() => {

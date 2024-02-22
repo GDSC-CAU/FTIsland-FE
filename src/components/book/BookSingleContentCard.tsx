@@ -6,7 +6,13 @@ import throttling from 'src/utils/throttling';
 import { googleTTS } from 'src/utils/tts';
 import HighlightedText from './HighlightedText';
 
-const BookSingleContentCard = ({ bookContent }: { bookContent: BookContentDataType }) => {
+const BookSingleContentCard = ({ 
+  bookContent, 
+  handleSideMenu
+}: { 
+  bookContent: BookContentDataType 
+  handleSideMenu: (isOpen: boolean) => void;
+}) => {
   const { image, subLan, mainLan, subContents, mainContents, vocaList } = bookContent;
 
   return (
@@ -43,7 +49,7 @@ const BookSingleContentCard = ({ bookContent }: { bookContent: BookContentDataTy
               throttling(() => googleTTS(mainContents, mainLan), 1000);
             }}
           />
-          <HighlightedText type="main" contents={mainContents} wordList={vocaList} />
+          <HighlightedText type="main" contents={mainContents} wordList={vocaList} handleSideMenu={handleSideMenu}/>
         </Box>
 
         <Box>
@@ -60,7 +66,7 @@ const BookSingleContentCard = ({ bookContent }: { bookContent: BookContentDataTy
               throttling(() => googleTTS(subContents, subLan), 1000);
             }}
           />
-          <HighlightedText type="sub" contents={subContents} wordList={vocaList} />
+          <HighlightedText type="sub" contents={subContents} wordList={vocaList} handleSideMenu={handleSideMenu}/>
         </Box>
       </Box>
     </Box>

@@ -6,6 +6,8 @@ import QuizIcon from '@mui/icons-material/RecordVoiceOverRounded';
 import { BookContentDataType } from 'src/types/book';
 
 import BookContentCard from './BookContentCard';
+import SideMenu from '../SideMenu';
+import { useState } from 'react';
 
 const BookContent = ({
   bookLimit,
@@ -19,9 +21,14 @@ const BookContent = ({
   handleChangePage: (isNext: boolean) => void;
 }) => {
   const isLastPage = Number(Math.ceil(bookContentData.length / bookLimit)) - 1 === currentOffset;
+  const [sideMenuOpen, setSideMenuOpen] = useState(false);
+  const handleSideMenu = (isOpen: boolean) => {
+    setSideMenuOpen(isOpen);
+  };
 
   return (
     <Box sx={{ height: '100%', display: { sm: 'flex' } }}>
+      <SideMenu open={sideMenuOpen} handleSideMenu={handleSideMenu} wordOpen={true}/>
       <Box
         onClick={() => handleChangePage(false)}
         sx={{
@@ -54,6 +61,7 @@ const BookContent = ({
           bookContentData={bookContentData}
           currentOffset={currentOffset}
           handleChangePage={handleChangePage}
+          handleSideMenu={handleSideMenu}
         />
       </Box>
 

@@ -14,12 +14,14 @@ const BookContentCard = ({
   bookContentData,
   currentOffset,
   handleChangePage,
+  handleSideMenu,
 }: {
   isLastPage: boolean;
   bookLimit: number;
   bookContentData: BookContentDataType[];
   currentOffset: number;
   handleChangePage: (isNext: boolean) => void;
+  handleSideMenu: (isOpen: boolean) => void;
 }) => {
   const currentContentData = bookContentData.slice(
     currentOffset * bookLimit,
@@ -38,7 +40,7 @@ const BookContentCard = ({
     >
       {bookLimit === 1 ? (
         currentContentData.map((bookContent, index) => (
-          <BookSingleContentCard key={index} bookContent={bookContent} />
+          <BookSingleContentCard key={index} bookContent={bookContent} handleSideMenu={handleSideMenu}/>
         ))
       ) : (
         <BookMultiContentCard
