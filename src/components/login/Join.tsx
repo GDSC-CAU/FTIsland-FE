@@ -13,7 +13,7 @@ interface LoginProps {
 }
 
 const Join: React.FC<LoginProps> = ({open, setOpen}) => {
-  const {user, setUserRole} = useUser();
+  const { setUserRole } = useUser();
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -108,14 +108,14 @@ const Join: React.FC<LoginProps> = ({open, setOpen}) => {
           <Typography variant="h6" sx={{fontWeight: 900, marginTop:'20px',}}>
           주언어
         </Typography>
-        <LanguageButton language={user.mainLanguage} handleLanguageChange={handleMainLanguageChange}/>
+        <LanguageButton sort={"main"} handleLanguageChange={handleMainLanguageChange}/>
           </Box>
 
           <Box sx={{width: '33%', marginLeft:'5px',}}>
           <Typography variant="h6" sx={{fontWeight: 900, marginTop:'20px'}}>
           보조언어
         </Typography>
-        <LanguageButton language={user.subLanguage} handleLanguageChange={handleSubLanguageChange} />
+        <LanguageButton sort={"sub"} handleLanguageChange={handleSubLanguageChange} />
           </Box>
 
         </Box>
