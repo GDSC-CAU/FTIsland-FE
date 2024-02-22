@@ -8,14 +8,15 @@ const ParentButton = () => {
 
   const handleParent = () => {
     const difference = isParent ? -1 : 1;
-    setUserId(userId + difference);
+    localStorage.setItem('userId', String(Number(userId) + difference));
+    setUserId(Number(userId) + difference);
     setIsParent(!isParent);
   }
 
   return (
     <Box sx={{bgcolor: "#39A7FF", padding: 1.2, boxShadow: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '7%'}}>
     {
-      userId > 0 &&
+      Number(userId) > 0 &&
       <>
       <Typography variant="h4" sx={listStyle()} >부모로 전환</Typography>
       <Avatar
