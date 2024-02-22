@@ -47,6 +47,7 @@ const BookContentCard = ({
           bookLimit={bookLimit}
           bookContentData={bookContentData}
           currentOffset={currentOffset}
+          handleSideMenu={handleSideMenu}
         />
       )}
 

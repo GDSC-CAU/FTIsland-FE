@@ -11,10 +11,12 @@ const BookMultiContentCard = ({
   bookLimit,
   bookContentData,
   currentOffset,
+  handleSideMenu,
 }: {
   bookLimit: number;
   bookContentData: BookContentDataType[];
   currentOffset: number;
+  handleSideMenu: (isOpen: boolean) => void;
 }) => {
   const currentContentData = bookContentData.slice(
     currentOffset * bookLimit,
@@ -79,6 +81,7 @@ const BookMultiContentCard = ({
                       },
                     },
                   }}
+                  handleSideMenu={handleSideMenu}
                 />
               </Box>
 
@@ -108,6 +111,7 @@ const BookMultiContentCard = ({
                       },
                     },
                   }}
+                  handleSideMenu={handleSideMenu}
                 />
               </Box>
             </Box>

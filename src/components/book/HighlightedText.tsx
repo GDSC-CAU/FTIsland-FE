@@ -70,7 +70,6 @@ const HighlightedText = ({
                 // 단어를 클릭하면 단어의 id를 리턴하는 함수에여 findVocaIdByWord(wordList, content)
                 handleSideMenu(true);
                 console.log(findVocaIdByWord(wordList, content));
-                // sideMenu(true);
               }}
             >
               {content}
