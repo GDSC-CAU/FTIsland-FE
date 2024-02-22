@@ -1,14 +1,24 @@
 import { Avatar, Box, Typography } from '@mui/material';
 import React, { useState } from 'react';
+import { addVoca, deleteVoca } from 'src/apis/voca';
+import { useUser } from 'src/hook/useUser';
 
 const WordTitle = ({ content }: { content: string }) => {
+  const {userRole, setWordEnter, userId, vocaId} = useUser();
   const [bookmark, setBookmark] = useState(false);
 
-  const handleBookmark = () => {
-    if (bookmark) {
-      setBookmark(false);
-    } else {
-      setBookmark(true);
+  const handleBookmark = async () => {
+    if(userRole === "GUEST"){
+      setWordEnter(true);
+    }else{
+      if (bookmark) {
+        setBookmark(false);
+        await deleteVoca(userId, vocaId);
+        console.log(userId, vocaId);
+      } else {
+        setBookmark(true);
+        await addVoca(userId, vocaId);
+      }
     }
   };
 
