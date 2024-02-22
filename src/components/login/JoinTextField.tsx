@@ -19,7 +19,7 @@ const JoinTextField: React.FC<JoinProps> = ({title, handleChange}) => {
     if(title==="아이디"){
       return "영문 소문자/숫자로 이루어진 4~16자"
     }else if(title === "비밀번호"){
-      return "영문 대/소문자, 숫자, 특수 문자로 이루어진 8~16자";
+      return "영문으로 이루어진 8~16자";
     }
   }
 
