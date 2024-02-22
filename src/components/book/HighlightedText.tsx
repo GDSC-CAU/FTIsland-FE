@@ -1,4 +1,5 @@
 import { Box, SxProps } from '@mui/material';
+import { useUser } from 'src/hook/useUser';
 
 const HighlightedText = ({
   type,
@@ -11,6 +12,7 @@ const HighlightedText = ({
   wordList: { vocaId: number; word: string; subWord: string }[];
   sx?: SxProps;
 }) => {
+  const {setWordModal, setVocaId} = useUser();
   const splitByWordList = (sentence: string, wordList: string[]) => {
     let result = [sentence];
 
@@ -66,6 +68,12 @@ const HighlightedText = ({
               onClick={() => {
                 // 이부분이 단어 클릭했을때 동작입니다.
                 // 단어를 클릭하면 단어의 id를 리턴하는 함수에여 findVocaIdByWord(wordList, content)
+                setWordModal(true);
+
+                const vocaId = findVocaIdByWord(wordList, content);
+                if(typeof vocaId === "number"){
+                  setVocaId(vocaId);
+                }
                 console.log(findVocaIdByWord(wordList, content));
               }}
             >

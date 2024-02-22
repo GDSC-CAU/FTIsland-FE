@@ -24,7 +24,7 @@ const Main = ({ tabIndex }: { tabIndex: number }) => {
         setOpenJoin={setOpenJoinModal}
       />
       <Login open={openLoginModal} setOpen={setOpenLoginModal} />
-      <Join open={openJoinModal} setOpen={setOpenJoinModal}></Join>
+      <Join open={openJoinModal} setOpen={setOpenJoinModal}/>
     </Box>
   );
 };

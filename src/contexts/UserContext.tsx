@@ -19,6 +19,12 @@ export interface UserContextValues {
   setMenu: (value: string | null) => void;
   isLanguageSetting: boolean;
   setIsLanguageSetting: (value: boolean) => void;
+  wordModal: boolean;
+  setWordModal: (value: boolean) => void;
+  wordEnter: boolean;
+  setWordEnter: (value: boolean) => void;
+  vocaId: number;
+  setVocaId: (value: number) => void;
 }
 
 const contextDefaultValue: UserContextValues = {
@@ -40,6 +46,12 @@ const contextDefaultValue: UserContextValues = {
   setMenu: () => {},
   isLanguageSetting: false,
   setIsLanguageSetting: () => {},
+  wordModal: false,
+  setWordModal: () => {},
+  wordEnter: false,
+  setWordEnter: () => {},
+  vocaId: 0,
+  setVocaId: () => {},
 };
 
 export const UserContext = createContext(contextDefaultValue);
@@ -53,6 +65,9 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [userRole, setUserRole] = useState(contextDefaultValue.userRole);
   const [menu, setMenu] = useState(contextDefaultValue.menu);
   const [isLanguageSetting, setIsLanguageSetting] = useState(contextDefaultValue.isLanguageSetting);
+  const [wordModal, setWordModal] = useState(contextDefaultValue.wordModal);
+  const [wordEnter, setWordEnter] = useState(contextDefaultValue.wordEnter);
+  const [vocaId, setVocaId] = useState(contextDefaultValue.vocaId);
 
   useEffect(() => {
     contextDefaultValue.user.nickName = nickName;
@@ -91,6 +106,12 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         setMenu,
         isLanguageSetting,
         setIsLanguageSetting,
+        wordModal,
+        setWordModal,
+        wordEnter,
+        setWordEnter,
+        vocaId,
+        setVocaId,
       }}
     >
       {children}

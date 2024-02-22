@@ -6,7 +6,11 @@ import throttling from 'src/utils/throttling';
 import { googleTTS } from 'src/utils/tts';
 import HighlightedText from './HighlightedText';
 
-const BookSingleContentCard = ({ bookContent }: { bookContent: BookContentDataType }) => {
+const BookSingleContentCard = ({ 
+  bookContent,
+}: { 
+  bookContent: BookContentDataType
+}) => {
   const { image, subLan, mainLan, subContents, mainContents, vocaList } = bookContent;
 
   return (

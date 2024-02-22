@@ -29,3 +29,13 @@ export const addVoca = async (userId: number, vocaId: number) =>
     userId,
     vocaId,
   });
+
+//단어 설명
+export const getVocaDetail = async (vocaId: number, mainLan: string, subLang: string) => {
+  try{
+    const response = await requestAPIWithoutToken('GET', `/voca/description?vocaId=${vocaId}&mainLan=${mainLan}&subLan=${subLang}`);
+    return response;
+  }catch(error){
+    console.error(error);
+  }
+}

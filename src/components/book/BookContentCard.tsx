@@ -38,7 +38,7 @@ const BookContentCard = ({
     >
       {bookLimit === 1 ? (
         currentContentData.map((bookContent, index) => (
-          <BookSingleContentCard key={index} bookContent={bookContent} />
+          <BookSingleContentCard key={index} bookContent={bookContent}/>
         ))
       ) : (
         <BookMultiContentCard

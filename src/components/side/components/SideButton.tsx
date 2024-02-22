@@ -1,4 +1,5 @@
 import { Avatar, Box, Typography } from '@mui/material';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useUser } from 'src/hook/useUser';
 
@@ -21,10 +22,20 @@ const SideButton: React.FC<SideButtonProps> = ({
   setOpenEnter,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const { setUserRole, userRole, setMenu } = useUser();
+  const { setUserRole, userRole, setMenu, setWordEnter } = useUser();
+  const { push } = useRouter();
 
   const handleClick = () => {
-
+    
+    if(content === "나의 단어 목록"){
+      console.log(setOpenEnter);
+      if(userRole === 'USER'){
+        push("/");
+        setMenu(content);
+      }else{
+        setWordEnter(true);
+      }
+    }
 
     //사이드창 계속 열지 말지
     if (userRole !== 'USER' || content === '바로 가기') {
