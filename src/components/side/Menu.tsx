@@ -1,12 +1,13 @@
 import React, { ReactElement, useState } from 'react'
 import LanguageSetting from './LanguageSetting'
-import { Avatar, Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import List from './components/List';
 import SideButton from './components/SideButton';
 import Enter from '../login/Enter';
 import { useUser } from 'src/hook/useUser';
 import Join from '../login/Join';
 import Login from '../login/Login';
+import ParentButton from './components/ParentButton';
 
 interface MenuProps {
     setContent: (setContent: ReactElement) => void;
@@ -18,29 +19,16 @@ const Menu: React.FC<MenuProps> =  ({setContent, handleSideMenu}) => {
   const [openEnterModal, setOpenEnterModal] = useState(false);
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openJoinModal, setOpenJoinModal] = useState(false);
-  const [isParent, setIsParent] = useState(false);
+  
   const handleLanguageSettingClick = async () => {
     setIsLanguageSetting(true);
     await setContent(<LanguageSetting  setContent={setContent} handleSideMenu={handleSideMenu}/>);
   }
-  const handleParent = () => {
-    setIsParent(!isParent);
-  }
+
   return (
     <Box sx={{bgcolor: "#FFE5E5", height: "100vh"}}>
-      <Box sx={{bgcolor: "#39A7FF", padding: 1.2, boxShadow: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '7%'}}>
-        <Typography variant="h4" sx={listStyle()} >부모로 전환</Typography>
-        <Avatar
-        src={
-          isParent
-            ? '/image/on.webp'
-            : '/image/off.webp'
-        }
-        alt="arrow right"
-        sx={{ width: '95px', height: '30px', borderRadius: '0px', bgColor: 'none' }}
-        onClick={handleParent}
-      />
-      </Box>
+
+      <ParentButton/>
 
       <List content={"메뉴"}/>
       <Box sx={{
@@ -69,9 +57,3 @@ const Menu: React.FC<MenuProps> =  ({setContent, handleSideMenu}) => {
 }
 
 export default Menu;
-
-const listStyle = ()=>({
-    fontWeight: "bold",
-    color: 'white',
-    paddingLeft: 1,
-  });
