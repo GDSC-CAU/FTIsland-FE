@@ -8,6 +8,10 @@ import { BookContentDataType } from 'src/types/book';
 import BookContentCard from './BookContentCard';
 import SideMenu from '../SideMenu';
 import { useState } from 'react';
+import Enter from '../login/Enter';
+import Join from '../login/Join';
+import Login from '../login/Login';
+import { useUser } from 'src/hook/useUser';
 
 const BookContent = ({
   bookLimit,
@@ -21,14 +25,27 @@ const BookContent = ({
   handleChangePage: (isNext: boolean) => void;
 }) => {
   const isLastPage = Number(Math.ceil(bookContentData.length / bookLimit)) - 1 === currentOffset;
-  const [sideMenuOpen, setSideMenuOpen] = useState(false);
+  // const [sideMenuOpen, setSideMenuOpen] = useState(false);
+  // const [openEnterModal, setOpenEnterModal] = useState(false);
+  const {wordModal, setWordModal, wordEnter, setWordEnter} = useUser();
+  const [openLoginModal, setOpenLoginModal] = useState(false);
+  const [openJoinModal, setOpenJoinModal] = useState(false);
+  
   const handleSideMenu = (isOpen: boolean) => {
-    setSideMenuOpen(isOpen);
+    setWordModal(isOpen);
   };
 
   return (
     <Box sx={{ height: '100%', display: { sm: 'flex' } }}>
-      <SideMenu open={sideMenuOpen} handleSideMenu={handleSideMenu} wordOpen={true}/>
+      <SideMenu open={wordModal} handleSideMenu={handleSideMenu} wordOpen={wordModal}/>
+      <Enter
+        open={wordEnter}
+        setOpen={setWordEnter}
+        setOpenLogin={setOpenLoginModal}
+        setOpenJoin={setOpenJoinModal}
+      />
+      <Login open={openLoginModal} setOpen={setOpenLoginModal} />
+      <Join open={openJoinModal} setOpen={setOpenJoinModal}/>
       <Box
         onClick={() => handleChangePage(false)}
         sx={{
@@ -61,7 +78,6 @@ const BookContent = ({
           bookContentData={bookContentData}
           currentOffset={currentOffset}
           handleChangePage={handleChangePage}
-          handleSideMenu={handleSideMenu}
         />
       </Box>
 

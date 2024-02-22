@@ -7,11 +7,9 @@ import { googleTTS } from 'src/utils/tts';
 import HighlightedText from './HighlightedText';
 
 const BookSingleContentCard = ({ 
-  bookContent, 
-  handleSideMenu
+  bookContent,
 }: { 
-  bookContent: BookContentDataType 
-  handleSideMenu: (isOpen: boolean) => void;
+  bookContent: BookContentDataType
 }) => {
   const { image, subLan, mainLan, subContents, mainContents, vocaList } = bookContent;
 
@@ -49,7 +47,7 @@ const BookSingleContentCard = ({
               throttling(() => googleTTS(mainContents, mainLan), 1000);
             }}
           />
-          <HighlightedText type="main" contents={mainContents} wordList={vocaList} handleSideMenu={handleSideMenu}/>
+          <HighlightedText type="main" contents={mainContents} wordList={vocaList} />
         </Box>
 
         <Box>
@@ -66,7 +64,7 @@ const BookSingleContentCard = ({
               throttling(() => googleTTS(subContents, subLan), 1000);
             }}
           />
-          <HighlightedText type="sub" contents={subContents} wordList={vocaList} handleSideMenu={handleSideMenu}/>
+          <HighlightedText type="sub" contents={subContents} wordList={vocaList} />
         </Box>
       </Box>
     </Box>
