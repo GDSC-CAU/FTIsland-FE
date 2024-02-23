@@ -9,8 +9,6 @@ export interface UserContextValues {
   setNickName: (value: string) => void;
   setMainLanguage: (value: string) => void;
   setSubLanguage: (value: string) => void;
-  // token: string | null;
-  // setToken: (value: string | null) => void;
   userId: number;
   setUserId: (value: number) => void;
   userRole: 'GUEST' | 'USER';
@@ -25,6 +23,10 @@ export interface UserContextValues {
   setWordEnter: (value: boolean) => void;
   vocaId: number;
   setVocaId: (value: number) => void;
+  vocaWord: string;
+  setVocaWord: (value: string) => void;
+  wordType: string;
+  setWordType: (value: string) => void;
 }
 
 const contextDefaultValue: UserContextValues = {
@@ -36,8 +38,6 @@ const contextDefaultValue: UserContextValues = {
   setNickName: () => {},
   setMainLanguage: () => {},
   setSubLanguage: () => {},
-  // token: null,
-  // setToken: () => {},
   userId: -1,
   setUserId: () => {},
   userRole: 'GUEST',
@@ -52,6 +52,10 @@ const contextDefaultValue: UserContextValues = {
   setWordEnter: () => {},
   vocaId: 0,
   setVocaId: () => {},
+  vocaWord: "",
+  setVocaWord: () => {},
+  wordType: "",
+  setWordType: () => {},
 };
 
 export const UserContext = createContext(contextDefaultValue);
@@ -60,7 +64,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [nickName, setNickName] = useState(contextDefaultValue.user.nickName);
   const [mainLanguage, setMainLanguage] = useState(contextDefaultValue.user.mainLanguage);
   const [subLanguage, setSubLanguage] = useState(contextDefaultValue.user.subLanguage);
-  // const [token, setToken] = useState(contextDefaultValue.token);
   const [userId, setUserId] = useState(contextDefaultValue.userId);
   const [userRole, setUserRole] = useState(contextDefaultValue.userRole);
   const [menu, setMenu] = useState(contextDefaultValue.menu);
@@ -68,6 +71,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [wordModal, setWordModal] = useState(contextDefaultValue.wordModal);
   const [wordEnter, setWordEnter] = useState(contextDefaultValue.wordEnter);
   const [vocaId, setVocaId] = useState(contextDefaultValue.vocaId);
+  const [vocaWord, setVocaWord] = useState(contextDefaultValue.vocaWord);
+  const [wordType, setWordType] = useState(contextDefaultValue.wordType);
 
   useEffect(() => {
     contextDefaultValue.user.nickName = nickName;
@@ -112,6 +117,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         setWordEnter,
         vocaId,
         setVocaId,
+        vocaWord,
+        setVocaWord,
+        wordType,
+        setWordType,
       }}
     >
       {children}
