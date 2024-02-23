@@ -6,6 +6,7 @@ import {
   Dialog,
   IconButton,
   Slide,
+  Snackbar,
   SxProps,
   Typography,
   useMediaQuery,
@@ -92,6 +93,7 @@ const StoryCard = ({
 
   const [isOpenFocusStory, setIsOpenFocusStory] = useState(false);
   const [pageLoading, setPageLoading] = useState(false);
+  const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
 
   const { bookId, title, description, image } = bookData;
 
@@ -109,8 +111,10 @@ const StoryCard = ({
         onClick={() => {
           if (isClickable) setIsOpenFocusStory(true);
           else {
-            setPageLoading(true);
-            push(`/book/${bookId}`);
+            if (bookId === 1 || bookId === 2) {
+              setPageLoading(true);
+              push(`/book/${bookId}`);
+            } else setIsSnackBarOpen(true);
           }
         }}
         sx={{
@@ -191,6 +195,15 @@ const StoryCard = ({
           onClose={() => setIsOpenFocusStory(false)}
         />
       ) : null}
+
+      <Snackbar
+        open={isSnackBarOpen}
+        autoHideDuration={3000}
+        onClose={() => setIsSnackBarOpen(false)}
+        message="준비중입니다."
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        TransitionComponent={Transition}
+      />
     </>
   );
 };
