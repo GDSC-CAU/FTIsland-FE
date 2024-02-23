@@ -1,11 +1,22 @@
 import { Avatar, Box, Typography } from '@mui/material';
-import React, { useState } from 'react';
-import { addVoca, deleteVoca } from 'src/apis/voca';
+import React, { useEffect, useState } from 'react';
+import { addVoca, deleteVoca, isVocaStarred } from 'src/apis/voca';
 import { useUser } from 'src/hook/useUser';
 
 const WordTitle = ({ content }: { content: string }) => {
   const {userRole, setWordEnter, userId, vocaId} = useUser();
   const [bookmark, setBookmark] = useState(false);
+
+  // const handleBokmarkImg = async () => {
+  //   const isStarred = await isVocaStarred(userId, vocaId);
+  //   if(isStarred){
+  //     setBookmark(true);
+  //     return '/image/star-fill.png';
+  //   }else{
+
+  //   }
+
+  // }
 
   const handleBookmark = async () => {
     if(userRole === "GUEST"){
@@ -21,6 +32,18 @@ const WordTitle = ({ content }: { content: string }) => {
       }
     }
   };
+
+  useEffect(()=>{
+    const fetchStar = async () => {
+      const isStarred = await isVocaStarred(userId, vocaId);
+      console.log(isStarred);
+      if(isStarred){
+        setBookmark(true);
+      }
+      console.log(bookmark);
+    };
+    fetchStar();
+  })
 
   return (
     <Box
