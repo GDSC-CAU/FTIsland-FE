@@ -28,7 +28,6 @@ const Island = ({ island }: { island: string }) => {
   }, []);
 
   const handleIsland = () => {
-    // console.log(island);
     if (island === '지혜의 섬') {
       return '/image/island2.webp';
     } else if (island === '기쁨의 섬') {

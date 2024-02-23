@@ -7,6 +7,7 @@ import StoryCard, { StoryDataType } from 'src/components/card/StoryCard';
 import { useUser } from 'src/hook/useUser';
 import Progress from './Progress';
 import { convertIslandName } from 'src/utils/convertIslandName';
+import { getBookProgress } from 'src/apis/book';
 interface BoxPosition {
   top: string;
   left: string;
@@ -17,11 +18,21 @@ interface Book {
   description: string;
   progress: number;
   image: string;
+  totalPage: number;
 }
+
+type ProgressData = {
+  userId: number;
+  bookId: number;
+  offset: number;
+  limitNum: number;
+  lastPage: number;
+};
 
 const Books = ({ island }: { island: string }) => {
   const { user, userId, userRole } = useUser();
   const [books, setBooks] = useState<Book[]>([]);
+  const [progresses, setProgresses] = useState<number[]>([]);
   const userIslandName = user.nickName ? `${user.nickName}의 섬` : '지혜의 섬';
   const realIslandName = useCallback(() => {
     return convertIslandName(island.replace('의 섬', ''));
@@ -71,6 +82,7 @@ const Books = ({ island }: { island: string }) => {
   const handleBookDetail = async (id: number) => {
     try {
       const response = await getBookDetail(id);
+      
       if (response) {
         setFocusBook({
           bookId: id,
@@ -100,6 +112,25 @@ const Books = ({ island }: { island: string }) => {
     fetchBookInfo();
   }, [realIslandName, userId, user.nickName]);
 
+  useEffect(() => {
+    const fetchProgresses = async () => {
+      try {
+        const progressData = await getBookProgress(realIslandName(), userId);
+        const bookProgresses = progressData.map((progress : ProgressData) => {
+          const book = books.find((book) => book.bookId === progress.bookId);
+          const totalPage = book ? book.totalPage : 1;
+          const calculatedProgress = progress ? ((progress.offset + 1) * progress.limitNum * 100 / totalPage) : 0;
+          return calculatedProgress;
+        });
+        setProgresses(bookProgresses);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    fetchProgresses();
+  }, [userId, realIslandName, books]);
+
   return (
     <>
       {boxPositions?.map((boxPosition, index) => (
@@ -119,7 +150,7 @@ const Books = ({ island }: { island: string }) => {
                 alignItems: 'center',
               }}
             >
-              <Progress value={books[index].progress} />
+              <Progress value={progresses[index] || 0} />
             </Box>
           )}
 

@@ -7,17 +7,6 @@ const WordTitle = ({ content }: { content: string }) => {
   const {userRole, setWordEnter, userId, vocaId} = useUser();
   const [bookmark, setBookmark] = useState(false);
 
-  // const handleBokmarkImg = async () => {
-  //   const isStarred = await isVocaStarred(userId, vocaId);
-  //   if(isStarred){
-  //     setBookmark(true);
-  //     return '/image/star-fill.png';
-  //   }else{
-
-  //   }
-
-  // }
-
   const handleBookmark = async () => {
     if(userRole === "GUEST"){
       setWordEnter(true);
@@ -25,7 +14,6 @@ const WordTitle = ({ content }: { content: string }) => {
       if (bookmark) {
         setBookmark(false);
         await deleteVoca(userId, vocaId);
-        console.log(userId, vocaId);
       } else {
         setBookmark(true);
         await addVoca(userId, vocaId);
@@ -36,11 +24,9 @@ const WordTitle = ({ content }: { content: string }) => {
   useEffect(()=>{
     const fetchStar = async () => {
       const isStarred = await isVocaStarred(userId, vocaId);
-      console.log(isStarred);
       if(isStarred){
         setBookmark(true);
       }
-      console.log(bookmark);
     };
     fetchStar();
   })

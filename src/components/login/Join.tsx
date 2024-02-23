@@ -58,7 +58,6 @@ const Join: React.FC<LoginProps> = ({open, setOpen}) => {
     else if(typeof id === 'string'){
       const data = await postJoin({id, password, name, mainLanguage:convertedLanguageCode(mainLanguage), subLanguage:convertedLanguageCode(subLanguage)});
       if(data){
-        console.log(data);
         if(data.status === 404){
           if(data.data.valid_inputId){
             alert(data.data.valid_inputId);

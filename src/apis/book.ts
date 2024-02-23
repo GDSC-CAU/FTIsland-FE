@@ -56,3 +56,17 @@ export const getRecentBookListInfo = async (userId: number) =>
   await requestAPIWithoutToken('POST', `/book/recent-books`, {
     userId,
   });
+
+// 메인 탭
+// 진행률
+export const getBookProgress = async (islandId: number, userId: number) => {
+  try{
+    const data = await requestAPIWithoutToken('POST', `/book/progress`, {
+      islandId,
+      userId,
+    });
+    return data;
+  }catch(error){
+    console.error(error);
+  }
+}
