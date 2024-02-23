@@ -69,7 +69,7 @@ const WordTitle = ({ content }: { content: string }) => {
         {content}
       </Typography>
 
-      {bookMarkLoading ? (
+      {userRole === 'USER' && bookMarkLoading ? (
         <CircularProgress sx={{ ml: 2, width: '24px !important', height: '24px !important' }} />
       ) : (
         <Avatar
