@@ -22,8 +22,6 @@ const LanguageSetting: React.FC<MenuProps> = ({setContent, handleSideMenu}) => {
   };
 
   useEffect(()=>{
-    console.log(user.mainLanguage);
-    console.log(user.subLanguage);
   }, [user]);
 
   const handleMainLanguageChange = async (event: SelectChangeEvent<string>) => {
