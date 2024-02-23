@@ -12,7 +12,7 @@ const HighlightedText = ({
   wordList: { vocaId: number; word: string; subWord: string }[];
   sx?: SxProps;
 }) => {
-  const {setWordModal, setVocaId, setVocaWord, setWordType } = useUser();
+  const { setWordModal, setVocaId, setVocaWord, setWordType } = useUser();
   const splitByWordList = (sentence: string, wordList: string[]) => {
     let result = [sentence];
 
@@ -66,17 +66,16 @@ const HighlightedText = ({
               key={index}
               style={{ color: '#39A7FF', cursor: 'pointer', fontWeight: 600 }}
               onClick={() => {
-                // 이부분이 단어 클릭했을때 동작입니다.
+                // 이 부분이 단어 클릭했을때 동작입니다.
                 // 단어를 클릭하면 단어의 id를 리턴하는 함수에여 findVocaIdByWord(wordList, content)
                 setWordModal(true);
 
                 const vocaId = findVocaIdByWord(wordList, content);
-                if(typeof vocaId === "number"){
+                if (typeof vocaId === 'number') {
                   setVocaId(vocaId);
                   setVocaWord(word.word);
                   setWordType(type);
                 }
-                console.log(findVocaIdByWord(wordList, content));
               }}
             >
               {content}

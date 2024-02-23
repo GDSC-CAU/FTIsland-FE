@@ -65,7 +65,7 @@ const BookCover = ({
               },
             }}
           >
-            <Chip label={category} sx={{ bgcolor: '#39A7FF', my: 1 }} />
+            <Chip label={category} sx={{ bgcolor: '#FF8383', my: 1 }} />
             <Chip label={country} sx={{ bgcolor: '#39A7FF', my: 1 }} />
           </Box>
           <Typography

@@ -40,11 +40,10 @@ const Menu = ({ tabIndex, handleOpenEnterModal }: MenuProps) => {
     initialData: [],
   });
 
-  const { data: vocaListData } = useQuery({
+  const { data: vocaListData, isLoading: isVocaListLoading } = useQuery({
     queryKey: ['vocaList', userId],
     queryFn: async () => await getVocaList(userId),
     enabled: userRole === 'USER',
-    initialData: [],
     refetchOnWindowFocus: false,
     staleTime: 1000 * 60 * 30,
   });
@@ -64,7 +63,7 @@ const Menu = ({ tabIndex, handleOpenEnterModal }: MenuProps) => {
     },
     {
       label: '단어장',
-      content: <MyWord vocaListData={vocaListData} />,
+      content: <MyWord vocaListData={vocaListData} isLoading={isVocaListLoading} />,
     },
   ];
 

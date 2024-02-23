@@ -1,13 +1,18 @@
+import React, { Fragment, ReactElement, forwardRef, useEffect, useMemo, useState } from 'react';
 import { Box, CardMedia, Dialog, IconButton, Slide } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
 import CloseIcon from '@mui/icons-material/CloseRounded';
-import React, { Fragment, ReactElement, forwardRef, useCallback, useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+
+import { getBookProgress } from 'src/apis/book';
 import { getBookDetail, getIslandInfo } from 'src/apis/island';
+import Loading from 'src/components/Loading';
 import StoryCard, { StoryDataType } from 'src/components/card/StoryCard';
 import { useUser } from 'src/hook/useUser';
-import Progress from './Progress';
 import { convertIslandName } from 'src/utils/convertIslandName';
-import { getBookProgress } from 'src/apis/book';
+
+import Progress from './Progress';
+
 interface BoxPosition {
   top: string;
   left: string;
@@ -31,10 +36,8 @@ type ProgressData = {
 
 const Books = ({ island }: { island: string }) => {
   const { user, userId, userRole } = useUser();
-  const [books, setBooks] = useState<Book[]>([]);
-  const [progresses, setProgresses] = useState<number[]>([]);
   const userIslandName = user.nickName ? `${user.nickName}의 섬` : '지혜의 섬';
-  const realIslandName = useCallback(() => {
+  const realIslandName = useMemo(() => {
     return convertIslandName(island.replace('의 섬', ''));
   }, [island]);
 
@@ -77,12 +80,15 @@ const Books = ({ island }: { island: string }) => {
     ],
   };
   const boxPositions = islandBoxPositions[island] || islandBoxPositions[userIslandName];
+
+  const [progresses, setProgresses] = useState<number[]>([]);
   const [isOpenFocusStory, setIsOpenFocusStory] = useState(false);
   const [focusBook, setFocusBook] = useState<StoryDataType | null>(null);
+
   const handleBookDetail = async (id: number) => {
     try {
       const response = await getBookDetail(id);
-      
+
       if (response) {
         setFocusBook({
           bookId: id,
@@ -97,29 +103,29 @@ const Books = ({ island }: { island: string }) => {
     }
   };
 
-  useEffect(() => {
-    const fetchBookInfo = async () => {
-      try {
-        const response = await getIslandInfo(realIslandName(), userId);
-        if (response) {
-          setBooks(response.data);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const { data: books, isLoading } = useQuery({
+    queryKey: ['books', realIslandName, userId],
+    queryFn: async () => await getIslandInfo(realIslandName, userId),
+    enabled: userRole === 'USER',
+    staleTime: 1000 * 60 * 60,
+  });
 
-    fetchBookInfo();
-  }, [realIslandName, userId, user.nickName]);
+  const { data: progressData } = useQuery({
+    queryKey: ['progressData', realIslandName, userId],
+    queryFn: async () => await getBookProgress(realIslandName, userId),
+    enabled: userRole === 'USER',
+    staleTime: 1000 * 60 * 5,
+  });
 
   useEffect(() => {
     const fetchProgresses = async () => {
       try {
-        const progressData = await getBookProgress(realIslandName(), userId);
-        const bookProgresses = progressData.map((progress : ProgressData) => {
-          const book = books.find((book) => book.bookId === progress.bookId);
+        const bookProgresses = progressData.map((progress: ProgressData) => {
+          const book = books.find((book: Book) => book.bookId === progress.bookId);
           const totalPage = book ? book.totalPage : 1;
-          const calculatedProgress = progress ? ((progress.offset + 1) * progress.limitNum * 100 / totalPage) : 0;
+          const calculatedProgress = progress
+            ? ((progress.offset + 1) * progress.limitNum * 100) / totalPage
+            : 0;
           return calculatedProgress;
         });
         setProgresses(bookProgresses);
@@ -127,9 +133,11 @@ const Books = ({ island }: { island: string }) => {
         console.error(error);
       }
     };
-  
-    fetchProgresses();
-  }, [userId, realIslandName, books]);
+
+    if (progressData) fetchProgresses();
+  }, [userId, books, progressData]);
+
+  if (books === undefined || isLoading) return <Loading />;
 
   return (
     <>

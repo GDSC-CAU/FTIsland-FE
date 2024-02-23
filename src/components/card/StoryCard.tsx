@@ -1,4 +1,4 @@
-import { ReactElement, forwardRef, memo, useState } from 'react';
+import { ReactElement, forwardRef, memo, useEffect, useState } from 'react';
 import { TransitionProps } from 'react-transition-group/Transition';
 import { useRouter } from 'next/router';
 import {
@@ -12,6 +12,8 @@ import {
   useTheme,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/CloseRounded';
+
+import Loading from '../Loading';
 
 export type StoryDataType = {
   bookId: number;
@@ -89,15 +91,27 @@ const StoryCard = ({
   const isMobile = useMediaQuery(breakpoints.down('sm'));
 
   const [isOpenFocusStory, setIsOpenFocusStory] = useState(false);
+  const [pageLoading, setPageLoading] = useState(false);
 
   const { bookId, title, description, image } = bookData;
+
+  useEffect(() => {
+    return () => {
+      setPageLoading(false);
+    };
+  }, []);
+
+  if (pageLoading) return <Loading />;
 
   return (
     <>
       <Box
         onClick={() => {
           if (isClickable) setIsOpenFocusStory(true);
-          else push(`/book/${bookId}`);
+          else {
+            setPageLoading(true);
+            push(`/book/${bookId}`);
+          }
         }}
         sx={{
           cursor: 'pointer',

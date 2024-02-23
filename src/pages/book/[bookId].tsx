@@ -11,7 +11,13 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { QueryClient, dehydrate, useMutation, useQuery } from '@tanstack/react-query';
+import {
+  QueryClient,
+  dehydrate,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 
 import { createQuiz, getBookContent, getBookInfo, updateLastPage } from 'src/apis/book';
 import BookCover from 'src/components/book/BookCover';
@@ -35,17 +41,19 @@ const BookPage = ({
   const isMobile = useMediaQuery(breakpoints.down('sm'));
   const { replace } = useRouter();
   const { userId, user } = useUser();
+  const queryClient = useQueryClient();
 
   const [bookContentStep, setBookContentStep] = useState(limit ? 1 : 0);
   const [bookLimit, setBookLimit] = useState(Number(limit) || 1);
   const [currentOffset, setCurrentOffset] = useState(Number(offset) || 0);
+  const [marginLeft, setMarginLeft] = useState('0');
 
   const { data: bookInfoData, isLoading: isBookCoverLoading } = useQuery({
     queryKey: ['bookInfoData', bookId],
     queryFn: async () => await getBookInfo(Number(bookId)),
   });
 
-  const { data: bookContentData, isLoading: isBookContentLoading } = useQuery({
+  const { data: bookContentData, isFetching: isBookContentLoading } = useQuery({
     queryKey: ['bookContentData', bookId, user.mainLanguage, user.subLanguage],
     queryFn: async () =>
       await getBookContent(
@@ -71,14 +79,17 @@ const BookPage = ({
       if (isNext) {
         if (prev === 2) return prev;
         else {
-          if (prev === 1) {
-            mutation.mutate();
-          }
+          // 퀴즈로 넘어가는 순가 마지막으로 읽은 페이지 저장
+          if (prev === 1) mutation.mutate();
           return prev + 1;
         }
       } else {
         if (prev === 0) return prev;
-        else return prev - 1;
+        else {
+          // 읽다가 표지로 넘어가는 순간 읽은 페이지 저장
+          if (prev === 1) mutation.mutate();
+          return prev - 1;
+        }
       }
     });
   };
@@ -120,13 +131,32 @@ const BookPage = ({
 
   const mutation = useMutation({
     mutationFn: async () => await updateLastPage(userId, Number(bookId), currentOffset, bookLimit),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ['progressData'],
+      });
+    },
   });
 
   useEffect(() => {
     return () => {
-      mutation.mutate();
+      if (bookContentStep === 1) mutation.mutate();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    const handleInnerSize = () => {
+      if (window.innerWidth > 1000) {
+        setMarginLeft('calc((100vw - 1000px)/-2)');
+      }
+    };
+    handleInnerSize();
+    window.addEventListener('resize', handleInnerSize);
+
+    return () => {
+      window.removeEventListener('resize', handleInnerSize);
+    };
   }, []);
 
   useEffect(() => {
@@ -146,8 +176,10 @@ const BookPage = ({
         display: 'flex',
         flexDirection: 'column',
         gap: { xs: 1, sm: 2 },
-        width: '100%',
-        height: 'calc(100vh - 64px)',
+        width: bookContentStep === 0 ? '100vw' : '100%',
+        ml: bookContentStep === 0 ? marginLeft : 0,
+        height: 'calc(100vh - 56px)',
+        bgcolor: bookContentStep === 0 ? 'black' : 'inherit',
 
         ...(bookContentStep !== 0 && {
           py: 2,
