@@ -22,14 +22,11 @@ const LanguageSetting: React.FC<MenuProps> = ({setContent, handleSideMenu}) => {
   };
 
   useEffect(()=>{
-    console.log(user.mainLanguage);
-    console.log(user.subLanguage);
   }, [user]);
 
   const handleMainLanguageChange = async (event: SelectChangeEvent<string>) => {
     const lan = convertLanguageCode(event.target.value as string);
     setMainLanguage(lan);
-    console.log(lan);
     localStorage.setItem('mainLanguage', lan);
     if(userRole === 'USER'){
       await putLanguage(userId, user.mainLanguage, user.subLanguage);
@@ -38,7 +35,6 @@ const LanguageSetting: React.FC<MenuProps> = ({setContent, handleSideMenu}) => {
   const handleSubLanguageChange = async (event: SelectChangeEvent<string>) => {
     const lan = convertLanguageCode(event.target.value as string)
     setSubLanguage(lan);
-    console.log(lan);
     localStorage.setItem('subLanguage', lan);
     if(userRole === 'USER'){
       await putLanguage(userId, user.mainLanguage, user.subLanguage);

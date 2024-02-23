@@ -1,6 +1,6 @@
 import { Avatar, Box, Typography } from '@mui/material';
-import React, { useState } from 'react';
-import { addVoca, deleteVoca } from 'src/apis/voca';
+import React, { useEffect, useState } from 'react';
+import { addVoca, deleteVoca, isVocaStarred } from 'src/apis/voca';
 import { useUser } from 'src/hook/useUser';
 
 const WordTitle = ({ content }: { content: string }) => {
@@ -14,13 +14,22 @@ const WordTitle = ({ content }: { content: string }) => {
       if (bookmark) {
         setBookmark(false);
         await deleteVoca(userId, vocaId);
-        console.log(userId, vocaId);
       } else {
         setBookmark(true);
         await addVoca(userId, vocaId);
       }
     }
   };
+
+  useEffect(()=>{
+    const fetchStar = async () => {
+      const isStarred = await isVocaStarred(userId, vocaId);
+      if(isStarred){
+        setBookmark(true);
+      }
+    };
+    fetchStar();
+  })
 
   return (
     <Box

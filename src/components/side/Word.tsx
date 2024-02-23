@@ -17,7 +17,6 @@ const Word: React.FC<MenuProps> = ({ handleSideMenu }) => {
   const [wordImage, setWordImage] = useState("/image/coverImg1.jpg");
 
   const handleBack = () => {
-    console.log(vocaId);
     handleSideMenu(false);
   };
 

@@ -28,7 +28,6 @@ const SideButton: React.FC<SideButtonProps> = ({
   const handleClick = () => {
     
     if(content === "나의 단어 목록"){
-      console.log(setOpenEnter);
       if(userRole === 'USER'){
         push("/");
         setMenu(content);

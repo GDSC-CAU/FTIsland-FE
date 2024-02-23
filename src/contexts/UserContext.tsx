@@ -32,8 +32,8 @@ export interface UserContextValues {
 const contextDefaultValue: UserContextValues = {
   user: {
     nickName: '',
-    mainLanguage: '한국어',
-    subLanguage: 'English',
+    mainLanguage: 'ko',
+    subLanguage: 'en',
   },
   setNickName: () => {},
   setMainLanguage: () => {},

@@ -39,3 +39,15 @@ export const getBookVoca = async (vocaId: number, lan: string) => {
     console.error(error);
   }
 }
+
+export const isVocaStarred = async (userId: number, vocaId: number) => {
+  try{
+    const response = await requestAPIWithoutToken('POST', `/voca/star`, {
+      userId,
+      vocaId,
+    });
+    return response.isStar;
+  }catch(error){
+    console.error(error);
+  }
+}
