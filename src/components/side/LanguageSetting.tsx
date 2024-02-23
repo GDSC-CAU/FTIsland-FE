@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useEffect} from 'react'
 import Menu from './Menu';
 import { Box, SelectChangeEvent } from '@mui/material';
 import List from './components/List';
@@ -15,8 +15,6 @@ interface MenuProps {
 
 const LanguageSetting: React.FC<MenuProps> = ({setContent, handleSideMenu}) => {
   const {user, userId, userRole, setMainLanguage, setSubLanguage, setIsLanguageSetting} = useUser();
-  const [newMainLanguage, setNewMainLanguage] = useState(user.mainLanguage);
-  const [newSubLanguage, setNewSubLanguage] = useState(user.subLanguage);
   
   const handleBack = () => {
     setContent(<Menu setContent={setContent} handleSideMenu={handleSideMenu} />);
@@ -26,13 +24,10 @@ const LanguageSetting: React.FC<MenuProps> = ({setContent, handleSideMenu}) => {
   useEffect(()=>{
     console.log(user.mainLanguage);
     console.log(user.subLanguage);
-    setNewMainLanguage(convertLanguageCode(user.mainLanguage));
-    setNewSubLanguage(convertLanguageCode(user.subLanguage));
   }, [user]);
 
   const handleMainLanguageChange = async (event: SelectChangeEvent<string>) => {
     const lan = convertLanguageCode(event.target.value as string);
-    setNewMainLanguage(lan);
     setMainLanguage(lan);
     console.log(lan);
     localStorage.setItem('mainLanguage', lan);
@@ -42,7 +37,6 @@ const LanguageSetting: React.FC<MenuProps> = ({setContent, handleSideMenu}) => {
   };
   const handleSubLanguageChange = async (event: SelectChangeEvent<string>) => {
     const lan = convertLanguageCode(event.target.value as string)
-    setNewSubLanguage(lan);
     setSubLanguage(lan);
     console.log(lan);
     localStorage.setItem('subLanguage', lan);
