@@ -106,7 +106,6 @@ const Books = ({ island }: { island: string }) => {
   const { data: books, isLoading } = useQuery({
     queryKey: ['books', realIslandName, userId],
     queryFn: async () => await getIslandInfo(realIslandName, userId),
-    enabled: userRole === 'USER',
     staleTime: 1000 * 60 * 60,
   });
 
