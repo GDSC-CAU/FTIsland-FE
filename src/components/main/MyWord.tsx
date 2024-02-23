@@ -1,18 +1,12 @@
 import { Box, Typography } from '@mui/material';
 
-import { deleteVoca } from 'src/apis/voca';
-import { useUser } from 'src/hook/useUser';
-
 import VocaCard from '../card/VocaCard';
+import Loading from '../Loading';
 
 type VocaType = { vocaId: number; word: string; image: string; subWord: string };
 
-const MyWord = ({ vocaListData }: { vocaListData: VocaType[] }) => {
-  const { userId } = useUser();
-
-  const handleDeleteVoca = async (targetIndex: number) => {
-    await deleteVoca(userId, targetIndex);
-  };
+const MyWord = ({ isLoading, vocaListData }: { isLoading: boolean; vocaListData: VocaType[] }) => {
+  if (isLoading) return <Loading />;
 
   return (
     <Box
@@ -30,14 +24,8 @@ const MyWord = ({ vocaListData }: { vocaListData: VocaType[] }) => {
         transformStyle: 'preserve-3d',
       }}
     >
-      {vocaListData.map(({ vocaId, image }, idx) => (
-        <VocaCard
-          key={vocaId}
-          vocaId={vocaId}
-          index={idx}
-          image={image}
-          handleDeleteVoca={handleDeleteVoca}
-        />
+      {vocaListData.map(({ vocaId, image }) => (
+        <VocaCard key={vocaId} vocaId={vocaId} image={image} />
       ))}
 
       {vocaListData.length === 0 ? (

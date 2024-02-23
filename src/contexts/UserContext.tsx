@@ -38,9 +38,9 @@ const contextDefaultValue: UserContextValues = {
   setNickName: () => {},
   setMainLanguage: () => {},
   setSubLanguage: () => {},
-  userId: -1,
+  userId: 1,
   setUserId: () => {},
-  userRole: 'GUEST',
+  userRole: 'USER',
   setUserRole: () => {},
   menu: '메인 페이지',
   setMenu: () => {},
@@ -52,9 +52,9 @@ const contextDefaultValue: UserContextValues = {
   setWordEnter: () => {},
   vocaId: 0,
   setVocaId: () => {},
-  vocaWord: "",
+  vocaWord: '',
   setVocaWord: () => {},
-  wordType: "",
+  wordType: '',
   setWordType: () => {},
 };
 

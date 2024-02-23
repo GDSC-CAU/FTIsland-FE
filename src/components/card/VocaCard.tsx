@@ -1,16 +1,23 @@
 import { ReactNode, useEffect, useState } from 'react';
-import { Box, Card, CardMedia, IconButton, Typography } from '@mui/material';
+import {
+  Box,
+  Card,
+  CardMedia,
+  CircularProgress,
+  IconButton,
+  Skeleton,
+  Typography,
+} from '@mui/material';
 import CloseIcon from '@mui/icons-material/CloseRounded';
 import BookIcon from '@mui/icons-material/MenuBookRounded';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { getVocaDescription } from 'src/apis/voca';
+import { deleteVoca, getVocaDescription } from 'src/apis/voca';
 import { useUser } from 'src/hook/useUser';
 import convertedLanguageCode from 'src/utils/convertedLanguageCode';
 import throttling from 'src/utils/throttling';
 
 import SoundButton from '../button/SoundButton';
-import Loading from '../Loading';
 import SwitchButton from '../button/SwitchButton';
 
 const FlippableCard = ({ isBackPage, children }: { isBackPage: boolean; children: ReactNode }) => (
@@ -44,36 +51,41 @@ const FlippableCard = ({ isBackPage, children }: { isBackPage: boolean; children
   </Card>
 );
 
-const VocaCard = ({
-  vocaId,
-  index,
-  image,
-  handleDeleteVoca,
-}: {
-  vocaId: number;
-  index: number;
-  image: string;
-  handleDeleteVoca: (targetIndex: number) => void;
-}) => {
+const VocaCard = ({ vocaId, image }: { vocaId: number; image: string }) => {
   const { user, userRole } = useUser();
+  const { userId } = useUser();
+  const queryClient = useQueryClient();
 
   const [isBackPage, setIsBackPage] = useState(false);
   const [voacInfo, setVocaInfo] = useState({ bookName: '', word: '', description: '' });
-  const [isMainLanguage, setIsMainLanguage] = useState(false);
+  const [isMainLanguage, setIsMainLanguage] = useState(true);
 
   const { data: vocaDetailData, isLoading } = useQuery({
-    queryKey: ['vocaDetailData', vocaId, user.mainLanguage, user.subLanguage, index],
+    queryKey: ['vocaDetailData', vocaId, user.mainLanguage, user.subLanguage],
     queryFn: async () =>
       await getVocaDescription(
         vocaId,
         convertedLanguageCode(user.mainLanguage),
         convertedLanguageCode(user.subLanguage),
       ).then((res) => {
-        setVocaInfo(res[0]);
+        setVocaInfo(res[1]);
+        return res;
       }),
     enabled: userRole === 'USER' && typeof vocaId === 'number',
     refetchOnWindowFocus: false,
     staleTime: 1000 * 60 * 30,
+  });
+
+  const mutation = useMutation({
+    mutationFn: async () => await deleteVoca(userId, vocaId),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ['vocaList'],
+      });
+      await queryClient.invalidateQueries({
+        queryKey: ['vocaDetailData'],
+      });
+    },
   });
 
   useEffect(() => {
@@ -82,9 +94,18 @@ const VocaCard = ({
     }
   }, [isMainLanguage, vocaDetailData]);
 
-  if (isLoading) return <Loading />;
-
-  return (
+  return isLoading ? (
+    <Skeleton
+      variant="rounded"
+      sx={{
+        aspectRatio: '1/1',
+        minWidth: '240px',
+        maxWidth: '360px',
+        width: '100%',
+        height: '100%',
+      }}
+    />
+  ) : (
     <Box
       onClick={() => {
         throttling(() => setIsBackPage(!isBackPage), 400);
@@ -109,15 +130,29 @@ const VocaCard = ({
             width: '100%',
           }}
         />
-        <IconButton
-          onClick={(e) => {
-            e.stopPropagation();
-            handleDeleteVoca(index);
-          }}
-          sx={{ position: 'absolute', top: 4, right: 4, zIndex: 2 }}
-        >
-          <CloseIcon sx={{ width: '28px', height: '28px' }} />
-        </IconButton>
+
+        {mutation.isPending ? (
+          <CircularProgress
+            sx={{
+              position: 'absolute',
+              top: 16,
+              right: 16,
+              zIndex: 2,
+              width: '24px !important',
+              height: '24px !important',
+            }}
+          />
+        ) : (
+          <IconButton
+            onClick={(e) => {
+              e.stopPropagation();
+              mutation.mutate();
+            }}
+            sx={{ position: 'absolute', top: 4, right: 4, zIndex: 2 }}
+          >
+            <CloseIcon sx={{ width: '28px', height: '28px' }} />
+          </IconButton>
+        )}
 
         <Box
           sx={{
@@ -186,16 +221,16 @@ const VocaCard = ({
               },
             }}
           >
-            <Typography variant="body2">Sub</Typography>
+            <Typography variant="body2">Main</Typography>
             <SwitchButton
               value={isMainLanguage}
               onClick={(e) => {
                 e.stopPropagation();
                 const target = e.target as HTMLInputElement;
-                setIsMainLanguage(target.checked);
+                setIsMainLanguage(!target.checked);
               }}
             />
-            <Typography variant="body2">Main</Typography>
+            <Typography variant="body2">Sub</Typography>
           </Box>
           <Box
             sx={{

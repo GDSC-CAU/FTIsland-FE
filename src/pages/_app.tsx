@@ -102,12 +102,6 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
-
-        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
-        <link
-          href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap&family=Carter+One&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
-          rel="stylesheet"
-        />
       </Head>
 
       <QueryClientProvider client={queryClient}>

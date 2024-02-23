@@ -22,16 +22,15 @@ const SideButton: React.FC<SideButtonProps> = ({
   setOpenEnter,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const { setUserRole, userRole, setMenu, setWordEnter } = useUser();
+  const { setUserRole, userRole, setMenu, setWordEnter, setUserId } = useUser();
   const { push } = useRouter();
 
   const handleClick = () => {
-    
-    if(content === "나의 단어 목록"){
-      if(userRole === 'USER'){
-        push("/");
+    if (content === '나의 단어 목록') {
+      if (userRole === 'USER') {
+        push('/');
         setMenu(content);
-      }else{
+      } else {
         setWordEnter(true);
       }
     }
@@ -58,13 +57,14 @@ const SideButton: React.FC<SideButtonProps> = ({
       }
     }
 
-        //Language
-        if (content === '바로 가기' && handleLanguage) {
-          handleLanguage();
-        }
+    //Language
+    if (content === '바로 가기' && handleLanguage) {
+      handleLanguage();
+    }
 
     if (content === '로그아웃') {
       setUserRole('GUEST');
+      setUserId(-1);
       localStorage.clear();
       location.reload();
     }
