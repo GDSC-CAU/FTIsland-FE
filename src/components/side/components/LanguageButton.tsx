@@ -2,6 +2,7 @@ import { Box, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import React from 'react';
 import { useUser } from 'src/hook/useUser';
+import convertToLanguage from 'src/utils/convertToLanguage';
 
 interface LanguageButtonProps {
   sort: string;
@@ -16,8 +17,8 @@ const LanguageButton: React.FC<LanguageButtonProps> = ({ sort, handleLanguageCha
   };
 
   const getLanguage = () => {
-    if(sort === "main")return user.mainLanguage;
-    else return user.subLanguage;
+    if(sort === "main")return convertToLanguage(user.mainLanguage);
+    else return convertToLanguage(user.subLanguage);
   };
 
   return (

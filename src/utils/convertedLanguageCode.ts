@@ -1,4 +1,4 @@
-const convertedLanguageCode = (languageName: string) => {
+const convertLanguageCode = (languageName: string) => {
   switch (languageName) {
     case '한국어':
       return 'ko';
@@ -9,8 +9,8 @@ const convertedLanguageCode = (languageName: string) => {
     case '中文':
       return 'cmn';
     default:
-      return 'ko';
+      return languageName;
   }
 };
 
-export default convertedLanguageCode;
+export default convertLanguageCode;

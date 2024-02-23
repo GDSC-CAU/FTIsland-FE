@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import Menu from './Menu';
 import { Box, SelectChangeEvent } from '@mui/material';
 import List from './components/List';
@@ -6,7 +6,7 @@ import Back from './components/Back';
 import LanguageButton from './components/LanguageButton';
 import { useUser } from 'src/hook/useUser';
 import {putLanguage} from './../../../src/apis/language'
-import convertedLanguageCode from 'src/utils/convertedLanguageCode';
+import convertLanguageCode from 'src/utils/convertedLanguageCode';
 
 interface MenuProps {
   setContent: (setContent: ReactElement) => void;
@@ -15,26 +15,39 @@ interface MenuProps {
 
 const LanguageSetting: React.FC<MenuProps> = ({setContent, handleSideMenu}) => {
   const {user, userId, userRole, setMainLanguage, setSubLanguage, setIsLanguageSetting} = useUser();
+  const [newMainLanguage, setNewMainLanguage] = useState(user.mainLanguage);
+  const [newSubLanguage, setNewSubLanguage] = useState(user.subLanguage);
   
   const handleBack = () => {
     setContent(<Menu setContent={setContent} handleSideMenu={handleSideMenu} />);
     setIsLanguageSetting(false);
   };
 
+  useEffect(()=>{
+    console.log(user.mainLanguage);
+    console.log(user.subLanguage);
+    setNewMainLanguage(convertLanguageCode(user.mainLanguage));
+    setNewSubLanguage(convertLanguageCode(user.subLanguage));
+  }, [user]);
+
   const handleMainLanguageChange = async (event: SelectChangeEvent<string>) => {
-    const newMainLanguage = event.target.value as string;
-    setMainLanguage(newMainLanguage);
-    localStorage.setItem('mainLanguage', newMainLanguage);
+    const lan = convertLanguageCode(event.target.value as string);
+    setNewMainLanguage(lan);
+    setMainLanguage(lan);
+    console.log(lan);
+    localStorage.setItem('mainLanguage', lan);
     if(userRole === 'USER'){
-      await putLanguage(userId, convertedLanguageCode(newMainLanguage), convertedLanguageCode(user.subLanguage));
+      await putLanguage(userId, user.mainLanguage, user.subLanguage);
     }
   };
   const handleSubLanguageChange = async (event: SelectChangeEvent<string>) => {
-    const newSubLanguage = event.target.value as string;
-    setSubLanguage(newSubLanguage);
-    localStorage.setItem('subLanguage', newSubLanguage);
+    const lan = convertLanguageCode(event.target.value as string)
+    setNewSubLanguage(lan);
+    setSubLanguage(lan);
+    console.log(lan);
+    localStorage.setItem('subLanguage', lan);
     if(userRole === 'USER'){
-      await putLanguage(userId, convertedLanguageCode(user.mainLanguage), convertedLanguageCode(newSubLanguage));
+      await putLanguage(userId, user.mainLanguage, user.subLanguage);
     }
     event.stopPropagation();
   };
