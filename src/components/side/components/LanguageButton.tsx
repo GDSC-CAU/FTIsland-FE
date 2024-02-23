@@ -1,24 +1,36 @@
+import React from 'react';
+import { useRouter } from 'next/router';
 import { Box, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import React from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+
 import { useUser } from 'src/hook/useUser';
-import convertToLanguage from 'src/utils/convertToLanguage';
 
 interface LanguageButtonProps {
-  sort: string;
+  sort: 'main' | 'sub';
   handleLanguageChange: (event: SelectChangeEvent<string>) => void;
 }
 
 const LanguageButton: React.FC<LanguageButtonProps> = ({ sort, handleLanguageChange }) => {
-  const {user} = useUser();
-  const handleClick = (event: SelectChangeEvent<string>) => {
+  const { user } = useUser();
+  const { route } = useRouter();
+  const queryClient = useQueryClient();
+
+  const handleClick = async (event: SelectChangeEvent<string>) => {
     event.stopPropagation();
-    handleLanguageChange(event);
+    await handleLanguageChange(event);
+
+    // 만약 동화페이지라면 동화 언어정보 다시 요청
+    if (route === '/book/[bookId]') {
+      await queryClient.invalidateQueries({
+        queryKey: ['bookContentData'],
+      });
+    }
   };
 
   const getLanguage = () => {
-    if(sort === "main")return convertToLanguage(user.mainLanguage);
-    else return convertToLanguage(user.subLanguage);
+    if (sort === 'main') return user.mainLanguage;
+    else return user.subLanguage;
   };
 
   return (

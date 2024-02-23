@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Box, Drawer } from '@mui/material';
-import Menu from './side/Menu'
+import Menu from './side/Menu';
 import { useUser } from 'src/hook/useUser';
 import Word from './side/Word';
 //Typography
@@ -19,19 +19,19 @@ const SideMenu = ({
   const [content, setContent] = useState<React.ReactElement | null>(null);
   const { isLanguageSetting } = useUser();
 
-  useEffect(()=>{
-    if(!isLanguageSetting){
-      setContent((<Menu setContent={setContent} handleSideMenu={handleSideMenu}/>));
+  useEffect(() => {
+    if (!isLanguageSetting) {
+      setContent(<Menu setContent={setContent} handleSideMenu={handleSideMenu} />);
     }
-    if(wordOpen){
-      setContent((<Word handleSideMenu={handleSideMenu}/>));
+    if (wordOpen) {
+      setContent(<Word handleSideMenu={handleSideMenu} />);
     }
   }, [setContent, handleSideMenu, isLanguageSetting, wordOpen]);
 
   useEffect(() => {
-    if(wordOpen){
+    if (wordOpen) {
       handleSideMenu(true);
-    }else{
+    } else {
       handleSideMenu(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -50,9 +50,7 @@ const SideMenu = ({
         },
       }}
     >
-      <Box component="nav">
-        {content}
-      </Box>
+      <Box component="nav">{content}</Box>
     </Drawer>
   );
 };

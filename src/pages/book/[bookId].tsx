@@ -53,7 +53,7 @@ const BookPage = ({
     queryFn: async () => await getBookInfo(Number(bookId)),
   });
 
-  const { data: bookContentData, isLoading: isBookContentLoading } = useQuery({
+  const { data: bookContentData, isFetching: isBookContentLoading } = useQuery({
     queryKey: ['bookContentData', bookId, user.mainLanguage, user.subLanguage],
     queryFn: async () =>
       await getBookContent(
