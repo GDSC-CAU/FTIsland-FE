@@ -4,17 +4,17 @@ import WordTitle from './components/WordTitle';
 import Back from './components/Back';
 import SideButton from './components/SideButton';
 import { useUser } from 'src/hook/useUser';
-import { getVocaDetail } from 'src/apis/voca';
 import convertedLanguageCode from 'src/utils/convertedLanguageCode';
+import { getBookVoca } from 'src/apis/voca';
 
 interface MenuProps {
   handleSideMenu: (content: boolean) => void;
 }
 
 const Word: React.FC<MenuProps> = ({ handleSideMenu }) => {
-  const [word, setWord] = useState('');
-  const [detail, setDetail] = useState('detail');
-  const {vocaId, user } = useUser();
+  const [detail, setDetail] = useState('Word Description');
+  const {vocaId, user, vocaWord, wordType } = useUser();
+  const [wordImage, setWordImage] = useState("/image/coverImg1.jpg");
 
   const handleBack = () => {
     console.log(vocaId);
@@ -23,27 +23,28 @@ const Word: React.FC<MenuProps> = ({ handleSideMenu }) => {
 
   useEffect(() => {
     const fetchVocaDetails = async () => {
-      const data = await getVocaDetail(vocaId, convertedLanguageCode(user.mainLanguage), convertedLanguageCode(user.subLanguage));
+      const language = (wordType=== 'main') ? user.mainLanguage : user.subLanguage;
+      const data = await getBookVoca(vocaId, convertedLanguageCode(language));
       if(data){
-        setWord(data[0]?.word);
-        setDetail(data[0]?.description);
+        setDetail(data.description);
+        setWordImage(data.image);
       }
     }
 
     fetchVocaDetails();
-  }, [user, vocaId]);
+  }, [user, vocaId, wordType]);
 
   return (
     <Box sx={{ bgcolor: '#FFE5E5', height: '100vh' }}>
       <Back handleBack={handleBack} />
-      <WordTitle content={word} />
+      <WordTitle content={vocaWord} />
 
       <Box sx={{ display: 'flex', justifyContent: 'center', margin: '10px' }}>
         <CardMedia
-          image="/image/coverImg1.jpg"
+          image= {wordImage}
           sx={{
             position: 'relative',
-            aspectRatio: '4/3',
+            aspectRatio: '1/1',
             width: '100%',
             borderRadius: '20px',
           }}
@@ -53,7 +54,7 @@ const Word: React.FC<MenuProps> = ({ handleSideMenu }) => {
       <Box
         sx={{
           bgcolor: 'white',
-          height: '45%',
+          height: '35%',
           margin: '10px',
           borderRadius: '20px',
           fontWeight: 'bold',

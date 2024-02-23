@@ -12,7 +12,7 @@ const HighlightedText = ({
   wordList: { vocaId: number; word: string; subWord: string }[];
   sx?: SxProps;
 }) => {
-  const {setWordModal, setVocaId} = useUser();
+  const {setWordModal, setVocaId, setVocaWord, setWordType } = useUser();
   const splitByWordList = (sentence: string, wordList: string[]) => {
     let result = [sentence];
 
@@ -73,6 +73,8 @@ const HighlightedText = ({
                 const vocaId = findVocaIdByWord(wordList, content);
                 if(typeof vocaId === "number"){
                   setVocaId(vocaId);
+                  setVocaWord(word.word);
+                  setWordType(type);
                 }
                 console.log(findVocaIdByWord(wordList, content));
               }}
