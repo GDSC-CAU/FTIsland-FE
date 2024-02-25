@@ -2,10 +2,13 @@ import { Box, Typography } from '@mui/material';
 
 import VocaCard from '../card/VocaCard';
 import Loading from '../Loading';
+import useTranslation from 'next-translate/useTranslation';
 
 type VocaType = { vocaId: number; word: string; image: string; subWord: string };
 
 const MyWord = ({ isLoading, vocaListData }: { isLoading: boolean; vocaListData: VocaType[] }) => {
+  const { t } = useTranslation('common');
+
   if (isLoading) return <Loading />;
 
   return (
@@ -30,7 +33,7 @@ const MyWord = ({ isLoading, vocaListData }: { isLoading: boolean; vocaListData:
 
       {vocaListData.length === 0 ? (
         <Typography variant="h5" sx={{ textAlign: 'center' }}>
-          추가된 단어가 없습니다.
+          {t('noMyWords')}
         </Typography>
       ) : null}
     </Box>

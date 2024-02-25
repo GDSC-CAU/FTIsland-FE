@@ -1,4 +1,5 @@
 import React from 'react';
+import useTranslation from 'next-translate/useTranslation';
 import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
 
 import StoryCard, { StoryDataType } from '../card/StoryCard';
@@ -6,6 +7,7 @@ import StoryCard, { StoryDataType } from '../card/StoryCard';
 const Recent = ({ recentBookListData }: { recentBookListData: StoryDataType[] }) => {
   const { breakpoints } = useTheme();
   const isMobile = useMediaQuery(breakpoints.down('sm'));
+  const { t } = useTranslation('common');
 
   return (
     <Box
@@ -45,7 +47,7 @@ const Recent = ({ recentBookListData }: { recentBookListData: StoryDataType[] })
 
       {recentBookListData.length === 0 ? (
         <Typography variant="h5" sx={{ textAlign: 'center' }}>
-          최근 탐험한 이야기가 없습니다.
+          {t('noMyBooks')}
         </Typography>
       ) : null}
     </Box>

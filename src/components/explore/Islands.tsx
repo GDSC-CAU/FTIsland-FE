@@ -1,27 +1,32 @@
 import { Box, Button, ButtonGroup, useMediaQuery, useTheme } from '@mui/material';
+import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
 import { useUser } from 'src/hook/useUser';
 interface MenuProps {
   setSelectedIsland: (island: string) => void;
+  setIslandNum: (islandNum: number) => void;
 }
 
-const Islands: React.FC<MenuProps> = ({ setSelectedIsland }) => {
+const Islands: React.FC<MenuProps> = ({ setSelectedIsland, setIslandNum }) => {
+  const { t } = useTranslation('common');
   const [value, setValue] = useState(0);
   const { user } = useUser();
-  const labels = ['지혜의 섬', '기쁨의 섬', '행복의 섬', '용기의 섬', '희망의 섬', '미지의 섬'];
+  const labels = Array(6)
+    .fill(0)
+    .map((_, index) => t(`main.island${index}`));
 
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
   const islandName = (newValue: number) => {
     if (user.nickName !== '' && newValue === 0) {
-      return `지혜의 섬`;
+      return t('main.island0');
     } else {
       return labels[newValue];
     }
   };
   const convertIslandName = (label: string) => {
-    if (label === '지혜의 섬' && user.nickName !== '') {
+    if (label === t('main.island0') && user.nickName !== '') {
       return `${user.nickName}의 섬`;
     } else {
       return label;
@@ -31,6 +36,7 @@ const Islands: React.FC<MenuProps> = ({ setSelectedIsland }) => {
   const handleChange = (newValue: number) => {
     setValue(newValue);
     setSelectedIsland(islandName(newValue));
+    setIslandNum(newValue);
   };
   return (
     <Box

@@ -1,0 +1,8 @@
+{
+  "locales": ["ko", "en", "ja", "cmn"],
+  "defaultLocale": "en",
+  "pages": {
+    "*": ["common"]
+  },
+  "logBuild": false
+}

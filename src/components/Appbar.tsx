@@ -42,7 +42,7 @@ const Appbar = ({
           <Typography
             variant="h4"
             component="h1"
-            sx={{ fontWeight: 600, whiteSpace: 'nowrap', fontFamily: 'Carter One' }}
+            sx={{ fontWeight: 600, whiteSpace: 'nowrap', fontFamily: 'DM Serif Display' }}
           >
             Fairy Tale Island
           </Typography>

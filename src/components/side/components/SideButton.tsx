@@ -1,9 +1,11 @@
 import { Avatar, Box, Typography } from '@mui/material';
+import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useUser } from 'src/hook/useUser';
 
 interface SideButtonProps {
+  type: 'mainPage' | 'myBookList' | 'myWordList' | 'setting' | 'sign';
   content: string;
   backgroundColor?: string; // backgroundColor prop 추가
   handleLanguage?: () => void;
@@ -14,6 +16,7 @@ interface SideButtonProps {
 }
 
 const SideButton: React.FC<SideButtonProps> = ({
+  type,
   content,
   backgroundColor,
   handleSideMenu,
@@ -21,12 +24,14 @@ const SideButton: React.FC<SideButtonProps> = ({
   word,
   setOpenEnter,
 }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const { t } = useTranslation('common');
   const { setUserRole, userRole, setMenu, setWordEnter, setUserId } = useUser();
   const { push } = useRouter();
 
+  const [isHovered, setIsHovered] = useState(false);
+
   const handleClick = () => {
-    if (content === '나의 단어 목록') {
+    if (type === 'myWordList') {
       if (userRole === 'USER') {
         push('/');
         setMenu(content);
@@ -36,21 +41,21 @@ const SideButton: React.FC<SideButtonProps> = ({
     }
 
     //사이드창 계속 열지 말지
-    if (userRole !== 'USER' || content === '바로 가기') {
+    if (userRole !== 'USER' || type === 'setting') {
       handleSideMenu(true);
       handleLanguage;
     } else handleSideMenu(false);
 
     //메인 창 내용
-    if ((userRole === 'USER' || content === '메인 페이지') && content !== '바로 가기') {
+    if ((userRole === 'USER' || type === 'mainPage') && type !== 'setting') {
       setMenu(content);
       handleSideMenu(false);
     }
 
     if (
-      content !== '메인 페이지' &&
-      content !== '바로 가기' &&
-      (userRole !== 'USER' || (content === '로그인/회원가입' && setOpenEnter))
+      type !== 'mainPage' &&
+      type !== 'setting' &&
+      (userRole !== 'USER' || (content === t('sideMenu.loginSignUp') && setOpenEnter))
     ) {
       if (setOpenEnter !== undefined) {
         setOpenEnter(true);
@@ -58,11 +63,11 @@ const SideButton: React.FC<SideButtonProps> = ({
     }
 
     //Language
-    if (content === '바로 가기' && handleLanguage) {
+    if (type === 'setting' && handleLanguage) {
       handleLanguage();
     }
 
-    if (content === '로그아웃') {
+    if (content === t('sideMenu.logOut')) {
       setUserRole('GUEST');
       setUserId(-1);
       localStorage.clear();

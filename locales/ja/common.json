@@ -1,0 +1,79 @@
+{
+  "main": {
+    "explore": "島を探検する",
+    "recent": "マイストーリー",
+    "words": "単語",
+
+    "island0": "知恵",
+    "island1": "喜び",
+    "island2": "幸せ",
+    "island3": "勇気",
+    "island4": "希望",
+    "island5": "未知のもの"
+  },
+
+  "login": "ログイン",
+  "signUp": "サインアップ",
+  "loginSignUp": "ログイン/サインアップ",
+
+  "signUpPopup": {
+    "title": "メルヘンの島へようこそ！",
+    "id": "ID",
+    "idHelperText": "小文字と数字で構成される4〜16文字",
+
+    "password": "パスワード",
+    "passwordHelperText": "文字で構成される8〜16文字",
+
+    "nickname": "ニックネーム",
+    "language": "設定",
+    "main": "メイン言語",
+    "sub": "サブ言語",
+    "signUp": "サインアップ",
+
+    "nicknameGuide": "ニックネームは最低1文字以上である必要があります。",
+    "idGuide": "IDは最低1文字以上である必要があります。",
+    "passwordGuide": "パスワードは最低1文字以上である必要があります。",
+    "duplicateId": "これは重複するIDです。",
+    "tryAgain": "登録された情報がありません。もう一度やり直してください。"
+  },
+
+  "noMyBooks": "最近読んだストーリーはありません。",
+  "noMyWords": "追加された単語はありません。",
+
+  "listenWord": "単語",
+  "listenDescription": "説明",
+
+  "mainLanguage": "メイン",
+  "subLanguage": "サブ",
+
+  "sideMenu": {
+    "menu": "メニュー",
+    "mainPage": "ホーム",
+    "myBookList": "マイストーリー",
+    "myWordList": "単語帳",
+
+    "language": "言語",
+    "setting": "設定",
+
+    "logOut": "ログアウト",
+    "loginSignUp": "ログイン/サインアップ",
+
+    "parentMode": "保護者モード",
+
+    "mainLanguage": "メイン言語",
+    "subLanguage": "サブ言語"
+  },
+
+  "book": {
+    "restart": "最初から読む",
+    "continue": "続きを読む",
+
+    "viewCollection": "コレクションを表示",
+    "viewGuide": "設定は最初のページでのみ可能です。",
+
+    "main": "メイン",
+    "sub": "サブ",
+
+    "comingSoon": "近日公開"
+  }
+}

@@ -78,7 +78,7 @@ export const typography = {
   },
 };
 
-export default function App({ Component, pageProps }: AppPropsWithLayout) {
+const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   const theme = createTheme({
     ...typography,
   });
@@ -116,4 +116,6 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       </QueryClientProvider>
     </>
   );
-}
+};
+
+export default App;

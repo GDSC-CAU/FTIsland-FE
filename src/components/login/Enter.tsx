@@ -2,6 +2,7 @@ import { Avatar, Box, Button, CardMedia, IconButton, Modal, Typography } from '@
 import CloseIcon from '@mui/icons-material/Close';
 import React from 'react';
 import { useUser } from 'src/hook/useUser';
+import useTranslation from 'next-translate/useTranslation';
 
 interface LoginProps {
   open: boolean;
@@ -12,6 +13,7 @@ interface LoginProps {
 
 const Enter: React.FC<LoginProps> = ({ open, setOpen, setOpenLogin, setOpenJoin }) => {
   const { setUserRole } = useUser();
+  const { t } = useTranslation('common');
 
   const handleClose = () => {
     setOpen(false);
@@ -50,7 +52,7 @@ const Enter: React.FC<LoginProps> = ({ open, setOpen, setOpenLogin, setOpenJoin 
             marginBottom: '10%',
             color: '#39A7FF',
             whiteSpace: 'nowrap',
-            fontFamily: 'Carter One',
+            fontFamily: 'DM Serif Display',
           }}
         >
           Fairy Tale Island
@@ -65,7 +67,7 @@ const Enter: React.FC<LoginProps> = ({ open, setOpen, setOpenLogin, setOpenJoin 
             alt="google"
             sx={{ width: '20px', height: '20px', marginRight: '15px' }}
           />
-          로그인
+          {t('login')}
         </Button>
         <Button variant="contained" sx={buttonStyle()} onClick={handleClickJoin}>
           <Avatar
@@ -73,7 +75,7 @@ const Enter: React.FC<LoginProps> = ({ open, setOpen, setOpenLogin, setOpenJoin 
             alt="google"
             sx={{ width: '20px', height: '20px', marginRight: '15px' }}
           />
-          회원가입
+          {t('signUp')}
         </Button>
       </Box>
     </Modal>

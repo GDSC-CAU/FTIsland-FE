@@ -8,17 +8,6 @@ export const getIslandInfo = async (islandId: number, userId: string | number) =
     islandId,
     userId,
   });
-// try {
-//   const data = {
-//     islandId: islandId,
-//     userId: userId||-1,
-//   };
-//   const url = baseURL + '/island/books';
-//   const response = await axios.post(url, data);
-//   return response;
-// } catch (error) {
-//   console.error(error);
-// }
 
 export const getBookDetail = async (id: string | number) => {
   try {

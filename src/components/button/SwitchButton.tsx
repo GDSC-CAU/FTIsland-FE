@@ -16,11 +16,6 @@ const SwitchButton = styled(Switch)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#FF8383' : '#FF8383',
       },
     },
-    // ':after': {
-    //   content: '"보조언어"',
-    //   fontSize: '12px',
-    //   marginLeft: '6px',
-    // },
   },
   '& .MuiSwitch-thumb': {
     boxShadow: '0 2px 4px 0 rgb(0 35 11 / 20%)',
@@ -36,14 +31,6 @@ const SwitchButton = styled(Switch)(({ theme }) => ({
     opacity: 1,
     backgroundColor: theme.palette.mode === 'dark' ? '#39A7FF' : '#39A7FF',
     boxSizing: 'border-box',
-    // ':before': {
-    //   content: '"주언어"',
-    //   fontSize: '12px',
-    //   lineHeight: '24px',
-    //   display: 'flex',
-    //   // justifyContent: 'flex-end',
-    //   // marginRight: '8px',
-    // },
   },
 }));
 
