@@ -62,6 +62,7 @@ const Islands: React.FC<MenuProps> = ({ setSelectedIsland, setIslandNum }) => {
               fontSize: matches ? '1.3rem' : '1.5rem',
               marginTop: 15,
               whiteSpace: 'nowrap',
+              textTransform: 'none',
             }}
             onClick={() => handleChange(index)}
           >

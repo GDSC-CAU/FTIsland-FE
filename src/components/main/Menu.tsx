@@ -93,9 +93,9 @@ const Menu = ({ tabIndex, handleOpenEnterModal }: MenuProps) => {
               alignItems: 'center',
               cursor: 'pointer',
               fontWeight: 'bold',
-              fontSize: { xs: '1.7rem', sm: '2rem' },
+              fontSize: { xs: '1.4rem', sm: '2rem' },
+              textTransform: 'none',
               whiteSpace: 'nowrap',
-              fontFamily: ['DM Serif Display', 'Poor Story'],
             }}
           />
         ))}
