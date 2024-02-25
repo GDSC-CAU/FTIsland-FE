@@ -1,6 +1,7 @@
 # 🏝️ Fairy-Tale Island 🏝️
 ![image](https://github.com/GDSC-CAU/FTIsland-BE/assets/81238093/f99316f4-59f0-460b-a0cd-356fd96c553b)
 (간단한 설명)
+
 ### Demo video
 
 ## 📌 Project Overview
@@ -16,18 +17,16 @@ According to a national survey of multicultural families conducted in Korea in 2
 In a typical family, the caregiver is proficient in the language, so the child is naturally able to acquire it. However, in a multicultural family, the primary caregiver is less likely to acquire a language because the primary caregiver may be inexperienced in the language of the country of residence. The degree of language learning also has a significant impact on pre-school children's educational attainment.
 
 ## 📌 Solution
+Children's storybooks read by their parents in childhood have excellent language learning effects. So, with this in mind, we propose a ${\textsf{\color{#39A7FF}"Dual Language Storybook"}}$ solution that enables both children and primary caregivers to naturally learn languages in multicultural families.
 
-Children's storybooks read by their parents in childhood have excellent language learning effects. So, with this in mind, we propose a "dual language storybook" solution that enables both children and primary caregivers to naturally learn languages in multicultural families.
-
-We have chosen **high quality education** among the UN's sustainable development goals, and the specific goal is **4.2 Equal Access to Quality Pre-school Education.**
+We have chosen **high quality education** among the UN's sustainable development goals, and the specific goal is ${\textsf{\color{#39A7FF}4.2 Equal Access to Quality Pre-school Education.}}$
 
 Caregivers can read fairy tale books with their children to acquire culture and language, and learn words. After reading the fairy tale books, the "Think" question allows them to think deeply about the contents of the fairy tale and induce them to interpret them in their own way for social learning. It also allows caregivers and children to bond by having conversations about the book.
 
 ## 📌 Architecture
 ![image](https://github.com/GDSC-CAU/FTIsland-BE/assets/81238093/5f40878e-c43b-4642-8406-0ce5375903b2)
 
-
-### Google Products
+### ${\textsf{\color{#4285f4}G}\textsf{\color{#ea4335}o}\textsf{\color{#fbbc05}o}\textsf{\color{#4285f4}g}\textsf{\color{#34a853}l}\textsf{\color{#ea4335}e}}$ Products
 - Google Cloud Platform
 - Google Cloud Storage (Bucket)
 - Google Cloud SQL
@@ -144,7 +143,7 @@ create database ft;
 
 ## 📌 Contributors
 
-| Minkyeong Kim | Yunjin Kim | Youngeun Jun | Seungwon Choi |
+| [Minkyeong Kim](https://github.com/alsrudrl1220) | [Yunjin Kim](https://github.com/RumosZin) | [Youngeun Jun](https://github.com/Junyewdd) | [Seungwon Choi](https://github.com/seung1) |
 | --- | --- | --- | --- |
 | <img src="https://github.com/GDSC-CAU/FTIsland-BE/assets/80468377/718adbac-97b2-4f1b-a312-4143108c8dd4" width="150" /> | <img src="https://github.com/GDSC-CAU/FTIsland-BE/assets/81238093/395dcbea-2778-47d8-ad97-8566606e029a" width="150" /> | <img src="https://github.com/GDSC-CAU/FTIsland-BE/assets/33658057/50800865-b2d0-4187-9a56-093453c18e92" width="150" /> | <img src="https://github.com/GDSC-CAU/FTIsland-BE/assets/33658057/b6934dab-2bba-4533-982d-847684b9fcfe" width="150" /> |
 | Back-end / AI | Server / Back-end | Front-end / Design | Front-end / Design |
