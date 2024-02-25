@@ -77,12 +77,19 @@ const Books = ({ islandNum, island }: { islandNum: number; island: string }) => 
           { top: '55%', left: '55%' },
           { top: '30%', left: '65%' },
         ];
-      default:
+      case t('main.island5'):
         return [
           { top: '80%', left: '37%' },
           { top: '35%', left: '33%' },
           { top: '55%', left: '55%' },
           { top: '70%', left: '67%' },
+        ];
+      default:
+        return [
+          { top: '50%', left: '30%' },
+          { top: '70%', left: '37%' },
+          { top: '55%', left: '55%' },
+          { top: '30%', left: '65%' },
         ];
     }
   };
