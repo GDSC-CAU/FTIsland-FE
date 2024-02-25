@@ -179,7 +179,7 @@ Sample books from [here](http://www.fantass.com/picturebook/330).
 | [Minkyeong Kim](https://github.com/alsrudrl1220) | [Yunjin Kim](https://github.com/RumosZin) | [Youngeun Jun](https://github.com/Junyewdd) | [Seungwon Choi](https://github.com/seung1) |
 | --- | --- | --- | --- |
 | <img src="https://github.com/GDSC-CAU/FTIsland-BE/assets/80468377/718adbac-97b2-4f1b-a312-4143108c8dd4" width="150" /> | <img src="https://github.com/GDSC-CAU/FTIsland-BE/assets/81238093/395dcbea-2778-47d8-ad97-8566606e029a" width="150" /> | <img src="https://github.com/GDSC-CAU/FTIsland-BE/assets/33658057/50800865-b2d0-4187-9a56-093453c18e92" width="150" /> | <img src="https://github.com/GDSC-CAU/FTIsland-BE/assets/33658057/b6934dab-2bba-4533-982d-847684b9fcfe" width="150" /> |
-| Back-end / AI | Server / Back-end | Front-end / Design | Front-end / Design |
+| Back-end / AI / Video | Server / Back-end | Front-end / Design | Front-end / Design |
 
 
 
