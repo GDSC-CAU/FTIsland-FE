@@ -12,13 +12,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import {
-  QueryClient,
-  dehydrate,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { createQuiz, getBookContent, getBookInfo, updateLastPage } from 'src/apis/book';
 import BookCover from 'src/components/book/BookCover';
@@ -142,7 +136,7 @@ const BookPage = ({
 
   useEffect(() => {
     return () => {
-      if (bookContentStep === 1) mutation.mutate();
+      mutation.mutate();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -294,15 +288,15 @@ export const getServerSideProps: GetServerSideProps = async (
     };
   }
 
-  const queryClient = new QueryClient();
-  await queryClient.prefetchQuery({
-    queryKey: ['bookInfo', bookId],
-    queryFn: () => getBookInfo(Number(bookId)),
-  });
+  // const queryClient = new QueryClient();
+  // await queryClient.prefetchQuery({
+  //   queryKey: ['bookInfo', bookId],
+  //   queryFn: () => getBookInfo(Number(bookId)),
+  // });
 
   return {
     props: {
-      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+      // dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
       bookId: bookId,
       limit: limit ?? null,
       offset: offset ?? null,
