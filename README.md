@@ -1,40 +1,153 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🏝️ Fairy-Tale Island 🏝️
+![image](https://github.com/GDSC-CAU/FTIsland-BE/assets/81238093/f99316f4-59f0-460b-a0cd-356fd96c553b)
+(간단한 설명)
+### Demo video
 
-## Getting Started
+## 📌 Project Overview
 
-First, run the development server:
+We noted **the phenomenon of poor pre-school language education for children when their primary caregivers are poor at the language of their country of residence in an era where there are many multicultural families.** In multicultural families, the subject of language education is children and primary caregivers.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+**We provide a fairy tale reading service that allows main caregivers and children to bond with each other and acquire language and culture of their country of residence.**
+
+## 📌 Problem
+
+According to a national survey of multicultural families conducted in Korea in 2021, the biggest difficulty in raising children was Korean language instruction (26.8%) for those under the age of 5 and learning instruction (50.4%) for those over the age of 6.
+
+In a typical family, the caregiver is proficient in the language, so the child is naturally able to acquire it. However, in a multicultural family, the primary caregiver is less likely to acquire a language because the primary caregiver may be inexperienced in the language of the country of residence. The degree of language learning also has a significant impact on pre-school children's educational attainment.
+
+## 📌 Solution
+
+Children's storybooks read by their parents in childhood have excellent language learning effects. So, with this in mind, we propose a "dual language storybook" solution that enables both children and primary caregivers to naturally learn languages in multicultural families.
+
+We have chosen **high quality education** among the UN's sustainable development goals, and the specific goal is **4.2 Equal Access to Quality Pre-school Education.**
+
+Caregivers can read fairy tale books with their children to acquire culture and language, and learn words. After reading the fairy tale books, the "Think" question allows them to think deeply about the contents of the fairy tale and induce them to interpret them in their own way for social learning. It also allows caregivers and children to bond by having conversations about the book.
+
+## 📌 Architecture
+![image](https://github.com/GDSC-CAU/FTIsland-BE/assets/81238093/5f40878e-c43b-4642-8406-0ce5375903b2)
+
+
+### Google Products
+- Google Cloud Platform
+- Google Cloud Storage (Bucket)
+- Google Cloud SQL
+- Google translation API
+- Google text to speech API
+
+## 📌 Start Guide
+
+## Front-end
+
+### Requirements
+Before getting started, ensure you have the following installed:
+
+- Node.js
+- npm (Node Package Manager)
+
+### Install and Clone
+1. Clone the Repository:
+
+```
+git clone https://github.com/GDSC-CAU/FTIsland-FE.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Change Directory:
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```
+cd FTIsland-FE
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+3. Install Dependencies:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Environment Variables Setup
+1. Create a .env.local File
+- Create a .env.local file in the root directory of your project.
 
-## Learn More
+2. Set Environment Variables
+- Set the required environment variables in the .env file. For example:
 
-To learn more about Next.js, take a look at the following resources:
+```
+NEXT_PUBLIC_GOOGLE_CLOUD_API_KEY={ /* Your gcp key */ }
+NEXT_PUBLIC_SERVER_URL=http://localhost:8080
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Run
+To run the front-end application, follow these steps:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. Development Mode:
 
-## Deploy on Vercel
+```
+npm dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. Test
+- Open http://localhost:3000 with your browser to see the result.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Back-end
+
+### Requirements
+Before getting started, ensure you have the following installed:
+
+- MySQL
+- Java (JDK17)
+- IntelliJ IDEA
+
+### Install and Clone
+- Clone the Repository:
+
+```
+git clone https://github.com/GDSC-CAU/FTIsland-BE.git
+```
+- Open
+1. In IntelliJ IDEA, open the folder for that clone path and select the "build.gradle" file to open it.
+2. When the gradle plug-in elephant appears, press it to add dependency.
+3. If you have a build problem, change to Build Tools in settings: IntelliJIDEA -> Gradle or vice versa.
+4. If you still have a problem, set the gradle JVM version to 17.
+
+
+### Environment Variables Setup
+1. You must enter the API Key in the yml file to run. Running as it is may not support some of the features.
+2. The mysql setting must be as follows.
+
+- In mySQL workbench, set the root user's password to 0000.
+```
+mysql -u root
+```
+```
+set password = password('0000');
+```
+
+- Create database under the name 'ft'
+```
+create database ft;
+```
+### Run
+- In "com.FTIsland.BE" folder, Run "BeApplication" file.
+- Test </br>
+  Open http://localhost:8080 or use the POSTMAN to check the api operation.
+
+
+## 📌 Screen Shots
+
+## 📌 Next Steps
+
+1. Currently, it is for multicultural families living in Korea, and registered fairy tales are mainly for traditional fairy tales in Korea. In order to target more multicultural families in more countries, many traditional fairy tales from various countries will be registered. Traditional fairy tales allow you to feel the culture or customs of a country, and if there are traditional fairy tales from various countries, you can understand the culture by reading fairy tales about your parents' home country.
+
+2. In a multicultural family, a child's poor language proficiency due to the language proficiency of the main caregiver can also be resolved through drawing. While drawing about keywords, you can naturally acquire words and form a bond by drawing together. In the future, we will add a function of drawing fairy tale illustrations by using our own imagination about the contents of the fairy tale.
+
+3. The current version of the solution offers only Korean, English, Japanese, and Chinese, but the backend code provides both languages from countries provided by the Google translation API, so adding a country to the main/subordinate language option can support many countries without additional memory consumption or code modification.
+
+## 📌 Contributors
+
+| Minkyeong Kim | Yunjin Kim | Youngeun Jun | Seungwon Choi |
+| --- | --- | --- | --- |
+| <img src="https://github.com/GDSC-CAU/FTIsland-BE/assets/80468377/718adbac-97b2-4f1b-a312-4143108c8dd4" width="150" /> | <img src="https://github.com/GDSC-CAU/FTIsland-BE/assets/81238093/395dcbea-2778-47d8-ad97-8566606e029a" width="150" /> | <img src="https://github.com/GDSC-CAU/FTIsland-BE/assets/33658057/50800865-b2d0-4187-9a56-093453c18e92" width="150" /> | <img src="https://github.com/GDSC-CAU/FTIsland-BE/assets/33658057/b6934dab-2bba-4533-982d-847684b9fcfe" width="150" /> |
+| Back-end / AI | Server / Back-end | Front-end / Design | Front-end / Design |
+
+
+
