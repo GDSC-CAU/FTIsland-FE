@@ -1,11 +1,15 @@
-import { Box, useMediaQuery } from '@mui/material';
 import React, { useState } from 'react';
+import useTranslation from 'next-translate/useTranslation';
+import { Box, useMediaQuery } from '@mui/material';
+
 import Islands from '../explore/Islands';
 import Island from '../explore/map/Island';
 
 const Explore = () => {
-  const userIslandName = '지혜의 섬';
+  const { t } = useTranslation('common');
+  const userIslandName = t('main.island0');
   const [selectedIsland, setSelectedIsland] = useState(userIslandName);
+  const [islandNum, setIslandNum] = useState(0);
   const isSmallScreen = useMediaQuery('(max-width:600px)');
 
   return (
@@ -18,7 +22,7 @@ const Explore = () => {
         height: '100%',
       }}
     >
-      <Islands setSelectedIsland={setSelectedIsland} />
+      <Islands setSelectedIsland={setSelectedIsland} setIslandNum={setIslandNum} />
       <Box
         sx={{
           flex: 1,
@@ -27,7 +31,7 @@ const Explore = () => {
           alignItems: 'center',
         }}
       >
-        <Island island={selectedIsland}></Island>
+        <Island island={selectedIsland} islandNum={islandNum} />
       </Box>
     </Box>
   );

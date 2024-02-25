@@ -32,8 +32,8 @@ export interface UserContextValues {
 const contextDefaultValue: UserContextValues = {
   user: {
     nickName: '',
-    mainLanguage: '한국어',
-    subLanguage: 'English',
+    mainLanguage: 'English',
+    subLanguage: '한국어',
   },
   setNickName: () => {},
   setMainLanguage: () => {},
@@ -81,18 +81,20 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   }, [nickName, mainLanguage, subLanguage]);
 
   useEffect(() => {
-    if (localStorage.getItem('userRole') === 'USER') {
-      const newUserId = Number(localStorage.getItem('userId'));
-      const newName = localStorage.getItem('name');
-      const newMainLanguage = localStorage.getItem('mainLanguage');
-      const newSubLanguage = localStorage.getItem('subLanguage');
-      if (newUserId && newName && newMainLanguage && newSubLanguage) {
-        setUserId(newUserId);
-        setNickName(newName);
-        setMainLanguage(newMainLanguage);
-        setSubLanguage(newSubLanguage);
-        setUserRole('USER');
-      }
+    const newUserId = Number(localStorage.getItem('userId'));
+    const newName = localStorage.getItem('name');
+    const newMainLanguage = localStorage.getItem('mainLanguage');
+    const newSubLanguage = localStorage.getItem('subLanguage');
+
+    setMainLanguage(newMainLanguage || contextDefaultValue.user.mainLanguage);
+    setSubLanguage(newSubLanguage || contextDefaultValue.user.subLanguage);
+    localStorage.setItem('mainLanguage', newMainLanguage || contextDefaultValue.user.mainLanguage);
+    localStorage.setItem('subLanguage', newSubLanguage || contextDefaultValue.user.subLanguage);
+
+    if (newUserId) {
+      setUserId(newUserId || -1);
+      setNickName(newName || '');
+      setUserRole('USER');
     }
   }, [userRole]);
 

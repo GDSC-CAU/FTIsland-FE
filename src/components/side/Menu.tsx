@@ -8,6 +8,7 @@ import { useUser } from 'src/hook/useUser';
 import Join from '../login/Join';
 import Login from '../login/Login';
 import ParentButton from './components/ParentButton';
+import useTranslation from 'next-translate/useTranslation';
 
 interface MenuProps {
   setContent: (setContent: ReactElement) => void;
@@ -15,7 +16,10 @@ interface MenuProps {
 }
 
 const Menu: React.FC<MenuProps> = ({ setContent, handleSideMenu }) => {
+  const { t: sideMenu } = useTranslation('common');
+  const t = (text: string) => sideMenu(`sideMenu.${text}`);
   const { userRole, setIsLanguageSetting } = useUser();
+
   const [openEnterModal, setOpenEnterModal] = useState(false);
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openJoinModal, setOpenJoinModal] = useState(false);
@@ -29,7 +33,7 @@ const Menu: React.FC<MenuProps> = ({ setContent, handleSideMenu }) => {
     <Box sx={{ bgcolor: '#FFE5E5', height: '100vh' }}>
       <ParentButton />
 
-      <List content={'메뉴'} />
+      <List content={t('menu')} />
       <Box
         sx={{
           display: 'flex',
@@ -39,22 +43,25 @@ const Menu: React.FC<MenuProps> = ({ setContent, handleSideMenu }) => {
         }}
       >
         <SideButton
-          content={'메인 페이지'}
+          type="mainPage"
+          content={t('mainPage')}
           setOpenEnter={setOpenEnterModal}
           handleSideMenu={handleSideMenu}
         />
         <SideButton
-          content={'나의 동화 목록'}
+          type="myBookList"
+          content={t('myBookList')}
           setOpenEnter={setOpenEnterModal}
           handleSideMenu={handleSideMenu}
         />
         <SideButton
-          content={'나의 단어 목록'}
+          type="myWordList"
+          content={t('myWordList')}
           setOpenEnter={setOpenEnterModal}
           handleSideMenu={handleSideMenu}
         />
       </Box>
-      <List content={'언어 설정'} />
+      <List content={t('language')} />
       <Box
         sx={{
           display: 'flex',
@@ -64,7 +71,8 @@ const Menu: React.FC<MenuProps> = ({ setContent, handleSideMenu }) => {
         }}
       >
         <SideButton
-          content={'바로 가기'}
+          type="setting"
+          content={t('setting')}
           handleLanguage={handleLanguageSettingClick}
           handleSideMenu={handleSideMenu}
           setOpenEnter={setOpenEnterModal}
@@ -82,7 +90,8 @@ const Menu: React.FC<MenuProps> = ({ setContent, handleSideMenu }) => {
         }}
       >
         <SideButton
-          content={userRole === 'USER' ? '로그아웃' : '로그인/회원가입'}
+          type="sign"
+          content={userRole === 'USER' ? t('logOut') : t('loginSignUp')}
           backgroundColor={'white'}
           handleSideMenu={handleSideMenu}
           setOpenEnter={setOpenEnterModal}

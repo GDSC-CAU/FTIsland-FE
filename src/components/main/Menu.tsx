@@ -1,4 +1,5 @@
 import React, { ReactNode, useEffect, useState } from 'react';
+import useTranslation from 'next-translate/useTranslation';
 import { Box, Tab, Tabs } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 
@@ -32,6 +33,7 @@ const TabPanel = ({
 const Menu = ({ tabIndex, handleOpenEnterModal }: MenuProps) => {
   const { userRole, userId } = useUser();
   const [value, setValue] = useState(0);
+  const { t } = useTranslation('common');
 
   const { data: recentBookListData } = useQuery({
     queryKey: ['recent-books', userId],
@@ -54,21 +56,21 @@ const Menu = ({ tabIndex, handleOpenEnterModal }: MenuProps) => {
 
   const tabList = [
     {
-      label: '동화의 섬',
+      label: t('main.explore'),
       content: <Explore />,
     },
     {
-      label: '최근 이야기',
+      label: t('main.recent'),
       content: <Recent recentBookListData={recentBookListData} />,
     },
     {
-      label: '단어장',
+      label: t('main.words'),
       content: <MyWord vocaListData={vocaListData} isLoading={isVocaListLoading} />,
     },
   ];
 
   return (
-    <Box sx={{ width: '100%', height: 100, borderColor: 'divider', bgcolor: 'red' }}>
+    <Box sx={{ width: '100%', height: 100, borderColor: 'divider' }}>
       <Tabs
         value={value}
         onChange={(_, value) => {
@@ -93,11 +95,11 @@ const Menu = ({ tabIndex, handleOpenEnterModal }: MenuProps) => {
               fontWeight: 'bold',
               fontSize: { xs: '1.7rem', sm: '2rem' },
               whiteSpace: 'nowrap',
+              fontFamily: ['DM Serif Display', 'Poor Story'],
             }}
           />
         ))}
       </Tabs>
-
       <Box
         sx={{
           width: '100%',

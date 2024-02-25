@@ -7,12 +7,14 @@ import { useUser } from 'src/hook/useUser';
 import convertedLanguageCode from 'src/utils/convertedLanguageCode';
 import { getBookVoca } from 'src/apis/voca';
 import { useQuery } from '@tanstack/react-query';
+import useTranslation from 'next-translate/useTranslation';
 
 interface MenuProps {
   handleSideMenu: (content: boolean) => void;
 }
 
 const Word: React.FC<MenuProps> = ({ handleSideMenu }) => {
+  const { t } = useTranslation('common');
   const { vocaId, user, vocaWord, wordType } = useUser();
 
   const language = useMemo(
@@ -74,7 +76,12 @@ const Word: React.FC<MenuProps> = ({ handleSideMenu }) => {
         {isLoading ? 'Loading...' : bookVocaData.description}
       </Box>
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <SideButton content={'나의 단어 목록'} handleSideMenu={handleSideMenu} word={true} />
+        <SideButton
+          type="myWordList"
+          content={t('sideMenu.myWordList')}
+          handleSideMenu={handleSideMenu}
+          word={true}
+        />
       </Box>
     </Box>
   );

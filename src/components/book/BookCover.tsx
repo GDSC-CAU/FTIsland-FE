@@ -1,3 +1,4 @@
+import useTranslation from 'next-translate/useTranslation';
 import { Box, Button, Chip, CircularProgress, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 
@@ -15,6 +16,7 @@ const BookCover = ({
   handleClickLastReadBook: (offset: number, limit: number) => void;
 }) => {
   const { userId } = useUser();
+  const { t } = useTranslation('common');
 
   const { id: bookId, title, description, category, country, image } = bookSummaryData;
 
@@ -102,7 +104,7 @@ const BookCover = ({
               handleChangeStep(true);
             }}
           >
-            <Typography variant="h6">처음부터 읽기</Typography>
+            <Typography variant="h6">{t('book.restart')}</Typography>
           </Button>
           <Button
             onClick={() => {
@@ -116,7 +118,7 @@ const BookCover = ({
             {isBookLastReadLoading ? (
               <CircularProgress size={24} />
             ) : (
-              <Typography variant="h6">이어서 읽기</Typography>
+              <Typography variant="h6">{t('book.continue')}</Typography>
             )}
           </Button>
         </Box>

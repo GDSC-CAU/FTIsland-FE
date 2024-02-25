@@ -1,0 +1,79 @@
+{
+  "main": {
+    "explore": "동화의 섬",
+    "recent": "최근 이야기",
+    "words": "단어장",
+
+    "island0": "지혜의 섬",
+    "island1": "기쁨의 섬",
+    "island2": "행복의 섬",
+    "island3": "용기의 섬",
+    "island4": "희망의 섬",
+    "island5": "미지의 섬"
+  },
+
+  "login": "로그인",
+  "signUp": "회원가입",
+  "loginSignUp": "로그인/회원가입",
+
+  "signUpPopup": {
+    "title": "동화의 섬에 오신 것을 환영합니다!",
+    "id": "아이디",
+    "idHelperText": "영문 소문자/숫자로 이루어진 4~16자",
+
+    "password": "비밀번호",
+    "passwordHelperText": "영문으로 이루어진 8~16자",
+
+    "nickname": "별명",
+    "language": "언어 설정",
+    "maiin": "주언어",
+    "sub": "보조언어",
+    "signUp": "회원가입",
+
+    "nicknameGuide": "별명의 길이가 1자 이상이어야 합니다.",
+    "idGuide": "아이디의 길이가 1자 이상이어야 합니다.",
+    "passwordGuide": "비밀번호의 길이가 1자 이상이어야 합니다.",
+    "duplicateId": "중복된 ID입니다.",
+    "tryAgain": "등록된 정보가 없습니다. 다시 시도하세요."
+  },
+
+  "noMyBooks": "최근에 탐험한 이야기가 없습니다.",
+  "noMyWords": "추가된 단어가 없습니다.",
+
+  "listenWord": "단어 듣기",
+  "listenDescription": "설명 듣기",
+
+  "mainLanguage": "주언어",
+  "subLanguage": "보조언어",
+
+  "sideMenu": {
+    "menu": "메뉴",
+    "mainPage": "메인페이지",
+    "myBookList": "나의 동화 목록",
+    "myWordList": "나의 단어 목록",
+
+    "language": "언어설정",
+    "setting": "바로가기",
+
+    "logOut": "로그아웃",
+    "loginSignUp": "로그인/회원가입",
+
+    "parentMode": "부모로 전환",
+
+    "mainLanguage": "주언어",
+    "subLanguage": "보조언어"
+  },
+
+  "book": {
+    "restart": "처음부터 읽기",
+    "continue": "이어서 읽기",
+
+    "viewCollection": "모아보기",
+    "viewGuide": "첫 페이지에서만 설정이 가능합니다.",
+
+    "main": "주언어",
+    "sub": "보조언어",
+
+    "comingSoon": "준비중입니다."
+  }
+}

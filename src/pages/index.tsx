@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 
 import Layout from 'src/components/Layout';
 import Main from 'src/components/main/Main';
 import { useUser } from 'src/hook/useUser';
 
-export default function Home() {
+const Home = () => {
   const [tabIndex, setTabIndex] = useState<number>(0);
   const { menu } = useUser();
 
@@ -18,9 +18,9 @@ export default function Home() {
     }
   }, [menu]);
 
-  return (
-    <Layout>
-      <Main tabIndex={tabIndex} />
-    </Layout>
-  );
-}
+  return <Main tabIndex={tabIndex} />;
+};
+
+Home.getLayout = (page: ReactElement) => <Layout>{page}</Layout>;
+
+export default Home;

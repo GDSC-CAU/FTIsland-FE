@@ -1,6 +1,7 @@
 import { ReactElement, useEffect, useState } from 'react';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 import {
   Box,
   InputBase,
@@ -42,6 +43,7 @@ const BookPage = ({
   const { replace } = useRouter();
   const { userId, user } = useUser();
   const queryClient = useQueryClient();
+  const { t } = useTranslation('common');
 
   const [bookContentStep, setBookContentStep] = useState(limit ? 1 : 0);
   const [bookLimit, setBookLimit] = useState(Number(limit) || 1);
@@ -149,7 +151,7 @@ const BookPage = ({
     const handleInnerSize = () => {
       if (window.innerWidth > 1000) {
         setMarginLeft('calc((100vw - 1000px)/-2)');
-      }
+      } else setMarginLeft('0');
     };
     handleInnerSize();
     window.addEventListener('resize', handleInnerSize);
@@ -203,7 +205,7 @@ const BookPage = ({
           >
             {bookInfoData.title}
           </Typography>
-          <Tooltip title="첫 페이지에서만 설정이 가능합니다." placement="top" disableTouchListener>
+          <Tooltip title={t('book.viewGuide')} placement="top" disableTouchListener>
             <Select
               disabled={currentOffset !== 0}
               value={bookLimit}
@@ -222,7 +224,7 @@ const BookPage = ({
                 '.MuiSelect-select': {
                   px: 1,
                   ':before': {
-                    content: '"모아보기 : "',
+                    content: `"${t('book.viewCollection')} : "`,
                   },
                 },
               }}

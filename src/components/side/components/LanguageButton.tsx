@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { Box, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -16,6 +16,8 @@ const LanguageButton: React.FC<LanguageButtonProps> = ({ sort, handleLanguageCha
   const { route } = useRouter();
   const queryClient = useQueryClient();
 
+  const [language, setLanguage] = useState(sort === 'main' ? user.mainLanguage : user.subLanguage);
+
   const handleClick = async (event: SelectChangeEvent<string>) => {
     event.stopPropagation();
     await handleLanguageChange(event);
@@ -28,17 +30,15 @@ const LanguageButton: React.FC<LanguageButtonProps> = ({ sort, handleLanguageCha
     }
   };
 
-  const getLanguage = () => {
-    if (sort === 'main') return user.mainLanguage;
-    else return user.subLanguage;
-  };
-
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', paddingTop: 3, paddingBottom: 20 }}>
       <Select
-        defaultValue={getLanguage()}
+        value={language}
         sx={selectBoxStyle}
-        onChange={handleClick}
+        onChange={(e) => {
+          handleClick(e);
+          setLanguage(e.target.value);
+        }}
         MenuProps={{
           PaperProps: {
             style: {

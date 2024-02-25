@@ -1,6 +1,7 @@
 import { ReactElement, forwardRef, memo, useEffect, useState } from 'react';
 import { TransitionProps } from 'react-transition-group/Transition';
 import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 import {
   Box,
   Dialog,
@@ -87,6 +88,7 @@ const StoryCard = ({
   bookData: StoryDataType;
   sx?: SxProps;
 }) => {
+  const { t } = useTranslation('common');
   const { push } = useRouter();
   const { breakpoints } = useTheme();
   const isMobile = useMediaQuery(breakpoints.down('sm'));
@@ -200,7 +202,7 @@ const StoryCard = ({
         open={isSnackBarOpen}
         autoHideDuration={3000}
         onClose={() => setIsSnackBarOpen(false)}
-        message="준비중입니다."
+        message={t('book.comingSoon')}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         TransitionComponent={Transition}
       />

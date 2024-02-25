@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react';
+import useTranslation from 'next-translate/useTranslation';
 import { Box, CardMedia } from '@mui/material';
 
 import Books from './Books';
 
 const ISLAND_IMAGE_COUNT = 7;
 
-const Island = ({ island }: { island: string }) => {
+const Island = ({ islandNum, island }: { islandNum: number; island: string }) => {
+  const { t } = useTranslation('common');
+
   useEffect(() => {
     const preloadImage = () => {
       const preloadImageList: { src: string }[] = [];
@@ -28,17 +31,17 @@ const Island = ({ island }: { island: string }) => {
   }, []);
 
   const handleIsland = () => {
-    if (island === '지혜의 섬') {
+    if (island === t('main.island0')) {
       return '/image/island2.webp';
-    } else if (island === '기쁨의 섬') {
+    } else if (island === t('main.island1')) {
       return '/image/island1.webp';
-    } else if (island === '행복의 섬') {
+    } else if (island === t('main.island2')) {
       return '/image/island3.webp';
-    } else if (island === '용기의 섬') {
+    } else if (island === t('main.island3')) {
       return '/image/island4.webp';
-    } else if (island === '희망의 섬') {
+    } else if (island === t('main.island4')) {
       return '/image/island5.webp';
-    } else if (island === '미지의 섬') {
+    } else if (island === t('main.island5')) {
       return '/image/island7.webp';
     } else return '/image/island2.webp';
   };
@@ -65,7 +68,7 @@ const Island = ({ island }: { island: string }) => {
           maxHeight: '600px',
         }}
       />
-      <Books island={island} />
+      <Books island={island} islandNum={islandNum} />
     </Box>
   );
 };

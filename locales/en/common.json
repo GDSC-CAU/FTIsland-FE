@@ -1,0 +1,79 @@
+{
+  "main": {
+    "explore": "Explore the Island",
+    "recent": "My Stories",
+    "words": "Vocabulary",
+
+    "island0": "Wisdom",
+    "island1": "Joy",
+    "island2": "Happiness",
+    "island3": "Courage",
+    "island4": "Hope",
+    "island5": "The Unknown"
+  },
+
+  "login": "Log In",
+  "signUp": "Sign Up",
+  "loginSignUp": "Log In/Sign Up",
+
+  "signUpPopup": {
+    "title": "Welcome to Fairy Tale Island!",
+    "id": "ID",
+    "idHelperText": "4~16 characters consisting of lowercase letters and numbers",
+
+    "password": "Password",
+    "passwordHelperText": "8~16 characters consisting of letters",
+
+    "nickname": "Nickname",
+    "language": "Setting",
+    "main": "Main Language",
+    "sub": "Sub Language",
+    "signUp": "Sign Up",
+
+    "nicknameGuide": "The nickname must be at least 1 character long.",
+    "idGuide": "The ID must be at least 1 character in length.",
+    "passwordGuide": "The password must be at least 1 character long.",
+    "duplicateId": "This is a duplicate ID.",
+    "tryAgain": "There is no registered information. Please try again."
+  },
+
+  "noMyBooks": "No recently explored stories.",
+  "noMyWords": "No added words.",
+
+  "listenWord": "Word",
+  "listenDescription": "Description",
+
+  "mainLanguage": "Main",
+  "subLanguage": "Sub",
+
+  "sideMenu": {
+    "menu": "Menu",
+    "mainPage": "Main Page",
+    "myBookList": "My Stories",
+    "myWordList": "Vocabulary",
+
+    "language": "Language",
+    "setting": "Setting",
+
+    "logOut": "Log Out",
+    "loginSignUp": "Log In/Sign Up",
+
+    "parentMode": "Parent Mode",
+
+    "mainLanguage": "Main Language",
+    "subLanguage": "Sub Language"
+  },
+
+  "book": {
+    "restart": "Start from the Beginning",
+    "continue": "Continue Reading",
+
+    "viewCollection": "View Collection",
+    "viewGuide": "Settings are only possible on the first page.",
+
+    "main": "Main",
+    "sub": "Sub",
+
+    "comingSoon": "Coming Soon"
+  }
+}

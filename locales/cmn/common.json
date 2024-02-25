@@ -1,0 +1,79 @@
+{
+  "main": {
+    "explore": "探索岛屿",
+    "recent": "我的故事",
+    "words": "词汇表",
+
+    "island0": "智慧",
+    "island1": "喜悦",
+    "island2": "幸福",
+    "island3": "勇气",
+    "island4": "希望",
+    "island5": "未知之地"
+  },
+
+  "login": "登录",
+  "signUp": "注册",
+  "loginSignUp": "登录/注册",
+
+  "signUpPopup": {
+    "title": "欢迎来到童话岛！",
+    "id": "ID",
+    "idHelperText": "由小写字母和数字组成的4~16个字符",
+
+    "password": "密码",
+    "passwordHelperText": "由字母组成的8~16个字符",
+
+    "nickname": "昵称",
+    "language": "设置",
+    "main": "主语言",
+    "sub": "辅助语言",
+    "signUp": "注册",
+
+    "nicknameGuide": "昵称必须至少为1个字符。",
+    "idGuide": "ID 必须至少为1个字符。",
+    "passwordGuide": "密码必须至少为1个字符。",
+    "duplicateId": "这是一个重复的ID。",
+    "tryAgain": "没有注册信息，请重试。"
+  },
+
+  "noMyBooks": "最近没有探索过的故事。",
+  "noMyWords": "没有添加的单词。",
+
+  "listenWord": "单词",
+  "listenDescription": "描述",
+
+  "mainLanguage": "主要",
+  "subLanguage": "辅助",
+
+  "sideMenu": {
+    "menu": "菜单",
+    "mainPage": "首页",
+    "myBookList": "我的故事",
+    "myWordList": "词汇表",
+
+    "language": "语言",
+    "setting": "设置",
+
+    "logOut": "登出",
+    "loginSignUp": "登录/注册",
+
+    "parentMode": "家长模式",
+
+    "mainLanguage": "主要语言",
+    "subLanguage": "辅助语言"
+  },
+
+  "book": {
+    "restart": "从头开始阅读",
+    "continue": "继续阅读",
+
+    "viewCollection": "查看集合",
+    "viewGuide": "只能在第一页进行设置。",
+
+    "main": "主要",
+    "sub": "辅助",
+
+    "comingSoon": "即将推出"
+  }
+}

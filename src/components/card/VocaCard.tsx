@@ -19,6 +19,7 @@ import throttling from 'src/utils/throttling';
 
 import SoundButton from '../button/SoundButton';
 import SwitchButton from '../button/SwitchButton';
+import useTranslation from 'next-translate/useTranslation';
 
 const FlippableCard = ({ isBackPage, children }: { isBackPage: boolean; children: ReactNode }) => (
   <Card
@@ -53,6 +54,7 @@ const FlippableCard = ({ isBackPage, children }: { isBackPage: boolean; children
 
 const VocaCard = ({ vocaId, image }: { vocaId: number; image: string }) => {
   const { user, userRole } = useUser();
+  const { t } = useTranslation('common');
   const { userId } = useUser();
   const queryClient = useQueryClient();
 
@@ -221,7 +223,7 @@ const VocaCard = ({ vocaId, image }: { vocaId: number; image: string }) => {
               },
             }}
           >
-            <Typography variant="body2">Main</Typography>
+            <Typography variant="body2">{t('mainLanguage')}</Typography>
             <SwitchButton
               value={isMainLanguage}
               onClick={(e) => {
@@ -230,7 +232,7 @@ const VocaCard = ({ vocaId, image }: { vocaId: number; image: string }) => {
                 setIsMainLanguage(!target.checked);
               }}
             />
-            <Typography variant="body2">Sub</Typography>
+            <Typography variant="body2">{t('subLanguage')}</Typography>
           </Box>
           <Box
             sx={{
@@ -258,7 +260,7 @@ const VocaCard = ({ vocaId, image }: { vocaId: number; image: string }) => {
             <Box>
               <Box sx={{ mt: '-28px' }}>
                 <SoundButton
-                  buttonText="단어 듣기"
+                  buttonText={t('listenWord')}
                   soundText={voacInfo.word}
                   languageCode={
                     isMainLanguage
@@ -267,7 +269,7 @@ const VocaCard = ({ vocaId, image }: { vocaId: number; image: string }) => {
                   }
                 />
                 <SoundButton
-                  buttonText="설명 듣기"
+                  buttonText={t('listenDescription')}
                   soundText={voacInfo.description}
                   languageCode={
                     isMainLanguage

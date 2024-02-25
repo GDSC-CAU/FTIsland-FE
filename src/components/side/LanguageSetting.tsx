@@ -1,12 +1,16 @@
 import React, { ReactElement, useEffect } from 'react';
-import Menu from './Menu';
+import { useRouter } from 'next/router';
 import { Box, SelectChangeEvent } from '@mui/material';
-import List from './components/List';
-import Back from './components/Back';
-import LanguageButton from './components/LanguageButton';
+
 import { useUser } from 'src/hook/useUser';
-import { putLanguage } from './../../../src/apis/language';
 import convertLanguageCode from 'src/utils/convertedLanguageCode';
+
+import Back from './components/Back';
+import List from './components/List';
+import LanguageButton from './components/LanguageButton';
+import Menu from './Menu';
+import { putLanguage } from './../../../src/apis/language';
+import useTranslation from 'next-translate/useTranslation';
 
 interface MenuProps {
   setContent: (setContent: ReactElement) => void;
@@ -14,6 +18,8 @@ interface MenuProps {
 }
 
 const LanguageSetting: React.FC<MenuProps> = ({ setContent, handleSideMenu }) => {
+  const router = useRouter();
+  const { t } = useTranslation('common');
   const { user, userId, userRole, setMainLanguage, setSubLanguage, setIsLanguageSetting } =
     useUser();
 
@@ -28,6 +34,11 @@ const LanguageSetting: React.FC<MenuProps> = ({ setContent, handleSideMenu }) =>
     const lan = event.target.value as string;
     setMainLanguage(lan);
     localStorage.setItem('mainLanguage', lan);
+
+    router.replace(router.asPath, router.asPath, {
+      locale: convertLanguageCode(lan),
+    });
+
     if (userRole === 'USER') {
       await putLanguage(
         userId,
@@ -55,10 +66,10 @@ const LanguageSetting: React.FC<MenuProps> = ({ setContent, handleSideMenu }) =>
     <Box sx={{ bgcolor: '#FFE5E5', height: '100vh' }}>
       <Back handleBack={handleBack} />
 
-      <List content={'주언어'} />
+      <List content={t('sideMenu.mainLanguage')} />
       <LanguageButton sort={'main'} handleLanguageChange={handleMainLanguageChange} />
 
-      <List content={'서브 언어'} />
+      <List content={t('sideMenu.subLanguage')} />
       <LanguageButton sort={'sub'} handleLanguageChange={handleSubLanguageChange} />
     </Box>
   );

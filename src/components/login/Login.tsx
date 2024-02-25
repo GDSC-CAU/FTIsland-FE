@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { postLogin } from 'src/apis/login';
 import { useUser } from 'src/hook/useUser';
 import JoinTextField from './JoinTextField';
+import useTranslation from 'next-translate/useTranslation';
 
 interface LoginProps {
   open: boolean;
@@ -12,6 +13,8 @@ interface LoginProps {
 
 const Login: React.FC<LoginProps> = ({ open, setOpen }) => {
   const { setUserId, setUserRole, setNickName, setMainLanguage, setSubLanguage } = useUser();
+  const { t } = useTranslation('common');
+
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
 
@@ -30,9 +33,9 @@ const Login: React.FC<LoginProps> = ({ open, setOpen }) => {
 
   const handleLogin = async () => {
     if (id.length === 0 || id == null) {
-      alert('아이디의 길이가 1자 이상이어야 합니다');
+      alert(t('signUpPopup.idGuide'));
     } else if (password.length === 0 || password == null) {
-      alert('비밀번호의 길이가 1자 이상이어야 합니다');
+      alert(t('signUpPopup.passwordGuide'));
     } else {
       const data = await postLogin({ id, password });
       if (data && data.status === 200) {
@@ -50,7 +53,7 @@ const Login: React.FC<LoginProps> = ({ open, setOpen }) => {
 
         location.reload();
       } else if (data.status === 404) {
-        alert('등록된 정보가 없습니다. 다시 시도하세요.');
+        alert(t('signUpPopup.tryAgain'));
       }
     }
   };
@@ -81,17 +84,21 @@ const Login: React.FC<LoginProps> = ({ open, setOpen }) => {
             marginBottom: '5%',
             color: '#39A7FF',
             whiteSpace: 'nowrap',
-            fontFamily: 'Carter One',
+            fontFamily: 'DM Serif Display',
           }}
         >
           Fairy Tale Island
         </Typography>
 
-        <JoinTextField title={'아이디'} handleChange={handleIdChange} />
-        <JoinTextField title={'비밀번호'} handleChange={handlePasswordChange} />
+        <JoinTextField type="id" title={t('signUpPopup.id')} handleChange={handleIdChange} />
+        <JoinTextField
+          type="password"
+          title={t('signUpPopup.password')}
+          handleChange={handlePasswordChange}
+        />
 
         <Button variant="contained" sx={buttonStyle()} onClick={handleLogin}>
-          로그인
+          {t('login')}
         </Button>
       </Box>
     </Modal>

@@ -1,16 +1,16 @@
-import { Box, Chip } from '@mui/material';
+import useTranslation from 'next-translate/useTranslation';
+import { Box, Chip, Typography } from '@mui/material';
 import SoundIcon from '@mui/icons-material/VolumeUp';
 
 import { BookContentDataType } from 'src/types/book';
 import throttling from 'src/utils/throttling';
 import { googleTTS } from 'src/utils/tts';
+
 import HighlightedText from './HighlightedText';
 
-const BookSingleContentCard = ({ 
-  bookContent,
-}: { 
-  bookContent: BookContentDataType
-}) => {
+const BookSingleContentCard = ({ bookContent }: { bookContent: BookContentDataType }) => {
+  const { t } = useTranslation('common');
+
   const { image, subLan, mainLan, subContents, mainContents, vocaList } = bookContent;
 
   return (
@@ -35,7 +35,7 @@ const BookSingleContentCard = ({
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 2, sm: 4 } }}>
         <Box>
           <Chip
-            label="Main"
+            label={t('book.main')}
             size="small"
             sx={{
               mb: { xs: 0.5, sm: 1 },
@@ -52,7 +52,7 @@ const BookSingleContentCard = ({
 
         <Box>
           <Chip
-            label="Sub"
+            label={t('book.sub')}
             size="small"
             sx={{
               mb: { xs: 0.5, sm: 1 },
@@ -64,7 +64,15 @@ const BookSingleContentCard = ({
               throttling(() => googleTTS(subContents, subLan), 1000);
             }}
           />
-          <HighlightedText type="sub" contents={subContents} wordList={vocaList} />
+          <Typography
+            sx={{
+              ml: 0.5,
+              wordBreak: 'break-all',
+              fontSize: { xs: '17.5px', sm: '21px' },
+            }}
+          >
+            {subContents}
+          </Typography>
         </Box>
       </Box>
     </Box>

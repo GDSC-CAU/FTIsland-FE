@@ -1,4 +1,5 @@
-import React, { Fragment, ReactElement, forwardRef, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, ReactElement, forwardRef, useEffect, useState } from 'react';
+import useTranslation from 'next-translate/useTranslation';
 import { Box, CardMedia, Dialog, IconButton, Slide } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
 import CloseIcon from '@mui/icons-material/CloseRounded';
@@ -9,7 +10,6 @@ import { getBookDetail, getIslandInfo } from 'src/apis/island';
 import Loading from 'src/components/Loading';
 import StoryCard, { StoryDataType } from 'src/components/card/StoryCard';
 import { useUser } from 'src/hook/useUser';
-import { convertIslandName } from 'src/utils/convertIslandName';
 
 import Progress from './Progress';
 
@@ -34,52 +34,59 @@ type ProgressData = {
   lastPage: number;
 };
 
-const Books = ({ island }: { island: string }) => {
+const Books = ({ islandNum, island }: { islandNum: number; island: string }) => {
+  const { t } = useTranslation('common');
   const { user, userId, userRole } = useUser();
-  const userIslandName = user.nickName ? `${user.nickName}의 섬` : '지혜의 섬';
-  const realIslandName = useMemo(() => {
-    return convertIslandName(island.replace('의 섬', ''));
-  }, [island]);
+  const userIslandName = user.nickName ? `${user.nickName}의 섬` : t('main.island0');
+  const realIslandName = islandNum + 1;
 
-  const islandBoxPositions: Record<string, BoxPosition[]> = {
-    [userIslandName]: [
-      { top: '50%', left: '30%' },
-      { top: '70%', left: '37%' },
-      { top: '55%', left: '55%' },
-      { top: '30%', left: '65%' },
-    ],
-    '기쁨의 섬': [
-      { top: '40%', left: '25%' },
-      { top: '70%', left: '35%' },
-      { top: '55%', left: '55%' },
-      { top: '30%', left: '65%' },
-    ],
-    '행복의 섬': [
-      { top: '50%', left: '25%' },
-      { top: '70%', left: '35%' },
-      { top: '55%', left: '55%' },
-      { top: '60%', left: '75%' },
-    ],
-    '용기의 섬': [
-      { top: '30%', left: '45%' },
-      { top: '65%', left: '35%' },
-      { top: '75%', left: '55%' },
-      { top: '65%', left: '65%' },
-    ],
-    '희망의 섬': [
-      { top: '50%', left: '30%' },
-      { top: '30%', left: '40%' },
-      { top: '55%', left: '55%' },
-      { top: '30%', left: '65%' },
-    ],
-    '미지의 섬': [
-      { top: '80%', left: '37%' },
-      { top: '35%', left: '33%' },
-      { top: '55%', left: '55%' },
-      { top: '70%', left: '67%' },
-    ],
+  const islandBoxPositions = (islandName: string): BoxPosition[] => {
+    switch (islandName) {
+      case userIslandName:
+        return [
+          { top: '50%', left: '30%' },
+          { top: '70%', left: '37%' },
+          { top: '55%', left: '55%' },
+          { top: '30%', left: '65%' },
+        ];
+      case t('main.island1'):
+        return [
+          { top: '40%', left: '25%' },
+          { top: '70%', left: '35%' },
+          { top: '55%', left: '55%' },
+          { top: '30%', left: '65%' },
+        ];
+      case t('main.island2'):
+        return [
+          { top: '50%', left: '25%' },
+          { top: '70%', left: '35%' },
+          { top: '55%', left: '55%' },
+          { top: '60%', left: '75%' },
+        ];
+      case t('main.island3'):
+        return [
+          { top: '30%', left: '45%' },
+          { top: '65%', left: '35%' },
+          { top: '75%', left: '55%' },
+          { top: '65%', left: '65%' },
+        ];
+      case t('main.island4'):
+        return [
+          { top: '50%', left: '30%' },
+          { top: '30%', left: '40%' },
+          { top: '55%', left: '55%' },
+          { top: '30%', left: '65%' },
+        ];
+      default:
+        return [
+          { top: '80%', left: '37%' },
+          { top: '35%', left: '33%' },
+          { top: '55%', left: '55%' },
+          { top: '70%', left: '67%' },
+        ];
+    }
   };
-  const boxPositions = islandBoxPositions[island] || islandBoxPositions[userIslandName];
+  const boxPositions = islandBoxPositions(island) || islandBoxPositions(userIslandName);
 
   const [progresses, setProgresses] = useState<number[]>([]);
   const [isOpenFocusStory, setIsOpenFocusStory] = useState(false);
