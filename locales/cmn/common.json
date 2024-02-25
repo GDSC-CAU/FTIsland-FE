@@ -9,7 +9,8 @@
     "island2": "幸福",
     "island3": "勇气",
     "island4": "希望",
-    "island5": "未知之地"
+    "island5": "未知之地",
+    "userIsland": "{{name}}的岛"
   },
 
   "login": "登录",

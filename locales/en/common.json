@@ -9,7 +9,8 @@
     "island2": "Happiness",
     "island3": "Courage",
     "island4": "Hope",
-    "island5": "The Unknown"
+    "island5": "The Unknown",
+    "userIsland": "{{name}}'s island"
   },
 
   "login": "Log In",

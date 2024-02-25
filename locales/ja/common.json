@@ -9,7 +9,8 @@
     "island2": "幸せ",
     "island3": "勇気",
     "island4": "希望",
-    "island5": "未知のもの"
+    "island5": "未知のもの",
+    "userIsland": "{{name}}の島"
   },
 
   "login": "ログイン",

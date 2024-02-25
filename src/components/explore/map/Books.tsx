@@ -37,7 +37,9 @@ type ProgressData = {
 const Books = ({ islandNum, island }: { islandNum: number; island: string }) => {
   const { t } = useTranslation('common');
   const { user, userId, userRole } = useUser();
-  const userIslandName = user.nickName ? `${user.nickName}의 섬` : t('main.island0');
+  const userIslandName = user.nickName
+    ? t('main.userIsland', { name: user.nickName })
+    : t('main.island0');
   const realIslandName = islandNum + 1;
 
   const islandBoxPositions = (islandName: string): BoxPosition[] => {

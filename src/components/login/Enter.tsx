@@ -1,7 +1,7 @@
 import { Avatar, Box, Button, CardMedia, IconButton, Modal, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import React from 'react';
-import { useUser } from 'src/hook/useUser';
+// import { useUser } from 'src/hook/useUser';
 import useTranslation from 'next-translate/useTranslation';
 
 interface LoginProps {
@@ -12,7 +12,7 @@ interface LoginProps {
 }
 
 const Enter: React.FC<LoginProps> = ({ open, setOpen, setOpenLogin, setOpenJoin }) => {
-  const { setUserRole } = useUser();
+  // const { setUserRole } = useUser();
   const { t } = useTranslation('common');
 
   const handleClose = () => {
@@ -57,10 +57,10 @@ const Enter: React.FC<LoginProps> = ({ open, setOpen, setOpenLogin, setOpenJoin 
         >
           Fairy Tale Island
         </Typography>
-        <Box
+        {/* <Box
           sx={{ width: '30px', height: '30px', bgcolor: 'red' }}
           onClick={() => setUserRole('USER')}
-        ></Box>
+        ></Box> */}
         <Button variant="contained" sx={buttonStyle()} onClick={handleClick}>
           <Avatar
             src="image/lock.png"
