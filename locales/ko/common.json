@@ -9,7 +9,8 @@
     "island2": "행복의 섬",
     "island3": "용기의 섬",
     "island4": "희망의 섬",
-    "island5": "미지의 섬"
+    "island5": "미지의 섬",
+    "userIsland": "{{name}}의 섬"
   },
 
   "login": "로그인",

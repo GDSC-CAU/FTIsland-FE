@@ -27,7 +27,7 @@ const Islands: React.FC<MenuProps> = ({ setSelectedIsland, setIslandNum }) => {
   };
   const convertIslandName = (label: string) => {
     if (label === t('main.island0') && user.nickName !== '') {
-      return `${user.nickName}의 섬`;
+      return t('main.userIsland', { name: user.nickName });
     } else {
       return label;
     }
