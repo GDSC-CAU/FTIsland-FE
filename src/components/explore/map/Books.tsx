@@ -97,7 +97,7 @@ const Books = ({ islandNum, island }: { islandNum: number; island: string }) => 
   };
   const boxPositions = islandBoxPositions(island) || islandBoxPositions(userIslandName);
 
-  const [progresses, setProgresses] = useState<number[]>([]);
+  const [progresses, setProgresses] = useState<{ bookId: number; progress: number }[]>([]);
   const [isOpenFocusStory, setIsOpenFocusStory] = useState(false);
   const [focusBook, setFocusBook] = useState<StoryDataType | null>(null);
 
@@ -141,8 +141,9 @@ const Books = ({ islandNum, island }: { islandNum: number; island: string }) => 
           const calculatedProgress = progress
             ? ((progress.offset + 1) * progress.limitNum * 100) / totalPage
             : 0;
-          return calculatedProgress;
+          return { bookId: book.bookId, progress: calculatedProgress };
         });
+
         setProgresses(bookProgresses);
       } catch (error) {
         console.error(error);
@@ -173,7 +174,9 @@ const Books = ({ islandNum, island }: { islandNum: number; island: string }) => 
                 alignItems: 'center',
               }}
             >
-              <Progress value={progresses[index] || 0} />
+              <Progress
+                value={progresses.find((item) => item.bookId === index + 1)?.progress || 0}
+              />
             </Box>
           )}
 
