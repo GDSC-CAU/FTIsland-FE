@@ -1,22 +1,26 @@
-import { CircularProgress, Dialog } from '@mui/material';
+import Lottie from 'react-lottie';
+import { Dialog } from '@mui/material';
+
+import animationData from '../../public/loading.json';
 
 const Loading = ({ isLoading = true }: { isLoading?: boolean }) => (
   <Dialog
     open={isLoading}
-    sx={{ overflowY: 'hidden' }}
     PaperProps={{
       style: {
         backgroundColor: 'transparent',
-        overflow: 'hidden',
         boxShadow: 'none',
       },
     }}
   >
-    <CircularProgress
-      variant="indeterminate"
-      sx={{ animationDuration: '800ms' }}
-      size={40}
-      thickness={4}
+    <Lottie
+      options={{
+        loop: true,
+        autoplay: true,
+        animationData: animationData,
+      }}
+      width={200}
+      height={200}
     />
   </Dialog>
 );
