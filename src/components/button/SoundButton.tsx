@@ -1,7 +1,7 @@
 import { Button, Typography } from '@mui/material';
 import SoundIcon from '@mui/icons-material/VolumeUp';
 
-import { googleTTS } from 'src/utils/tts';
+import { windowTTS } from 'src/utils/tts';
 import throttling from 'src/utils/throttling';
 
 const SoundButton = ({
@@ -18,7 +18,7 @@ const SoundButton = ({
       startIcon={<SoundIcon sx={{ width: '16px' }} />}
       onClick={(e) => {
         e.stopPropagation();
-        throttling(() => googleTTS(soundText, languageCode ? languageCode : undefined), 1000);
+        throttling(() => windowTTS(soundText, languageCode ? languageCode : undefined), 1000);
       }}
     >
       <Typography variant="body2">{buttonText}</Typography>
